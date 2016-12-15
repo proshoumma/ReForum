@@ -1,2 +1,2 @@
 # ReForum
-A forum application. Built with React, Redux, Hapi and MongoDB.
+A forum application. Built with React, Redux, Express and MongoDB.

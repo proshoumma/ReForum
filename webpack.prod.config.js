@@ -1,11 +1,11 @@
 // modules for webpack production configuration
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
 
 // define paths
-var nodeModulesPath = path.resolve(__dirname, 'node_modules');
-var buildPath = path.resolve(__dirname, 'public', 'build');
-var mainAppPath = path.resolve(__dirname, 'app', 'index.js');
+const nodeModulesPath = path.resolve(__dirname, 'node_modules');
+const buildPath = path.resolve(__dirname, 'public', 'build');
+const mainAppPath = path.resolve(__dirname, 'frontend', 'App', 'index.js');
 
 module.exports = {
   target  : 'web',
@@ -27,7 +27,7 @@ module.exports = {
           'react-hot',
           'babel-loader',
         ],
-        exclude: /node_modules/
+        exclude: [nodeModulesPath]
       },
       {
         test: /\.css$/,
@@ -40,7 +40,18 @@ module.exports = {
     ],
   },
 
-  resolve : {
+  plugins: [
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin()
+  ],
+
+  resolve: {
     extensions: ['', '.js', '.css']
   },
+
+  externals: {
+    'react': 'React',
+    'react-dom': 'ReactDOM'
+  }
 };

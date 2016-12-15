@@ -1,12 +1,12 @@
 // modules required for development
-var webpack = require('webpack');
-var webpackDevMiddleware = require('webpack-dev-middleware');
-var webpackHotMiddleware = require('webpack-hot-middleware');
+const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
 
-var webpackConfig = require('./webpack.dev.config.js');
-var webpackCompiler = webpack(webpackConfig);
+const webpackConfig = require('./webpack.dev.config.js');
+const webpackCompiler = webpack(webpackConfig);
 
-module.exports = function(app) {
+module.exports = (app) => {
   // apply dev middleware
   app.use(webpackDevMiddleware(webpackCompiler, {
     publicPath: webpackConfig.output.publicPath,

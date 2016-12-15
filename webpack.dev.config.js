@@ -1,11 +1,11 @@
 // modules for webpack dev configuration
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
 
 // define paths
-var nodeModulesPath = path.resolve(__dirname, 'node_modules');
-var buildPath = path.resolve(__dirname, 'public', 'build');
-var mainAppPath = path.resolve(__dirname, 'app', 'index.js');
+const nodeModulesPath = path.resolve(__dirname, 'node_modules');
+const buildPath = path.resolve(__dirname, 'public', 'build');
+const mainAppPath = path.resolve(__dirname, 'frontend', 'App', 'index.js');
 
 module.exports = {
   target  : 'web',
@@ -26,11 +26,8 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        loaders: [
-          'react-hot',
-          'babel-loader',
-        ],
-        exclude: /node_modules/
+        loaders: [ 'react-hot', 'babel-loader' ],
+        exclude: [nodeModulesPath]
       },
       {
         test: /\.css$/,

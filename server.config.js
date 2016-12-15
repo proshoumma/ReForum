@@ -1,32 +1,44 @@
 // modules for server
-var path = require('path');
-var express = require('express');
-var compress = require('compression');
+const path = require('path');
+const express = require('express');
+const compress = require('compression');
 
 // define node environment
-var isProduction = process.env.NODE_ENV === 'production';
+const isProduction = process.env.NODE_ENV === 'production';
 
 // define port number based on environment
-var PORT = isProduction ? process.env.PORT || 3030
-                        : process.env.PORT || 8080;
+const PORT = isProduction ? process.env.PORT || 3030
+                          : process.env.PORT || 8080;
 
 // initialize express
-var app = express();
-
-// express serves static files from public directory
-var publicPath = path.resolve(__dirname, 'public');
-app.use(express.static(publicPath));
+const app = express();
 
 // apply gzip compression
 app.use(compress());
 
-// development environment additionals
-if (isProduction !== true) {
-  var devServerConfig = require('./server.dev.config');
-  devServerConfig(app);
+// apply development environment additionals
+if (!isProduction) {
+  const applyDevServerConfig = require('./server.dev.config');
+  applyDevServerConfig(app);
 }
 
+// serves static files from public directory
+const publicPath = path.resolve(__dirname, 'public');
+app.use(express.static(publicPath));
+
+// serve api endpoint
+app.get('/api', (req, res) => {
+  res.send('Hello from API endpoint');
+});
+
+// all get request will send index.html for react-router
+// to handle the route request
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+});
+
 // fire up the server
-app.listen(PORT, function() {
+app.listen(PORT, (error) => {
+  if (error) throw error;
   console.log('Server running on port: ' + PORT);
 });
