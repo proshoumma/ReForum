@@ -1,32 +1,37 @@
-// modules for webpack production configuration
+/**
+ * module dependencies for webpack dev configuration
+ */
 const path = require('path');
 const webpack = require('webpack');
 
 // define paths
-const nodeModulesPath = path.resolve(__dirname, 'node_modules');
-const buildPath = path.resolve(__dirname, 'public', 'build');
-const mainAppPath = path.resolve(__dirname, 'frontend', 'App', 'index.js');
+const nodeModulesPath = path.resolve(__dirname, '../node_modules');
+const buildPath = path.resolve(__dirname, '../public', 'build');
+const mainAppPath = path.resolve(__dirname, '../frontend', 'App', 'index.js');
 
+/**
+ * webpack development configuration
+ */
 module.exports = {
   target  : 'web',
+  devtool: 'inline-source-map',
 
   entry: [
+    'webpack-hot-middleware/client',
     mainAppPath
   ],
 
   output: {
     filename: 'bundle.js',
     path: buildPath,
+    publicPath: '/build/'
   },
 
   module: {
     loaders: [
       {
         test: /\.js$/,
-        loaders: [
-          'react-hot',
-          'babel-loader',
-        ],
+        loaders: [ 'react-hot', 'babel-loader' ],
         exclude: [nodeModulesPath]
       },
       {
@@ -40,18 +45,12 @@ module.exports = {
     ],
   },
 
-  plugins: [
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin()
-  ],
-
-  resolve: {
+  resolve : {
     extensions: ['', '.js', '.css']
   },
 
-  externals: {
-    'react': 'React',
-    'react-dom': 'ReactDOM'
-  }
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  ]
 };

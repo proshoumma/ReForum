@@ -17,3 +17,6 @@ npm-debug.log*
 
 # coverages
 coverage
+
+# OSX stuffs
+.DS_Store

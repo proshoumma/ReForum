@@ -27,18 +27,18 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "better-npm-run start",
     "start:dev": "better-npm-run start:dev",
-    "build": "webpack --config webpack.prod.config.js"
+    "build": "webpack --config config/webpack.prod.config.js"
   },
   "betterScripts": {
     "start": {
-      "command": "node server.config.js",
+      "command": "node server.js",
       "env": {
         "NODE_ENV": "production",
         "PORT": 3030
       }
     },
     "start:dev": {
-      "command": "node server.config.js",
+      "command": "node server.js",
       "env": {
         "NODE_ENV": "development",
         "PORT": 8080
@@ -47,8 +47,16 @@
   },
   "dependencies": {
     "better-npm-run": "^0.0.13",
+    "body-parser": "^1.15.2",
     "compression": "^1.6.2",
-    "express": "^4.14.0"
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "mongoose": "^4.7.4",
+    "morgan": "^1.7.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "babel": "^6.5.2",
