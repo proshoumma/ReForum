@@ -7,6 +7,7 @@ const compress = require('compression');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const mongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash');
 
 /**
@@ -30,10 +31,10 @@ const expressConfig = (app, passport, serverConfigs) => {
     resave: false,
     saveUninitialized: true,
     secret: 'secret',
-    // store: new mongoStore({
-    //   url: config.db,
-    //   collection : 'sessions'
-    // })
+    store: new mongoStore({
+      url: serverConfigs.DBURL,
+      collection : 'sessions'
+    })
   }));
 
   // use passport session
