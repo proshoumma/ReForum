@@ -9,7 +9,8 @@
   },
   "parser": "babel-eslint",
   "rules": {
-    "no-comma-dangle": 0,
+    "comma-dangle": ["error", "always-multiline"],
+    "semi": ["error", "always"],
     "quotes": [2, "single"],
     "strict": [2, "never"],
     "react/jsx-uses-react": 2,

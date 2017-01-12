@@ -1,0 +1,14 @@
+/**
+ * global stylings
+ */
+
+* { box-sizing: border-box; }
+
+/**
+ * typography
+ */
+body {
+  font-size: 15px;
+  line-height: 22px;
+  font-family: 'Lato', helvetica, arial, sans-serif;
+}

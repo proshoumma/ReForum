@@ -8,6 +8,6 @@ const passport = require('passport');
  */
 const passportConfig = (app) => {
 
-}
+};
 
 module.exports = passportConfig;

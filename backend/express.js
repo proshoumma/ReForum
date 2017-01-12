@@ -33,8 +33,8 @@ const expressConfig = (app, passport, serverConfigs) => {
     secret: 'secret',
     store: new mongoStore({
       url: serverConfigs.DBURL,
-      collection : 'sessions'
-    })
+      collection : 'sessions',
+    }),
   }));
 
   // use passport session
