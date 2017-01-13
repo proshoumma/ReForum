@@ -1,7 +1,16 @@
 /**
- * variables
+ * color variables
  */
+@value themeColor: #F1C40F;
+@value primaryFontColor: #000;
+@value secondaryFontColor: #999;
 
+/**
+ * media query breakpoints
+ */
+@value largeBP: (min-width: 1100px);
+@value mediumBP: (min-width: 769px) and (max-width: 1099px);
+@value smallBP: (max-width: 768px);
 
 /**
  * global stylings

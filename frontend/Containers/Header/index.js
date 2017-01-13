@@ -18,7 +18,7 @@ class Header extends Component {
               </g>
             </svg>
           </div>
-          <div className={styles.logoTitle}>ReForumia</div>
+          <div className={styles.logoTitle}>ReForum</div>
         </div>
 
         <div className={styles.account}>

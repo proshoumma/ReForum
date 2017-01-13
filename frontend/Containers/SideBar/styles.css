@@ -1,0 +1,9 @@
+@value smallBP, mediumBP, largeBP from 'SharedStyles/globalStyles';
+
+/**
+ * SideBar component styles
+ */
+.sidebarContainer {
+  width: 250px;
+  margin-left: 10px;
+}

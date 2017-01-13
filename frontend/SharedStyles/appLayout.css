@@ -1,3 +1,5 @@
+@value largeBP, mediumBP, smallBP from 'SharedStyles/globalStyles';
+
 /**
  * application layout styles
  */
@@ -5,14 +7,23 @@
   margin: 0px auto;
   min-width: 320px;
   max-width: 1100px;
+
+  @media largeBP { padding: 0px; }
+  @media mediumBP { padding: 0px 15px; }
 }
 
-.column { display: flex; }
+.column {
+  display: flex;
 
-@media (min-width: 769px) {
-  .column { flex-flow: row nowrap; }
+  @media largeBP,
+  @media smallBP { flex-flow: row nowrap; }
 }
 
 .primaryContent { flex: 1; }
 
-.secondaryContent { width: 260px; }
+.secondaryContent {
+  width: 260px;
+
+  @media mediumBP { display: none; }
+  @media smallBP { display: none; }
+}

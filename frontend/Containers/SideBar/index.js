@@ -4,7 +4,7 @@ import styles from './styles';
 class SideBar extends Component {
   render() {
     return (
-      <div>
+      <div className={styles.sidebarContainer}>
         SideBar
       </div>
     );

@@ -48,7 +48,7 @@ module.exports = {
     ],
   },
 
-  postcss: [ require('autoprefixer') ],
+  postcss: [ require('autoprefixer'), require('postcss-nesting') ],
 
   plugins: [
     new webpack.optimize.DedupePlugin(),

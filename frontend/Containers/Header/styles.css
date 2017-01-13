@@ -5,6 +5,7 @@
   height: 50px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 /* logo */
@@ -22,6 +23,5 @@
 .logoTitle {
   margin-left: 10px;
   font-size: 24px;
-  font-weight: 400;
-  color: blueo;
+  font-weight: 700;
 }
