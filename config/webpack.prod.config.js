@@ -3,6 +3,7 @@
  */
 const path = require('path');
 const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // define paths
 const nodeModulesPath = path.resolve(__dirname, '../node_modules');
@@ -32,27 +33,28 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        loaders: [
-          'react-hot',
-          'babel-loader',
-        ],
+        loaders: [ 'react-hot', 'babel-loader' ],
         exclude: [nodeModulesPath],
       },
       {
         test: /\.css$/,
-        loaders: [
+        loader: ExtractTextPlugin.extract(
           'style-loader',
-          'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
-        ],
+          'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader?sourceMap=inline'
+        ),
       },
       { test: /\.(png|jpg)$/, loader: 'url?limit=8192' },
+      { test: /\.svg$/, loader: 'url-loader?limit=10000&mimetype=image/svg+xml' },
     ],
   },
+
+  postcss: [ require('autoprefixer') ],
 
   plugins: [
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin(),
+    new ExtractTextPlugin('style.css', { allChunks: true }),
   ],
 
   resolve: {
