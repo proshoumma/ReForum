@@ -1,0 +1,29 @@
+/**
+ * UserMenu styles
+ */
+.container {
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-flow: row nowrap;
+}
+
+.userAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+}
+
+.title {
+  margin-left: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.signInBtn {
+  height: 40px;
+  display: flex;
+  align-items: center;
+}

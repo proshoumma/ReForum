@@ -1,27 +1,13 @@
+@value smallBP from 'SharedStyles/globalStyles.css';
+
 /**
  * Header Styles
  */
-.header {
+.headerTop {
   height: 50px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
 
-/* logo */
-.logoContainer {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-}
-
-.logo {
-  width: 40px;
-  height: 40px;
-}
-
-.logoTitle {
-  margin-left: 10px;
-  font-size: 24px;
-  font-weight: 700;
+  @media smallBP { padding: 0px 10px; }
 }

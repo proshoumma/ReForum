@@ -5,7 +5,7 @@ class FeedBox extends Component {
   render() {
     return (
       <div>
-        FeedBox
+        FeedBox: {this.props.currentForum}
       </div>
     );
   }

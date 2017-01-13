@@ -5,14 +5,16 @@ import FeedBox from 'Containers/FeedBox';
 import SideBar from 'Containers/SideBar';
 
 import appLayout from 'SharedStyles/appLayout.css';
-import styles from './styles';
+import styles from './styles.css';
 
-class Home extends Component {
+class ForumFeed extends Component {
   render() {
+    const currentForum = this.props.params.forum || 'home';
+
     return (
-      <div className={classnames(appLayout.constraintWidth, appLayout.column)}>
+      <div className={classnames(appLayout.constraintWidth, styles.contentArea)}>
         <div className={appLayout.primaryContent}>
-          <FeedBox />
+          <FeedBox currentForum={currentForum} />
         </div>
         <div className={appLayout.secondaryContent}>
           <SideBar />
@@ -22,4 +24,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default ForumFeed;

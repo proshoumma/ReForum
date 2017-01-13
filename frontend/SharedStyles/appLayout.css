@@ -12,13 +12,6 @@
   @media mediumBP { padding: 0px 15px; }
 }
 
-.column {
-  display: flex;
-
-  @media largeBP,
-  @media smallBP { flex-flow: row nowrap; }
-}
-
 .primaryContent { flex: 1; }
 
 .secondaryContent {

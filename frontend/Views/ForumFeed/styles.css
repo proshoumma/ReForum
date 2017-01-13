@@ -1,0 +1,10 @@
+@value largeBP from 'SharedStyles/globalStyles';
+
+/**
+ * Forum view styles
+ */
+.contentArea {
+  display: flex;
+  margin-top: 15px;
+  @media largeBP { flex-flow: row nowrap; }
+}

@@ -46,7 +46,7 @@ module.exports = {
           'postcss-loader?sourceMap=inline',
         ],
       },
-      { test: /\.(png|jpg)$/, loader: 'url?limit=8192' },
+      { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192' },
       { test: /\.svg$/, loader: 'url-loader?limit=10000&mimetype=image/svg+xml' },
     ],
   },

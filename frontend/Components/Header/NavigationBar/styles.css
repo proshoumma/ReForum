@@ -1,0 +1,35 @@
+@value primaryFontColor, secondaryFontColor, borderColor from 'SharedStyles/globalStyles.css';
+@value smallBP from 'SharedStyles/globalStyles.css';
+
+/**
+ * NavigationBar styles
+ */
+
+.navigationBar {
+  border-top: 1px solid borderColor;
+  border-bottom: 1px solid borderColor;
+  list-style-type: none;
+  display: flex;
+  margin: 0px;
+  padding: 0px;
+
+  @media smallBP { padding: 0px 10px; }
+}
+
+.links {
+  display: block;
+  padding: 0px 15px;
+  height: 38px;
+  line-height: 38px;
+  text-decoration: none;
+  font-size: 14px;
+  color: secondaryFontColor;
+  transition: color 0.3s;
+}
+
+.links:hover { color: primaryFontColor; }
+
+.linkActive {
+  color: primaryFontColor;
+  background-color: #f9f9f9;
+}
