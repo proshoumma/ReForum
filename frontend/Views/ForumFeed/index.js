@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 
-import FeedBox from 'Containers/FeedBox';
-import SideBar from 'Containers/SideBar';
+import FeedBox from 'Components/FeedBox';
+import SideBar from 'Components/SideBar';
 
 import appLayout from 'SharedStyles/appLayout.css';
 import styles from './styles.css';

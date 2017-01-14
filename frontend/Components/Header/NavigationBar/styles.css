@@ -24,6 +24,7 @@
   text-decoration: none;
   font-size: 14px;
   color: secondaryFontColor;
+  user-select: none;
   transition: color 0.3s;
 }
 

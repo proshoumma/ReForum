@@ -1,0 +1,74 @@
+@value primaryFontColor, secondaryFontColor, borderColor, backShade from 'SharedStyles/globalStyles';
+@value smallBP from 'SharedStyles/globalStyles';
+
+/**
+ * PostBox styles
+ */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-bottom: 1px solid borderColor;
+  &:last-child { border-bottom: none; }
+}
+
+.postTitle {
+  font-size: 18px;
+  font-weight: 300;
+
+  & a {
+    text-decoration: none;
+    color: primaryFontColor;
+  }
+}
+
+.posterInfo {
+  margin-top: 10px;
+  & .name { font-weight: 700; }
+  & .designation { color: secondaryFontColor; }
+}
+
+.boxFooter {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @media smallBP {
+    margin-top: 0px;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+  }
+}
+
+.tagsArea {
+  display: flex;
+  align-items: center;
+
+  & .tag {
+    height: 25px;
+    margin-left: 10px;
+    padding: 0 10px;
+    background-color: backShade;
+    color: secondaryFontColor;
+    font-size: 12px;
+    line-height: 25px;
+
+    &:first-child { margin-left: 0; }
+  }
+
+  @media smallBP { margin-top: 10px; }
+}
+
+.postInfo {
+  & .info {
+    margin-left: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: lowercase;
+    color: secondaryFontColor;
+
+    &:first-child { margin-left: 0px; }
+  }
+}

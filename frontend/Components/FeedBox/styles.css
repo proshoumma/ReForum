@@ -1,0 +1,49 @@
+@value borderColor, backShade, secondaryFontColor, primaryFontColor from 'SharedStyles/globalStyles.css';
+
+/**
+ * FeedBox styles
+ */
+.container {
+  border: 1px solid borderColor;
+}
+
+.header {
+  border-bottom: 1px solid borderColor;
+  height: 30px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  background-color: backShade;
+}
+
+.title {
+  padding-left: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.sortList {
+  & .sort {
+    color: secondaryFontColor;
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0px 10px;
+    cursor: pointer;
+    user-select: none;
+
+    &.sortActive { color: primaryFontColor; }
+  }
+}
+
+.posts {
+  display: flex;
+  flex-direction: column;
+}
