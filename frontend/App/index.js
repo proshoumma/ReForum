@@ -5,6 +5,7 @@ import styles from './styles';
 
 import AppContainer from './App';
 import ForumFeed from '../Views/ForumFeed';
+import SinglePost from '../Views/SinglePost';
 import NotFound from '../Views/NotFound';
 
 ReactDOM.render (
@@ -12,6 +13,7 @@ ReactDOM.render (
     <Route path="/" component={AppContainer}>
       <IndexRoute component={ForumFeed} />
       <Route path=":forum" component={ForumFeed} />
+      <Route path="post/:postId" component={SinglePost} />
     </Route>
   </Router>,
   document.getElementById('root')

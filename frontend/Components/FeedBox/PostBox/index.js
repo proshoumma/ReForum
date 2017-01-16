@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import ClassNames from 'classnames';
+import Moment from 'moment';
 import styles from './styles';
 
 class PostBox extends Component {
@@ -7,11 +9,13 @@ class PostBox extends Component {
     const {
       voteCount,
       posterName,
-      posterDesignation,
+      posterGitHandler,
       postTitle,
       time,
       commentCount,
     } = this.props;
+
+    const timeDisplay = time.from(Moment());
 
     return (
       <div className={styles.container}>
@@ -19,7 +23,9 @@ class PostBox extends Component {
 
         <div className={styles.posterInfo}>
           <span className={styles.name}>{posterName}</span>
-          <span className={styles.designation}> - {posterDesignation}</span>
+          <a target="_blank" href={`https://www.github.com/${posterGitHandler}`} className={styles.gitHandler}>
+            - <i className={ClassNames('fa fa-github-alt', styles.gitIcon)}></i> {posterGitHandler}
+          </a>
         </div>
 
         <div className={styles.boxFooter}>
@@ -30,32 +36,33 @@ class PostBox extends Component {
           </div>
 
           <div className={styles.postInfo}>
-            <span className={styles.info}>{time}</span>
+            <span className={styles.info}>{timeDisplay}</span>
             <span className={styles.info}>{voteCount} favorites</span>
             <span className={styles.info}>{commentCount} comments</span>
           </div>
         </div>
-
       </div>
     );
   }
 }
 
 PostBox.defaultProps = {
+  postId: 1,
   voteCount: 20,
   posterName: 'Hello World',
-  posterDesignation: 'Software Engineer @ ReForum',
-  postTitle: 'Great Forum! Welcome home... Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-  time: '23 Hours Ago',
+  posterGitHandler: 'github',
+  postTitle: 'This is a default post title',
+  time: Moment(),
   commentCount: 12,
 };
 
 PostBox.propTypes = {
+  postId: React.PropTypes.number,
   voteCount: React.PropTypes.number,
   posterName: React.PropTypes.string,
-  posterDesignation: React.PropTypes.string,
+  posterGitHandler: React.PropTypes.string,
   postTitle: React.PropTypes.string,
-  time: React.PropTypes.string,
+  time: React.PropTypes.object,
   commentCount: React.PropTypes.number,
 };
 

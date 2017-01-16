@@ -26,7 +26,19 @@
 .posterInfo {
   margin-top: 10px;
   & .name { font-weight: 700; }
-  & .designation { color: secondaryFontColor; }
+  & .gitHandler {
+    margin-left: 5px;
+    text-decoration: none;
+    color: secondaryFontColor;
+    transition: color 0.3s;
+
+    & .gitIcon {
+      font-size: 16px;
+      padding: 0 5px;
+    }
+
+    &:hover { color: primaryFontColor; }
+  }
 }
 
 .boxFooter {
