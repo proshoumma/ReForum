@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ClassNames from 'classnames';
+import classnames from 'classnames';
 import Moment from 'moment';
 import styles from './styles';
 
@@ -10,7 +10,7 @@ class FeedBox extends Component {
     if (this.props.type === 'posts') {
       return (
         <div className={styles.sortList}>
-          <span className={ClassNames(styles.sort, styles.sortActive)}>Latest</span>
+          <span className={classnames(styles.sort, styles.sortActive)}>Latest</span>
           <span className={styles.sort}>Popular</span>
         </div>
       );

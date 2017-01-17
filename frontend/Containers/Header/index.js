@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ClassNames from 'classnames';
+import classnames from 'classnames';
 import appLayout from 'SharedStyles/appLayout';
 import styles from './styles';
 
@@ -12,7 +12,7 @@ import PlaceholderImage from 'SharedStyles/placeholder.jpg';
 class Header extends Component {
   render() {
     return (
-      <div className={ClassNames(appLayout.constraintWidth)}>
+      <div className={classnames(appLayout.constraintWidth)}>
         <div className={styles.headerTop}>
           <Logo />
           <UserMenu

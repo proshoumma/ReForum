@@ -1,0 +1,20 @@
+@value secondaryFontColor, backShade from 'SharedStyles/globalStyles';
+
+/**
+ * Tag styles
+ */
+
+.tag {
+  display: inline-block;
+  height: 25px;
+  margin-left: 10px;
+  padding: 0 10px;
+  background-color: backShade;
+  color: secondaryFontColor;
+  font-size: 12px;
+  line-height: 25px;
+
+  user-select: none;
+
+  &:first-child { margin-left: 0; }
+}

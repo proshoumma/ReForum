@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ClassNames from 'classnames';
+import classnames from 'classnames';
 import styles from './styles';
 
 class UserMenu extends Component {
@@ -21,7 +21,7 @@ class UserMenu extends Component {
 
     return (
       <div className={styles.container}>
-        <div className={ClassNames(styles.signInBtn, styles.title)}>
+        <div className={classnames(styles.signInBtn, styles.title)}>
           Sign Up / Sign In
         </div>
       </div>

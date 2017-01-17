@@ -1,0 +1,93 @@
+@value borderColor, secondaryFontColor, primaryFontColor from 'SharedStyles/globalStyles.css';
+@value smallBP from 'SharedStyles/globalStyles.css';
+
+/**
+ * Post styles
+ */
+
+.container { padding: 20px 10px 0px 10px; }
+
+.postTitle {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 400;
+}
+
+.infoContainer {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+
+  & .avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50px;
+  }
+
+  & .columnOnSmallBP {
+    flex: 1;
+    display: flex;
+    @media smallBP { flex-direction: column; }
+  }
+
+  & .userInfo {
+    margin-left: 10px;
+    flex: 1;
+    display: flex;
+
+    & .name { font-weight: 700; }
+
+    & .gitHandler {
+      margin-left: 15px;
+      text-decoration: none;
+      color: secondaryFontColor;
+      transition: color 0.3s;
+      &:hover { color: primaryFontColor; }
+
+      & .gitIcon { margin-right: 5px; }
+    }
+  }
+
+  & .dateInfo {
+    font-size: 13px;
+    color: secondaryFontColor;
+    @media smallBP { margin-left: 10px; }
+  }
+}
+
+.postContent {
+  margin-top: 10px;
+  font-size: 15px;
+  line-height: 26px;
+}
+
+.postFooter {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+
+  @media smallBP {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  & .tags { flex: 1; }
+
+  & .favoriteButton {
+    padding: 10px 10px;
+    display: flex;
+    align-items: center;
+    color: secondaryFontColor;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.3s;
+    &:hover { color: primaryFontColor; }
+
+    @media smallBP { margin-top: 5px; }
+
+    & i {
+      font-size: 20px;
+      margin-right: 10px;
+    }
+  }
+}

@@ -25,6 +25,7 @@
 
 .posterInfo {
   margin-top: 10px;
+  font-size: 13px;
   & .name { font-weight: 700; }
   & .gitHandler {
     margin-left: 5px;
@@ -58,19 +59,7 @@
   display: flex;
   align-items: center;
 
-  & .tag {
-    height: 25px;
-    margin-left: 10px;
-    padding: 0 10px;
-    background-color: backShade;
-    color: secondaryFontColor;
-    font-size: 12px;
-    line-height: 25px;
-
-    &:first-child { margin-left: 0; }
-  }
-
-  @media smallBP { margin-top: 10px; }
+  @media smallBP { margin-top: 5px; }
 }
 
 .postInfo {

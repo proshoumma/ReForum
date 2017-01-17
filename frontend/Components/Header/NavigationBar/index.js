@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, IndexLink } from 'react-router';
-import ClassNames from 'classnames';
+import classnames from 'classnames';
 import _ from 'lodash';
 import styles from './styles';
 

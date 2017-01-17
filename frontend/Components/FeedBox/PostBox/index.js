@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import ClassNames from 'classnames';
+import classnames from 'classnames';
 import Moment from 'moment';
 import styles from './styles';
+
+import Tag from 'Components/Tag';
 
 class PostBox extends Component {
   render() {
@@ -24,15 +26,18 @@ class PostBox extends Component {
         <div className={styles.posterInfo}>
           <span className={styles.name}>{posterName}</span>
           <a target="_blank" href={`https://www.github.com/${posterGitHandler}`} className={styles.gitHandler}>
-            - <i className={ClassNames('fa fa-github-alt', styles.gitIcon)}></i> {posterGitHandler}
+            - <i className={classnames('fa fa-github-alt', styles.gitIcon)}></i> {posterGitHandler}
           </a>
         </div>
 
         <div className={styles.boxFooter}>
           <div className={styles.tagsArea}>
-            <div className={styles.tag}>react</div>
+            {/* <div className={styles.tag}>react</div>
             <div className={styles.tag}>redux</div>
-            <div className={styles.tag}>nodejs</div>
+            <div className={styles.tag}>nodejs</div> */}
+            <Tag name="react" />
+            <Tag name="redux" />
+            <Tag name="nodejs" />
           </div>
 
           <div className={styles.postInfo}>
