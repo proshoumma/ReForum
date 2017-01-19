@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
+import _ from 'lodash';
 import styles from './styles.css';
 
 import PlaceholderImage from 'SharedStyles/placeholder.jpg';
@@ -7,41 +8,72 @@ import Tag from 'Components/Tag';
 
 class Post extends Component {
   render() {
+    const {
+      title,
+      userAvatar,
+      userName,
+      userGitHandler,
+      postDate,
+      postContent,
+      tags,
+      favoriteCount,
+    } = this.props;
+
     return (
       <div className={styles.container}>
-        <div className={styles.postTitle}>Hello World lorem</div>
+        <div className={styles.postTitle}>{title}</div>
         <div className={styles.infoContainer}>
-          <img className={styles.avatar} src={PlaceholderImage} />
+          <img className={styles.avatar} src={userAvatar} />
           <div className={styles.columnOnSmallBP}>
             <div className={styles.userInfo}>
-              <div className={styles.name}>Hello World</div>
-              <a href="https://www.github.com/github" target="_blank" className={styles.gitHandler}>
+              <div className={styles.name}>{userName}</div>
+              <a href={`https://www.github.com/${userGitHandler}`} target="_blank" className={styles.gitHandler}>
                 <i className={classnames('fa fa-github-alt', styles.gitIcon)}></i>
-                <span>helloworld</span>
+                <span>{userGitHandler}</span>
               </a>
             </div>
-            <div className={styles.dateInfo}>Posted a day ago</div>
+            <div className={styles.dateInfo}>{postDate}</div>
           </div>
         </div>
 
         <div className={styles.postContent}>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          {postContent}
         </div>
 
         <div className={styles.postFooter}>
           <div className={styles.tags}>
-            <Tag name="react" />
-            <Tag name="redux" />
-            <Tag name="webkit" />
+            { tags.map(tag => <Tag name={tag} key={_.uniqueId('tag_')} />)}
           </div>
           <div className={styles.favoriteButton}>
             <i className={classnames('fa fa-heart-o')}></i>
-            <div>1 favorites</div>
+            <div>{favoriteCount} favorites</div>
           </div>
         </div>
       </div>
     );
   }
 }
+
+Post.defaultProps = {
+  title: 'Default Post Title',
+  userAvatar: PlaceholderImage,
+  userName: 'User name',
+  userGitHandler: 'github',
+  postDate: 'a day ago',
+  postContent: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+  tags: [ 'react', 'redux', 'webkit' ],
+  favoriteCount: 1,
+};
+
+Post.propTypes = {
+  title: React.PropTypes.string,
+  userAvatar: React.PropTypes.string,
+  userName: React.PropTypes.string,
+  userGitHandler: React.PropTypes.string,
+  postDate: React.PropTypes.string,
+  postContent: React.PropTypes.string,
+  tags: React.PropTypes.array,
+  favoriteCount: React.PropTypes.number,
+};
 
 export default Post;

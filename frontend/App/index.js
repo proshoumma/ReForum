@@ -13,7 +13,7 @@ ReactDOM.render (
     <Route path="/" component={AppContainer}>
       <IndexRoute component={ForumFeed} />
       <Route path=":forum" component={ForumFeed} />
-      <Route path="post/:postId" component={SinglePost} />
+      <Route path=":forum/post/:postId" component={SinglePost} />
     </Route>
   </Router>,
   document.getElementById('root')

@@ -1,0 +1,31 @@
+@value borderColor, secondaryFontColor, primaryFontColor from 'SharedStyles/globalStyles.css';
+
+/**
+ * CommentBox styles
+ */
+
+.container {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border: 1px solid borderColor;
+}
+
+.editorContainer {
+  padding: 10px 10px;
+  width: 100%;
+  min-height: 60px;
+  border-bottom: 1px solid borderColor;
+  cursor: text;
+
+  & :global .public-DraftEditorPlaceholder-root {
+    position: absolute;
+    color: secondaryFontColor;
+  }
+}
+
+.buttonClass {
+  margin-top: 20px;
+}

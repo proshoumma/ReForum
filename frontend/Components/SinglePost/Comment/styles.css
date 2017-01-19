@@ -1,0 +1,86 @@
+@value borderColor, secondaryFontColor, primaryFontColor from 'SharedStyles/globalStyles.css';
+@value smallBP from 'SharedStyles/globalStyles.css';
+
+/**
+ * Comment styles
+ */
+
+.container {
+  padding: 0px 10px 0px 10px;
+  margin-bottom: 30px;
+
+}
+
+.infoContainer {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+
+  & .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50px;
+  }
+
+  & .columnOnSmallBP {
+    flex: 1;
+    display: flex;
+    @media smallBP { flex-direction: column; }
+  }
+
+  & .userInfo {
+    margin-left: 10px;
+    flex: 1;
+    display: flex;
+
+    & .name { font-weight: 700; }
+
+    & .gitHandler {
+      margin-left: 15px;
+      text-decoration: none;
+      color: secondaryFontColor;
+      transition: color 0.3s;
+      &:hover { color: primaryFontColor; }
+
+      & .gitIcon { margin-right: 5px; }
+    }
+  }
+
+  & .dateInfo {
+    font-size: 13px;
+    line-height: 13px;
+    color: secondaryFontColor;
+    @media smallBP { margin-left: 10px; }
+  }
+}
+
+.commentContent {
+  margin-top: -5px;
+  margin-left: 42px;
+  font-size: 15px;
+  line-height: 26px;
+
+  @media smallBP{ margin-top: 0px; }
+}
+
+.commentFooter {
+  margin-left: 32px;
+  display: flex;
+  align-items: center;
+
+  & .favoriteButton {
+    padding: 10px 10px;
+    display: flex;
+    align-items: center;
+    color: secondaryFontColor;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.3s;
+    &:hover { color: primaryFontColor; }
+
+    & i {
+      font-size: 20px;
+      margin-right: 10px;
+    }
+  }
+}

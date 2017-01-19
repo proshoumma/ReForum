@@ -1,0 +1,46 @@
+@value borderColor, secondaryFontColor, primaryFontColor from 'SharedStyles/globalStyles.css';
+
+/**
+ * Button styles
+ */
+
+/* resetting all default button styles */
+button {
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  padding: 0;
+  user-select: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.buttonDefaults {
+  padding: 10px 20px;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+.default {
+  color: secondaryFontColor;
+  transition: color 0.3s;
+  &:hover { color: primaryFontColor; }
+}
+
+.outline {
+  color: secondaryFontColor;
+  border: 1px solid borderColor;
+  transition: color 0.3s, border 0.3s;
+  &:hover {
+    color: primaryFontColor;
+    border: 1px solid secondaryFontColor;
+  }
+}
+
+.fullWidth { width: 100%; }
+.noUppercase { text-transform: none; }
