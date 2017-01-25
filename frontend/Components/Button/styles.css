@@ -44,3 +44,7 @@ button {
 
 .fullWidth { width: 100%; }
 .noUppercase { text-transform: none; }
+.alwaysActive {
+  color: primaryFontColor;
+  border-color: primaryFontColor;
+}

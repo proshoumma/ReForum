@@ -6,22 +6,27 @@ import styles from './styles.css';
 import PlaceholderImage from 'SharedStyles/placeholder.jpg';
 import Tag from 'Components/Tag';
 
-class Post extends Component {
+class Discussion extends Component {
   render() {
     const {
-      title,
       userAvatar,
       userName,
       userGitHandler,
-      postDate,
-      postContent,
+      discTitle,
+      discDate,
+      discContent,
       tags,
       favoriteCount,
     } = this.props;
 
+    let favCount = '';
+    if (favoriteCount === 0) favCount = 'Make favorite';
+    else if (favoriteCount === 1) favCount = '1 favorite';
+    else favCount = `${favoriteCount} favorites`;
+
     return (
       <div className={styles.container}>
-        <div className={styles.postTitle}>{title}</div>
+
         <div className={styles.infoContainer}>
           <img className={styles.avatar} src={userAvatar} />
           <div className={styles.columnOnSmallBP}>
@@ -32,12 +37,13 @@ class Post extends Component {
                 <span>{userGitHandler}</span>
               </a>
             </div>
-            <div className={styles.dateInfo}>{postDate}</div>
+            <div className={styles.dateInfo}>{discDate}</div>
           </div>
         </div>
 
-        <div className={styles.postContent}>
-          {postContent}
+        <div className={styles.discTitle}>{discTitle}</div>
+        <div className={styles.discContent}>
+          {discContent}
         </div>
 
         <div className={styles.postFooter}>
@@ -46,7 +52,7 @@ class Post extends Component {
           </div>
           <div className={styles.favoriteButton}>
             <i className={classnames('fa fa-heart-o')}></i>
-            <div>{favoriteCount} favorites</div>
+            <div>{favCount}</div>
           </div>
         </div>
       </div>
@@ -54,26 +60,26 @@ class Post extends Component {
   }
 }
 
-Post.defaultProps = {
-  title: 'Default Post Title',
+Discussion.defaultProps = {
   userAvatar: PlaceholderImage,
   userName: 'User name',
   userGitHandler: 'github',
-  postDate: 'a day ago',
-  postContent: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+  discTitle: 'Default Discussion Title',
+  discDate: 'a day ago',
+  discContent: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
   tags: [ 'react', 'redux', 'webkit' ],
   favoriteCount: 1,
 };
 
-Post.propTypes = {
-  title: React.PropTypes.string,
+Discussion.propTypes = {
   userAvatar: React.PropTypes.string,
   userName: React.PropTypes.string,
   userGitHandler: React.PropTypes.string,
-  postDate: React.PropTypes.string,
-  postContent: React.PropTypes.string,
+  discTitle: React.PropTypes.string,
+  discDate: React.PropTypes.string,
+  discContent: React.PropTypes.string,
   tags: React.PropTypes.array,
   favoriteCount: React.PropTypes.number,
 };
 
-export default Post;
+export default Discussion;

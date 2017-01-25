@@ -2,32 +2,28 @@
 @value smallBP from 'SharedStyles/globalStyles.css';
 
 /**
- * Post styles
+ * Opinion styles
  */
 
-.container { padding: 20px 10px 0px 10px; }
+.container {
+  margin-bottom: 10px;
+  padding: 0px 10px 0px 10px;
+  border: 1px solid borderColor;
+  /*border-bottom: none;
 
-.postTitle {
-  font-size: 24px;
-  line-height: 32px;
-  font-weight: 400;
+  &:last-child { border-bottom: 1px solid borderColor; }*/
 }
 
 .infoContainer {
-  margin-top: 10px;
+  padding: 5px 0px;
   display: flex;
   align-items: center;
+  border-bottom: 1px solid borderColor;
 
   & .avatar {
-    width: 42px;
-    height: 42px;
+    width: 32px;
+    height: 32px;
     border-radius: 50px;
-  }
-
-  & .columnOnSmallBP {
-    flex: 1;
-    display: flex;
-    @media smallBP { flex-direction: column; }
   }
 
   & .userInfo {
@@ -50,28 +46,23 @@
 
   & .dateInfo {
     font-size: 13px;
+    line-height: 13px;
     color: secondaryFontColor;
     @media smallBP { margin-left: 10px; }
   }
 }
 
-.postContent {
+.opContent {
   margin-top: 10px;
+  margin-bottom: 20px;
+  min-height: 60px;
   font-size: 15px;
   line-height: 26px;
 }
 
-.postFooter {
-  margin-top: 10px;
+.commentFooter {
   display: flex;
   align-items: center;
-
-  @media smallBP {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  & .tags { flex: 1; }
 
   & .favoriteButton {
     padding: 10px 10px;
@@ -82,8 +73,6 @@
     user-select: none;
     transition: color 0.3s;
     &:hover { color: primaryFontColor; }
-
-    @media smallBP { margin-top: 5px; }
 
     & i {
       font-size: 20px;

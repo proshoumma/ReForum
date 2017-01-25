@@ -2,7 +2,41 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import styles from './styles';
 
+import Button from 'Components/Button';
+
 class UserMenu extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { activeSubMenu: true };
+    this.toggleSubMenu = this.toggleSubMenu.bind(this);
+  }
+
+  toggleSubMenu() {
+    this.setState((prevState) => {
+      return { activeSubMenu: !prevState.activeSubMenu };
+    });
+  }
+
+  renderSubMenu() {
+    const { activeSubMenu } = this.state;
+
+    if (activeSubMenu) {
+      return (
+        <div className={styles.subMenu}>
+          <Button className={styles.subMenuClose} onClick={this.toggleSubMenu} alwaysActive>
+            <i className={classnames('fa fa-close')}></i>
+          </Button>
+          <Button className={styles.gitLoginBtn} alwaysActive>
+            <i className={classnames('fa fa-github-alt', styles.subMenuOcto)}></i>
+            <span className={styles.btnLabel}>With GitHub</span>
+          </Button>
+        </div>
+      );
+    }
+
+    return null;
+  }
+
   render() {
     const {
       loggedIn,
@@ -21,9 +55,15 @@ class UserMenu extends Component {
 
     return (
       <div className={styles.container}>
-        <div className={classnames(styles.signInBtn, styles.title)}>
+        <Button
+          alwaysActive
+          className={classnames(styles.signInBtn, styles.title)}
+          onClick={this.toggleSubMenu}
+        >
           Sign Up / Sign In
-        </div>
+        </Button>
+
+        {this.renderSubMenu()}
       </div>
     );
   }

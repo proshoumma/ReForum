@@ -1,7 +1,7 @@
 @value borderColor, secondaryFontColor, primaryFontColor from 'SharedStyles/globalStyles.css';
 
 /**
- * CommentBox styles
+ * RichEditor styles
  */
 
 .container {
@@ -29,3 +29,5 @@
 .buttonClass {
   margin-top: 20px;
 }
+
+.newDiscussion { min-height: 300px; }

@@ -5,7 +5,8 @@ import styles from './styles';
 
 import AppContainer from './App';
 import ForumFeed from '../Views/ForumFeed';
-import SinglePost from '../Views/SinglePost';
+import SingleDiscussion from '../Views/SingleDiscussion';
+import NewDiscussion from '../Views/NewDiscussion';
 import NotFound from '../Views/NotFound';
 
 ReactDOM.render (
@@ -13,7 +14,9 @@ ReactDOM.render (
     <Route path="/" component={AppContainer}>
       <IndexRoute component={ForumFeed} />
       <Route path=":forum" component={ForumFeed} />
-      <Route path=":forum/post/:postId" component={SinglePost} />
+      <Route path=":forum/discussion/:postId" component={SingleDiscussion} />
+      <Route path=":forum/new" component={NewDiscussion} />
+      <Route path="*" component={NotFound} />
     </Route>
   </Router>,
   document.getElementById('root')

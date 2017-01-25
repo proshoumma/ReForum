@@ -1,0 +1,17 @@
+@value largeBP, borderColor from 'SharedStyles/globalStyles';
+
+.content {
+  margin-top: 10px;
+}
+
+.titleInput {
+  margin: 20px 0px 0px 0px;
+  padding: 10px 10px;
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: none;
+  font-size: 24px;
+  font-weight: 300;
+  /*border-bottom: 1px solid borderColor;*/
+}
