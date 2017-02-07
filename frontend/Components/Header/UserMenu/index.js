@@ -7,7 +7,7 @@ import Button from 'Components/Button';
 class UserMenu extends Component {
   constructor(props) {
     super(props);
-    this.state = { activeSubMenu: true };
+    this.state = { activeSubMenu: false };
     this.toggleSubMenu = this.toggleSubMenu.bind(this);
   }
 

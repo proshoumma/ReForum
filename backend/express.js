@@ -27,6 +27,8 @@ const expressConfig = (app, passport, serverConfigs) => {
 
   // read cookies (should be above session)
   app.use(cookieParser());
+
+  // use session with mongo
   app.use(session({
     resave: false,
     saveUninitialized: true,

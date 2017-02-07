@@ -22,6 +22,6 @@ const devConfigs = (app) => {
 
   // apply hot middleware
   app.use(webpackHotMiddleware(webpackCompiler));
-}
+};
 
 module.exports = devConfigs;
