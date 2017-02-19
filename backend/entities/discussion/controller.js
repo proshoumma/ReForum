@@ -1,5 +1,5 @@
 /**
- * api for data retrival/creation of specific discussion of a forum
+ * controller for data retrival/creation of specific discussion of a forum
  */
 
 const getDiscussion = (forumId, discussionId) => {

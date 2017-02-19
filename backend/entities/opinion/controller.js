@@ -1,5 +1,5 @@
 /**
- * api for data retrival/creation of opinions of a discussion
+ * controllers for data retrival/creation of opinions of a discussion
  */
 
 const getAllOpinions = (forumId, discussionId) => {
