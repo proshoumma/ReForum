@@ -1,12 +1,15 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { combineReducers } from 'redux';
+import thunk from 'redux-thunk';
 
 import { appReducer } from './reducers';
+import { feedReducer } from '../Views/ForumFeed/reducers';
 
 // root reducer for app
 const rootReducer = combineReducers({
   user: (state = {}, action) => { return state; },
   app: appReducer,
+  feed: feedReducer,
 });
 
 // dev tool extension
@@ -17,7 +20,7 @@ let store = createStore(
   rootReducer,
   /* preloaded state, */
   composeEnhancers(
-    applyMiddleware()
+    applyMiddleware(thunk)
   )
 );
 

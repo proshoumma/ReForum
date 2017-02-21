@@ -44,9 +44,7 @@ class AppContainer extends Component {
 }
 
 export default connect(
-  (state) => { return {
-    currentForum: state.app.currentForum,
-  }; },
+  (state) => { return { currentForum: state.app.currentForum }; },
   (dispatch) => { return {
     updateCurrentForum: (forum) => { dispatch(updateCurrentForum(forum)); },
   }; }

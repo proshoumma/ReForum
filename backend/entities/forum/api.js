@@ -6,7 +6,12 @@ const getPinnedDiscussions = require('./controller').getPinnedDiscussions;
  */
 const forumAPI = (app) => {
   app.get('/api/forum/:forum_id', (req, res) => {
-
+    setTimeout(() => {
+      res.send({
+        discussions: getDiscussions(),
+        pinned: getPinnedDiscussions(),
+      });
+    }, 3000);
   });
 };
 
