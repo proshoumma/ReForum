@@ -32,7 +32,7 @@ export const opinions = [
         'opinion_id': 1,
         'user_id': 1,
         'date': 1486450269704,
-        'content': 'These pin posts!!!',
+        'content': 'These pin discussions!!!',
       },
       {
         'opinion_id': 2,

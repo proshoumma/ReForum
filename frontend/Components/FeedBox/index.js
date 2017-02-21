@@ -3,11 +3,11 @@ import classnames from 'classnames';
 import Moment from 'moment';
 import styles from './styles';
 
-import PostBox from './PostBox';
+import DiscussionBox from './DiscussionBox';
 
 class FeedBox extends Component {
   renderSort() {
-    if (this.props.type === 'posts') {
+    if (this.props.type === 'general') {
       return (
         <div className={styles.sortList}>
           <span className={classnames(styles.sort, styles.sortActive)}>Latest</span>
@@ -21,29 +21,29 @@ class FeedBox extends Component {
   render() {
     const {
       type,
-      posts,
+      discussions,
     } = this.props;
 
-    let postBoxTitle = '';
-    if (type === 'posts') postBoxTitle = 'Posts';
-    if (type === 'pinned') postBoxTitle = 'Pinned Posts';
+    let discussionBoxTitle = '';
+    if (type === 'general') discussionBoxTitle = 'Discussions';
+    if (type === 'pinned') discussionBoxTitle = 'Pinned';
 
     return (
       <div className={styles.container}>
         <div className={styles.header}>
-          <span className={styles.title}>{postBoxTitle}</span>
+          <span className={styles.title}>{discussionBoxTitle}</span>
           { this.renderSort() }
         </div>
-        <div className={styles.posts}>
-          { posts.map((post) =>
-            <PostBox
-              key={post.postId}
-              voteCount={post.voteCount}
-              posterName={post.posterName}
-              posterGitHandler={post.posterGitHandler}
-              postTitle={post.postTitle}
-              time={post.time}
-              commentCount={post.commentCount}
+        <div className={styles.discussions}>
+          { discussions.map((discussion) =>
+            <DiscussionBox
+              key={discussion.discussionId}
+              voteCount={discussion.voteCount}
+              userName={discussion.userName}
+              userGitHandler={discussion.userGitHandler}
+              discussionTitle={discussion.postTitle}
+              time={discussion.time}
+              opinionCount={discussion.commentCount}
             />
           ) }
         </div>
@@ -53,14 +53,14 @@ class FeedBox extends Component {
 }
 
 FeedBox.defaultProps = {
-  type: 'posts',
-  posts: [
+  type: 'general',
+  discussions: [
     {
-      postId: 1,
+      discussionId: 1,
       voteCount: 1,
-      posterName: 'Hello World',
-      posterGitHandler: 'github',
-      postTitle: 'This is a default post title',
+      userName: 'Hello World',
+      userGitHandler: 'github',
+      discussionTitle: 'This is a default discussion title',
       time: Moment(),
       commentCount: 12,
     },
@@ -68,8 +68,8 @@ FeedBox.defaultProps = {
 };
 
 FeedBox.propTypes = {
-  type: React.PropTypes.oneOf(['posts', 'pinned']),
-  posts: React.PropTypes.array,
+  type: React.PropTypes.oneOf(['general', 'pinned']),
+  discussions: React.PropTypes.array,
 };
 
 export default FeedBox;

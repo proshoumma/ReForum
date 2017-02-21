@@ -6,27 +6,27 @@ import styles from './styles';
 
 import Tag from 'Components/Tag';
 
-class PostBox extends Component {
+class DiscussionBox extends Component {
   render() {
     const {
       voteCount,
-      posterName,
-      posterGitHandler,
-      postTitle,
+      userName,
+      userGitHandler,
+      discussionTitle,
       time,
-      commentCount,
+      opinionCount,
     } = this.props;
 
     const timeDisplay = time.from(Moment());
 
     return (
       <div className={styles.container}>
-        <div className={styles.postTitle}><Link to="/">{postTitle}</Link></div>
+        <div className={styles.title}><Link to="/">{discussionTitle}</Link></div>
 
         <div className={styles.posterInfo}>
-          <span className={styles.name}>{posterName}</span>
-          <a target="_blank" href={`https://www.github.com/${posterGitHandler}`} className={styles.gitHandler}>
-            - <i className={classnames('fa fa-github-alt', styles.gitIcon)}></i> {posterGitHandler}
+          <span className={styles.name}>{userName}</span>
+          <a target="_blank" href={`https://www.github.com/${userGitHandler}`} className={styles.gitHandler}>
+            - <i className={classnames('fa fa-github-alt', styles.gitIcon)}></i> {userGitHandler}
           </a>
         </div>
 
@@ -43,7 +43,7 @@ class PostBox extends Component {
           <div className={styles.postInfo}>
             <span className={styles.info}>{timeDisplay}</span>
             <span className={styles.info}>{voteCount} favorites</span>
-            <span className={styles.info}>{commentCount} comments</span>
+            <span className={styles.info}>{opinionCount} opinions</span>
           </div>
         </div>
       </div>
@@ -51,24 +51,24 @@ class PostBox extends Component {
   }
 }
 
-PostBox.defaultProps = {
-  postId: 1,
+DiscussionBox.defaultProps = {
+  discussionId: 1,
   voteCount: 20,
-  posterName: 'Hello World',
-  posterGitHandler: 'github',
-  postTitle: 'This is a default post title',
+  userName: 'Hello World',
+  userGitHandler: 'github',
+  discussionTitle: 'This is a default post title',
   time: Moment(),
-  commentCount: 12,
+  opinionCount: 12,
 };
 
-PostBox.propTypes = {
-  postId: React.PropTypes.number,
+DiscussionBox.propTypes = {
+  discussionId: React.PropTypes.number,
   voteCount: React.PropTypes.number,
-  posterName: React.PropTypes.string,
-  posterGitHandler: React.PropTypes.string,
-  postTitle: React.PropTypes.string,
+  userName: React.PropTypes.string,
+  userGitHandler: React.PropTypes.string,
+  discussionTitle: React.PropTypes.string,
   time: React.PropTypes.object,
-  commentCount: React.PropTypes.number,
+  opinionCount: React.PropTypes.number,
 };
 
-export default PostBox;
+export default DiscussionBox;

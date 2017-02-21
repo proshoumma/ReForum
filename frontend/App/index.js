@@ -20,7 +20,7 @@ ReactDOM.render (
       <Route path="/" component={AppContainer}>
         <IndexRoute component={ForumFeed} />
         <Route path=":forum" component={ForumFeed} />
-        <Route path=":forum/discussion/:postId" component={SingleDiscussion} />
+        <Route path=":forum/discussion/:discussionId" component={SingleDiscussion} />
         <Route path=":forum/new" component={NewDiscussion} />
         <Route path="*" component={NotFound} />
       </Route>

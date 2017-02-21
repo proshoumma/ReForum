@@ -46,7 +46,7 @@ class Discussion extends Component {
           {discContent}
         </div>
 
-        <div className={styles.postFooter}>
+        <div className={styles.discFooter}>
           <div className={styles.tags}>
             { tags.map(tag => <Tag name={tag} key={_.uniqueId('tag_')} />)}
           </div>

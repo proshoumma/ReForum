@@ -12,7 +12,7 @@ class NewDiscussion extends Component {
     return (
       <div className={classnames(appLayout.constraintWidth, styles.content)}>
         <div className={styles.forumInfo}>
-          You are posting a new discussion on <span className={styles.forumName}>{currentForum}</span> forum.
+          You are creating a new discussion on <span className={styles.forumName}>{currentForum}</span> forum.
         </div>
         <input type="text" className={styles.titleInput} placeholder={'Discussion title...'} />
         <RichEditor type='newDiscussion' />

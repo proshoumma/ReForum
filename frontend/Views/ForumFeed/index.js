@@ -15,7 +15,7 @@ class ForumFeed extends Component {
       <div className={classnames(appLayout.constraintWidth, styles.contentArea)}>
         <div className={appLayout.primaryContent}>
           <FeedBox type='pinned' />
-          <FeedBox type='posts' />
+          <FeedBox type='general' />
         </div>
         <div className={appLayout.secondaryContent}>
           <SideBar />
