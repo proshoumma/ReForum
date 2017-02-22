@@ -4,10 +4,13 @@ import { connect } from 'react-redux';
 import Header from 'Containers/Header';
 import appLayout from 'SharedStyles/appLayout.css';
 
-import { updateCurrentForum } from './actions';
+import { getForums, updateCurrentForum } from './actions';
 
 class AppContainer extends Component {
   componentDidMount() {
+    // get the forums
+    this.props.getForums();
+
     // initially update currently selected forum based on current route
     this.updateCurrentForum(true);
   }
@@ -34,6 +37,8 @@ class AppContainer extends Component {
   }
 
   render() {
+    console.log(this.props.forums);
+
     return (
       <div>
         <Header />
@@ -44,8 +49,12 @@ class AppContainer extends Component {
 }
 
 export default connect(
-  (state) => { return { currentForum: state.app.currentForum }; },
+  (state) => { return {
+    currentForum: state.app.currentForum,
+    forums: state.app.forums,
+  }; },
   (dispatch) => { return {
     updateCurrentForum: (forum) => { dispatch(updateCurrentForum(forum)); },
+    getForums: (forum) => { dispatch(getForums()); },
   }; }
 )(AppContainer);

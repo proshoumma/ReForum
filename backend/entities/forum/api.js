@@ -1,16 +1,29 @@
+// forum controllers
+const getAllForums = require('./controller').getAllForums;
 const getDiscussions = require('./controller').getDiscussions;
-const getPinnedDiscussions = require('./controller').getPinnedDiscussions;
 
 /**
  * forum apis
  */
 const forumAPI = (app) => {
-  app.get('/api/forum/:forum_id', (req, res) => {
+  // get all forums
+  app.get('/api/forum', (req, res) => {
     setTimeout(() => {
-      res.send({
-        discussions: getDiscussions(),
-        pinned: getPinnedDiscussions(),
-      });
+      res.send(getAllForums());
+    }, 3000);
+  });
+
+  // get discussions of a forum
+  app.get('/api/forum/:forum_id/discussions', (req, res) => {
+    setTimeout(() => {
+      res.send(getDiscussions(req.params.forum_id));
+    }, 3000);
+  });
+
+  // get pinned discussions of a forum
+  app.get('/api/forum/:forum_id/pinned_discussions', (req, res) => {
+    setTimeout(() => {
+      res.send(getDiscussions(req.params.forum_id, true));
     }, 3000);
   });
 };

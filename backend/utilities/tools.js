@@ -5,7 +5,7 @@
  * @param  {Function} callback [action to perform on each props, two parameters (property, object)]
  * @return {Object}            [new modified object]
  */
-export const deepPropSearch = (obj, callback) => {
+const deepPropSearch = (obj, callback) => {
   // new object for immutability
   const newObj = Object.assign({}, obj);
 
@@ -33,4 +33,8 @@ export const deepPropSearch = (obj, callback) => {
 
   // return new object, maintain immutability
   return newObj;
+};
+
+module.exports = {
+  deepPropSearch,
 };

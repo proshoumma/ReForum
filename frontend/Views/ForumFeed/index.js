@@ -12,7 +12,21 @@ import styles from './styles.css';
 
 class ForumFeed extends Component {
   componentDidMount() {
-    this.props.getFeeds();
+
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {
+      fetchingFeed,
+      currentForum,
+      forums,
+      getFeeds,
+    } = nextProps;
+
+    // if (forums) {
+    //   const currentForumId = _.find(forums, { forum_slug: currentForum }).forum_id;
+    //   getFeeds(currentForumId);
+    // }
   }
 
   render() {
@@ -34,6 +48,10 @@ class ForumFeed extends Component {
 }
 
 export default connect(
-  (state) => { return { fetchingFeed: state.feed.fetchingFeed }; },
+  (state) => { return {
+    fetchingFeed: state.feed.fetchingFeed,
+    currentForum: state.app.currentForum,
+    forums: state.app.forums,
+  }; },
   (dispatch) => { return { getFeeds: () => { dispatch(getFeeds()); } }; }
 )(ForumFeed);
