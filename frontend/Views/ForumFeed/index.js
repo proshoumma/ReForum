@@ -11,28 +11,17 @@ import appLayout from 'SharedStyles/appLayout.css';
 import styles from './styles.css';
 
 class ForumFeed extends Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props);
 
+    this.state = { currentForum: null };
   }
 
-  componentWillReceiveProps(nextProps) {
-    const {
-      fetchingFeed,
-      currentForum,
-      forums,
-      getFeeds,
-    } = nextProps;
+  componentDidUpdate(prevProps, prevState) {
 
-    // if (forums) {
-    //   const currentForumId = _.find(forums, { forum_slug: currentForum }).forum_id;
-    //   getFeeds(currentForumId);
-    // }
   }
 
   render() {
-    const currentForum = this.props.params.forum || 'home';
-    console.log(this.props.fetchingFeed);
-
     return (
       <div className={classnames(appLayout.constraintWidth, styles.contentArea)}>
         <div className={appLayout.primaryContent}>
@@ -53,5 +42,5 @@ export default connect(
     currentForum: state.app.currentForum,
     forums: state.app.forums,
   }; },
-  (dispatch) => { return { getFeeds: () => { dispatch(getFeeds()); } }; }
+  (dispatch) => { return { getFeeds: (forumId) => { dispatch(getFeeds(forumId)); } }; }
 )(ForumFeed);

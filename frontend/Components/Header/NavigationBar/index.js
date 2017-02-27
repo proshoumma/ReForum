@@ -10,40 +10,56 @@ class NavigationBar extends Component {
       navigationLinks,
     } = this.props;
 
-    return (
-      <ul className={styles.navigationBar}>
-        <li key={_.uniqueId('navLink_')}>
-          <IndexLink
-            className={styles.links}
-            activeClassName={styles.linkActive}
-            to='/'
-          >
-            Home
-          </IndexLink>
-        </li>
+    if (navigationLinks) {
+      return (
+        <ul className={styles.navigationBar}>
+          { navigationLinks.map(link => {
+            if (link.id === 0) {
+              return (
+                <li key={_.uniqueId('navLink_')}>
+                  <IndexLink
+                    className={styles.links}
+                    activeClassName={styles.linkActive}
+                    to='/'
+                  >
+                    Home
+                  </IndexLink>
+                </li>
+              );
+            }
 
-        {navigationLinks.map(link =>
-          <li key={_.uniqueId('navLink_')}>
-            <Link
-              className={styles.links}
-              activeClassName={styles.linkActive}
-              to={link.link}
-            >
-              {link.name}
-            </Link>
-          </li>
-        )}
-      </ul>
-    );
+            return (
+              <li key={_.uniqueId('navLink_')}>
+                <Link
+                  className={styles.links}
+                  activeClassName={styles.linkActive}
+                  to={link.link}
+                >
+                  {link.name}
+                </Link>
+              </li>
+            );
+          }) }
+        </ul>
+      );
+    }
+
+    return null;
   }
 }
 
 NavigationBar.defaultProps = {
-  navigationLinks: [],
+  navigationLinks: [
+    {
+      id: 0,
+      name: 'General',
+      link: '/',
+    },
+  ],
 };
 
 NavigationBar.propTypes = {
-  navigationLinks: React.PropTypes.array.isRequired,
+  navigationLinks: React.PropTypes.array,
 };
 
 export default NavigationBar;

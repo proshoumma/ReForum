@@ -10,6 +10,20 @@ import NavigationBar from 'Components/Header/NavigationBar';
 import PlaceholderImage from 'SharedStyles/placeholder.jpg';
 
 class Header extends Component {
+  renderNavLinks() {
+    if (this.props.forums) {
+      return this.props.forums.map((forum) => {
+        return {
+          id: forum.forum_id,
+          name: forum.forum_name,
+          link: `/${forum.forum_slug}`,
+        };
+      });
+    }
+
+    return null;
+  }
+
   render() {
     return (
       <div className={classnames(appLayout.constraintWidth)}>
@@ -22,17 +36,25 @@ class Header extends Component {
           />
         </div>
         <NavigationBar
-          navigationLinks={[
-            { name: 'React', link: '/react' },
-            { name: 'Redux', link: '/redux' },
-            { name: 'Webpack', link: '/webpack' },
-            { name: 'Express', link: '/express' },
-            { name: 'MongoDB', link: '/mongodb' },
-          ]}
+          navigationLinks={this.renderNavLinks()}
         />
       </div>
     );
   }
 }
+
+Header.defaultProps = {
+  forums: [
+    {
+      'forum_id': 0,
+      'forum_slug': 'general',
+      'forum_name': 'General',
+    },
+  ],
+};
+
+Header.propTypes = {
+  forums: React.PropTypes.array, // array of forum objects from backend
+};
 
 export default Header;

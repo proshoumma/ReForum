@@ -9,6 +9,7 @@ import appStore from './store';
 
 // app views
 import AppContainer from './App';
+import Header from 'Containers/Header';
 import ForumFeed from '../Views/ForumFeed';
 import SingleDiscussion from '../Views/SingleDiscussion';
 import NewDiscussion from '../Views/NewDiscussion';

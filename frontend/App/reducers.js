@@ -9,7 +9,6 @@ import {
 const initialState = {
   fetchingForums: false,
   forums: null,
-  currentForum: null,
 };
 
 /**
@@ -38,11 +37,6 @@ export const appReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         fetchingForums: false,
         error: 'Unable to fetch forums',
-      });
-
-    case UPDATECURRENTFORUM:
-      return Object.assign({}, state, {
-        currentForum: action.payload,
       });
 
     default:
