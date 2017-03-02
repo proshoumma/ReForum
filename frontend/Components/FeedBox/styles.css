@@ -50,3 +50,11 @@
   display: flex;
   flex-direction: column;
 }
+
+.loading {
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  color: secondaryFontColor;
+  padding: 20px 0px;
+  text-align: center;
+}

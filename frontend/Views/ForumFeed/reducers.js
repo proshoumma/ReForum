@@ -1,39 +1,40 @@
 import {
-  START_FETCHING_FEED,
-  STOP_FETCHING_FEED,
-  FETCHING_FEED_SUCCESS,
-  FETCHING_FEED_FAILURE,
+  START_FETCHING_DISCUSSIONS,
+  STOP_FETCHING_DISCUSSIONS,
+  FETCHING_DISCUSSIONS_SUCCESS,
+  FETCHING_DISCUSSIONS_FAILURE,
 } from './constants';
 
 const initialState = {
-  fetchingFeed: false,
-  feeds: null,
+  fetchingDiscussions: false,
+  discussions: null,
+  pinnedDiscussions: null,
   error: null,
 };
 
 export const feedReducer = (state = initialState, action) => {
   switch(action.type) {
-    case START_FETCHING_FEED:
+    case START_FETCHING_DISCUSSIONS:
       return Object.assign({}, state, {
-        fetchingFeed: true,
+        fetchingDiscussions: true,
       });;
 
-    case STOP_FETCHING_FEED:
+    case STOP_FETCHING_DISCUSSIONS:
       return Object.assign({}, state, {
-        fetchingFeed: false,
+        fetchingDiscussions: false,
       });;
 
-    case FETCHING_FEED_SUCCESS:
+    case FETCHING_DISCUSSIONS_SUCCESS:
       return Object.assign({}, state, {
-        feeds: action.payload,
-        fetchingFeed: false,
+        discussions: action.payload,
+        fetchingDiscussions: false,
         error: null,
       });
 
-    case FETCHING_FEED_FAILURE:
+    case FETCHING_DISCUSSIONS_FAILURE:
       return Object.assign({}, state, {
-        fetchingFeed: false,
-        error: 'Unable to fetch feeds',
+        fetchingDiscussions: false,
+        error: 'Unable to fetch discussions at the moment.',
       });
 
     default:

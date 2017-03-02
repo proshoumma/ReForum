@@ -17,7 +17,8 @@ class DiscussionBox extends Component {
       opinionCount,
     } = this.props;
 
-    const timeDisplay = time.from(Moment());
+    const postTime = Moment(time);
+    const timeDisplay = postTime.from(Moment());
 
     return (
       <div className={styles.container}>
@@ -67,7 +68,7 @@ DiscussionBox.propTypes = {
   userName: React.PropTypes.string,
   userGitHandler: React.PropTypes.string,
   discussionTitle: React.PropTypes.string,
-  time: React.PropTypes.object,
+  time: React.PropTypes.any,
   opinionCount: React.PropTypes.number,
 };
 

@@ -1,4 +1,4 @@
-export const opinions = [
+const opinions = [
   {
     'forum_id': 0,
     'discussion_id': 0,
@@ -74,3 +74,5 @@ export const opinions = [
     ],
   },
 ];
+
+module.exports = opinions;

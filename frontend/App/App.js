@@ -5,20 +5,52 @@ import Header from 'Containers/Header';
 import appLayout from 'SharedStyles/appLayout.css';
 import styles from './styles.css';
 
-import { getForums } from './actions';
+import { getForums, updateCurrentForum } from './actions';
 
 class AppContainer extends Component {
   componentDidMount() {
+    const {
+      params,
+      updateCurrentForum,
+      getForums,
+    } = this.props;
+
     // get all forum list
-    this.props.getForums();
+    getForums();
+
+    // set current forum based on route
+    const currentForum = params.forum || 'general';
+    updateCurrentForum(currentForum);
+  }
+
+  componentDidUpdate() {
+    const {
+      params,
+      currentForum,
+      updateCurrentForum,
+    } = this.props;
+
+    const newCurrentForum = params.forum || 'general';
+
+    // update current forum if necessery
+    if (newCurrentForum !== currentForum) updateCurrentForum(newCurrentForum);
   }
 
   render() {
+    const { forums } = this.props;
+
+    // render only if we get the forum lists
+    if (forums) {
+      return (
+        <div>
+          <Header forums={this.props.forums} />
+          {this.props.children}
+        </div>
+      );
+    }
+
     return (
-      <div>
-        <Header forums={this.props.forums} />
-        {this.props.children}
-      </div>
+      <div className={styles.loadingWrapper}>Loading...</div>
     );
   }
 }
@@ -26,8 +58,10 @@ class AppContainer extends Component {
 export default connect(
   (state) => { return {
     forums: state.app.forums,
+    currentForum: state.app.currentForum,
   }; },
   (dispatch) => { return {
-    getForums: (forum) => { dispatch(getForums()); },
+    getForums: () => { dispatch(getForums()); },
+    updateCurrentForum: (currentForum) => { dispatch(updateCurrentForum(currentForum)); },
   }; }
 )(AppContainer);

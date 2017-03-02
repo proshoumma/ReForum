@@ -3,6 +3,7 @@ import {
   STOP_FETCHING_FORUMS,
   FETCHING_FORUMS_SUCCESS,
   FETCHING_FORUMS_FAILURE,
+  UPDATECURRENTFORUM,
 } from './constants';
 import { fetchForums } from './api';
 
@@ -14,5 +15,12 @@ export const getForums = () => {
       data => dispatch({ type: FETCHING_FORUMS_SUCCESS, payload: data.data }),
       error => dispatch({ type: FETCHING_FORUMS_FAILURE })
     );
+  };
+};
+
+export const updateCurrentForum = (currentForum) => {
+  return {
+    type: UPDATECURRENTFORUM,
+    payload: currentForum,
   };
 };

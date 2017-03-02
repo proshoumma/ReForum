@@ -8,7 +8,7 @@ const users = [
   },
   {
     'user_id': 1,
-    'username': 'testuser@',
+    'username': 'testuser2',
     'email': 'testuser2@reforum.abc',
     'avatarUrl': 'https://robohash.org/magnidictadeserunt.png?size=50x50&set=set1',
     'name': 'Test User 2',

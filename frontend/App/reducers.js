@@ -9,6 +9,8 @@ import {
 const initialState = {
   fetchingForums: false,
   forums: null,
+  currentForum: 'general',
+  error: false,
 };
 
 /**
@@ -30,13 +32,18 @@ export const appReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         forums: action.payload,
         fetchingForums: false,
-        error: null,
+        error: false,
       });
 
     case FETCHING_FORUMS_FAILURE:
       return Object.assign({}, state, {
         fetchingForums: false,
         error: 'Unable to fetch forums',
+      });
+
+    case UPDATECURRENTFORUM:
+      return Object.assign({}, state, {
+        currentForum: action.payload,
       });
 
     default:

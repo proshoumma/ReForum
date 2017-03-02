@@ -18,9 +18,18 @@ class FeedBox extends Component {
     return null;
   }
 
+  renderEmptyDiscussionLine(loading, discussions) {
+    if (!loading) {
+      if (!discussions || discussions.length === 0) {
+        return <div className={styles.loading}>No discussions...</div>;
+      }
+    }
+  }
+
   render() {
     const {
       type,
+      loading,
       discussions,
     } = this.props;
 
@@ -34,19 +43,23 @@ class FeedBox extends Component {
           <span className={styles.title}>{discussionBoxTitle}</span>
           { this.renderSort() }
         </div>
-        <div className={styles.discussions}>
-          { discussions.map((discussion) =>
-            <DiscussionBox
-              key={discussion.discussionId}
-              voteCount={discussion.voteCount}
-              userName={discussion.userName}
-              userGitHandler={discussion.userGitHandler}
-              discussionTitle={discussion.postTitle}
-              time={discussion.time}
-              opinionCount={discussion.commentCount}
-            />
-          ) }
-        </div>
+        { loading && <div className={styles.loading}>Loading...</div> }
+        { this.renderEmptyDiscussionLine(loading, discussions) }
+        { !loading &&
+          <div className={styles.discussions}>
+            { discussions && discussions.map((discussion) =>
+              <DiscussionBox
+                key={discussion.discussion_id}
+                voteCount={discussion.favorite_count}
+                userName={discussion.user.name}
+                userGitHandler={discussion.user.username}
+                discussionTitle={discussion.title}
+                time={discussion.date}
+                opinionCount={discussion.opinion_count}
+              />
+            ) }
+          </div>
+        }
       </div>
     );
   }
@@ -54,21 +67,13 @@ class FeedBox extends Component {
 
 FeedBox.defaultProps = {
   type: 'general',
-  discussions: [
-    {
-      discussionId: 1,
-      voteCount: 1,
-      userName: 'Hello World',
-      userGitHandler: 'github',
-      discussionTitle: 'This is a default discussion title',
-      time: Moment(),
-      commentCount: 12,
-    },
-  ],
+  loading: false,
+  discussions: [],
 };
 
 FeedBox.propTypes = {
   type: React.PropTypes.oneOf(['general', 'pinned']),
+  loading: React.PropTypes.bool,
   discussions: React.PropTypes.array,
 };
 

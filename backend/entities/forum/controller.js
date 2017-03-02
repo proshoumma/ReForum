@@ -5,6 +5,7 @@ const deepPropSearch = require('../../utilities/tools').deepPropSearch;
 const forumsMock = require('../../mockData/forum');
 const discussionsMock = require('../../mockData/discussions');
 const userMock = require('../../mockData/users');
+const opinionMock = require('../../mockData/opinions');
 
 /**
  * forum controllers
@@ -32,9 +33,17 @@ const getDiscussions = (forum_id, pinned) => {
       _.find(discussionsMock, { forum_id: Number(forum_id) }).pinned_discussions
     : _.find(discussionsMock, { forum_id: Number(forum_id) }).discussions;
 
-  // attach users to the discussion
-  discussions = deepPropSearch(discussions, (prop, obj) => {
-    if (prop === 'user_id') { obj.user =  _.find(userMock, { user_id: obj[prop] }); }
+  // attach user and opinion_count to the discussion
+  discussions = discussions.map((eachDiscussion) => {
+    const opinions = _.find(opinionMock, {
+      forum_id: Number(forum_id),
+      discussion_id: eachDiscussion.discussion_id,
+    });
+
+    return Object.assign({}, eachDiscussion, {
+      user: _.find(userMock, { user_id: eachDiscussion.user_id }),
+      opinion_count: opinions ? opinions.opinions.length : 0,
+    });
   });
 
   return discussions;
