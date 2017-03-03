@@ -22,9 +22,8 @@ class ForumFeed extends Component {
       getPinnedDiscussions,
     } = this.props;
 
-    const forumId = _.find(forums, { forum_slug: currentForum }).forum_id;
-    getDiscussions(forumId);
-    getPinnedDiscussions(forumId);
+    getDiscussions(currentForum);
+    getPinnedDiscussions(currentForum);
   }
 
   componentDidUpdate(prevProps) {
@@ -36,10 +35,14 @@ class ForumFeed extends Component {
     } = this.props;
 
     if (prevProps.currentForum !== currentForum) {
-      const forumId = _.find(forums, { forum_slug: currentForum }).forum_id;
-      getDiscussions(forumId);
-      getPinnedDiscussions(forumId);
+      const feedChanged = true;
+      getDiscussions(currentForum, feedChanged);
+      getPinnedDiscussions(currentForum, feedChanged);
     }
+  }
+
+  componentWillUnmount() {
+    console.log('im gonna unmount!');
   }
 
   render() {
@@ -85,7 +88,7 @@ export default connect(
     pinnedDiscussions: state.feed.pinnedDiscussions,
   }; },
   (dispatch) => { return {
-    getDiscussions: (forumId) => { dispatch(getDiscussions(forumId)); },
-    getPinnedDiscussions: (forumId) => { dispatch(getPinnedDiscussions(forumId)); },
+    getDiscussions: (currentForum, feedChanged) => { dispatch(getDiscussions(currentForum, feedChanged)); },
+    getPinnedDiscussions: (currentForum, feedChanged) => { dispatch(getPinnedDiscussions(currentForum, feedChanged)); },
   }; }
 )(ForumFeed);
