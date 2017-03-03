@@ -21,7 +21,7 @@ const forumAPI = (app) => {
 
   // get pinned discussions of a forum
   app.get('/api/forum/:forum_id/pinned_discussions', (req, res) => {
-    res.send(getDiscussions(req.params.forum_id, true));
+    setTimeout(() => { res.send(getDiscussions(req.params.forum_id, true)); }, 3000);
   });
 };
 

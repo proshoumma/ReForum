@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 
-import { getDiscussions } from './actions';
+import {
+  getDiscussions,
+  getPinnedDiscussions,
+} from './actions';
 
 import FeedBox from 'Components/FeedBox';
 import SideBar from 'Components/SideBar';
@@ -16,10 +19,12 @@ class ForumFeed extends Component {
       forums,
       currentForum,
       getDiscussions,
+      getPinnedDiscussions,
     } = this.props;
 
     const forumId = _.find(forums, { forum_slug: currentForum }).forum_id;
     getDiscussions(forumId);
+    getPinnedDiscussions(forumId);
   }
 
   componentDidUpdate(prevProps) {
@@ -27,25 +32,40 @@ class ForumFeed extends Component {
       forums,
       currentForum,
       getDiscussions,
+      getPinnedDiscussions,
     } = this.props;
 
     if (prevProps.currentForum !== currentForum) {
       const forumId = _.find(forums, { forum_slug: currentForum }).forum_id;
       getDiscussions(forumId);
+      getPinnedDiscussions(forumId);
     }
   }
 
   render() {
     const {
+      currentForum,
       discussions,
       fetchingDiscussions,
+      pinnedDiscussions,
+      fetchingPinnedDiscussions,
     } = this.props;
 
     return (
       <div className={classnames(appLayout.constraintWidth, styles.contentArea)}>
         <div className={appLayout.primaryContent}>
-          <FeedBox type='pinned' />
-          <FeedBox type='general' loading={fetchingDiscussions} discussions={discussions} />
+          <FeedBox
+            type='pinned'
+            loading={fetchingPinnedDiscussions}
+            discussions={pinnedDiscussions}
+            currentForum={currentForum}
+          />
+          <FeedBox
+            type='general'
+            loading={fetchingDiscussions}
+            discussions={discussions}
+            currentForum={currentForum}
+          />
         </div>
         <div className={appLayout.secondaryContent}>
           <SideBar />
@@ -61,6 +81,11 @@ export default connect(
     currentForum: state.app.currentForum,
     fetchingDiscussions: state.feed.fetchingDiscussions,
     discussions: state.feed.discussions,
+    fetchingPinnedDiscussions: state.feed.fetchingPinnedDiscussions,
+    pinnedDiscussions: state.feed.pinnedDiscussions,
   }; },
-  (dispatch) => { return { getDiscussions: (forumId) => { dispatch(getDiscussions(forumId)); } }; }
+  (dispatch) => { return {
+    getDiscussions: (forumId) => { dispatch(getDiscussions(forumId)); },
+    getPinnedDiscussions: (forumId) => { dispatch(getPinnedDiscussions(forumId)); },
+  }; }
 )(ForumFeed);

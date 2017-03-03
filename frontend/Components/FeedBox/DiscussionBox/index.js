@@ -15,6 +15,8 @@ class DiscussionBox extends Component {
       discussionTitle,
       time,
       opinionCount,
+      tags,
+      link,
     } = this.props;
 
     const postTime = Moment(time);
@@ -22,7 +24,7 @@ class DiscussionBox extends Component {
 
     return (
       <div className={styles.container}>
-        <div className={styles.title}><Link to="/">{discussionTitle}</Link></div>
+        <div className={styles.title}><Link to={link}>{discussionTitle}</Link></div>
 
         <div className={styles.posterInfo}>
           <span className={styles.name}>{userName}</span>
@@ -33,12 +35,7 @@ class DiscussionBox extends Component {
 
         <div className={styles.boxFooter}>
           <div className={styles.tagsArea}>
-            {/* <div className={styles.tag}>react</div>
-            <div className={styles.tag}>redux</div>
-            <div className={styles.tag}>nodejs</div> */}
-            <Tag name="react" />
-            <Tag name="redux" />
-            <Tag name="nodejs" />
+            { tags.map((tag) => <Tag key={tag} name={tag} />) }
           </div>
 
           <div className={styles.postInfo}>
@@ -60,6 +57,8 @@ DiscussionBox.defaultProps = {
   discussionTitle: 'This is a default post title',
   time: Moment(),
   opinionCount: 12,
+  tags: ['react', 'redux', 'nodejs'],
+  link: '',
 };
 
 DiscussionBox.propTypes = {
@@ -70,6 +69,8 @@ DiscussionBox.propTypes = {
   discussionTitle: React.PropTypes.string,
   time: React.PropTypes.any,
   opinionCount: React.PropTypes.number,
+  tags: React.PropTypes.array,
+  link: React.PropTypes.string,
 };
 
 export default DiscussionBox;

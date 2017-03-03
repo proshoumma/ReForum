@@ -31,6 +31,7 @@ class FeedBox extends Component {
       type,
       loading,
       discussions,
+      currentForum,
     } = this.props;
 
     let discussionBoxTitle = '';
@@ -50,12 +51,14 @@ class FeedBox extends Component {
             { discussions && discussions.map((discussion) =>
               <DiscussionBox
                 key={discussion.discussion_id}
-                voteCount={discussion.favorite_count}
                 userName={discussion.user.name}
                 userGitHandler={discussion.user.username}
                 discussionTitle={discussion.title}
                 time={discussion.date}
+                tags={discussion.tags}
                 opinionCount={discussion.opinion_count}
+                voteCount={discussion.favorite_count}
+                link={`${currentForum}/discussion/${discussion.discussion_slug}`}
               />
             ) }
           </div>
@@ -69,12 +72,14 @@ FeedBox.defaultProps = {
   type: 'general',
   loading: false,
   discussions: [],
+  currentForum: 'general',
 };
 
 FeedBox.propTypes = {
   type: React.PropTypes.oneOf(['general', 'pinned']),
   loading: React.PropTypes.bool,
   discussions: React.PropTypes.array,
+  currentForum: React.PropTypes.string,
 };
 
 export default FeedBox;

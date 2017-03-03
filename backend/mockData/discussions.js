@@ -4,7 +4,7 @@ const discussions = [
     pinned_discussions: [
       {
         'discussion_id': 4,
-        'url_name': 'a_pinned_discussion_4',
+        'discussion_slug': 'a_pinned_discussion_4',
         'user_id': 1,
         'date': 1486450269704,
         'title': 'A pinned discussion',
@@ -14,7 +14,7 @@ const discussions = [
       },
       {
         'discussion_id': 5,
-        'url_name': 'another_pinned_discussion_5',
+        'discussion_slug': 'another_pinned_discussion_5',
         'user_id': 3,
         'date': 1486450269704,
         'title': 'Another pinned discussion',
@@ -24,7 +24,7 @@ const discussions = [
       },
       {
         'discussion_id': 6,
-        'url_name': 'one_another_pinned_discussion_6',
+        'discussion_slug': 'one_another_pinned_discussion_6',
         'user_id': 2,
         'date': 1486450269704,
         'title': 'One another pinned discussion',
@@ -36,7 +36,7 @@ const discussions = [
     discussions: [
       {
         'discussion_id': 1,
-        'url_name': 'a_discussion_from_general_forum_1',
+        'discussion_slug': 'a_discussion_from_general_forum_1',
         'user_id': 1,
         'date': 1486450269704,
         'title': 'A discussion from general forum',
@@ -46,7 +46,7 @@ const discussions = [
       },
       {
         'discussion_id': 2,
-        'url_name': 'another_discussion_1',
+        'discussion_slug': 'another_discussion_1',
         'user_id': 3,
         'date': 1486450269704,
         'title': 'Another discussion',
@@ -56,7 +56,7 @@ const discussions = [
       },
       {
         'discussion_id': 3,
-        'url_name': 'one_another_discussion_1',
+        'discussion_slug': 'one_another_discussion_1',
         'user_id': 2,
         'date': 1486450269704,
         'title': 'One another discussion',
