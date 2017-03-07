@@ -1,10 +1,14 @@
 const _ = require('lodash');
 
 // mock data
+const discussionMock = require('../../mockData/discussions');
 const opinionMock = require('../../mockData/opinions');
 const userMock = require('../../mockData/users');
 
-const getAllOpinions = (forum_id, discussion_id) => {
+const getAllOpinions = (forum_id, discussion_slug) => {
+  let discussion_id = _.find(discussionMock, { discussion_slug: discussion_slug });
+  discussion_id = discussion_id ? discussion_id.discussion_id : null;
+
   let opinions = opinionMock.filter((opinion) => {
     return (
       opinion.forum_id === Number(forum_id) &&

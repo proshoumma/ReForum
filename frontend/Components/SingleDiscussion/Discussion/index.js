@@ -37,7 +37,8 @@ class Discussion extends Component {
                 <span>{userGitHandler}</span>
               </a>
             </div>
-            <div className={styles.dateInfo}>{discDate}</div>
+            {/* // TODO: date conversion */}
+            {/* <div className={styles.dateInfo}>{discDate}</div> */}
           </div>
         </div>
 
@@ -76,7 +77,7 @@ Discussion.propTypes = {
   userName: React.PropTypes.string,
   userGitHandler: React.PropTypes.string,
   discTitle: React.PropTypes.string,
-  discDate: React.PropTypes.string,
+  discDate: React.PropTypes.any,
   discContent: React.PropTypes.string,
   tags: React.PropTypes.array,
   favoriteCount: React.PropTypes.number,

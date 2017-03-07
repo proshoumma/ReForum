@@ -6,10 +6,10 @@ const getAllOpinions = require('./controller').getAllOpinions;
  */
 const opinionAPI = (app) => {
   // get all opinions
-  app.get('/api/opinion/:forum_id/:discussion_id', (req, res) => {
-    const { forum_id, discussion_id } = req.params;
-    const opinions = getAllOpinions(forum_id, discussion_id);
-    res.send(opinions);
+  app.get('/api/opinion/:forum_id/:discussion_slug', (req, res) => {
+    const { forum_id, discussion_slug } = req.params;
+    const opinions = getAllOpinions(forum_id, discussion_slug);
+    setTimeout(() => { res.send(opinions); }, 3000);
   });
 };
 

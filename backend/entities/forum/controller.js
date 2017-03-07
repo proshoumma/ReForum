@@ -34,14 +34,16 @@ const getDiscussions = (forum_id, pinned) => {
 
   // attach user and opinion_count to the discussion
   discussions = discussions.map((eachDiscussion) => {
-    const opinions = _.find(opinionMock, {
-      forum_id: Number(forum_id),
-      discussion_id: eachDiscussion.discussion_id,
+    const opinions = opinionMock.filter((opinion) => {
+      return (
+        opinion.forum_id === Number(forum_id) &&
+        opinion.discussion_id === Number(eachDiscussion.discussion_id)
+      );
     });
 
     return Object.assign({}, eachDiscussion, {
       user: _.find(userMock, { user_id: eachDiscussion.user_id }),
-      opinion_count: opinions ? opinions.opinions.length : 0,
+      opinion_count: opinions ? opinions.length : 0,
     });
   });
 

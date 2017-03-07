@@ -4,12 +4,14 @@ import thunk from 'redux-thunk';
 
 import { appReducer } from './reducers';
 import { feedReducer } from '../Views/ForumFeed/reducers';
+import { singleDiscussionReducer } from '../Views/SingleDiscussion/reducers';
 
 // root reducer for app
 const rootReducer = combineReducers({
   user: (state = {}, action) => { return state; },
   app: appReducer,
   feed: feedReducer,
+  discussion: singleDiscussionReducer,
 });
 
 // dev tool extension

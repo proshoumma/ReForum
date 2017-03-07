@@ -28,7 +28,8 @@ class Opinion extends Component {
               <span>{userGitHandler}</span>
             </a>
           </div>
-          <div className={styles.dateInfo}>{opDate}</div>
+          {/* // TODO: date conversion */}
+          {/* <div className={styles.dateInfo}>{opDate}</div> */}
           <Button noUppercase>Quote</Button>
         </div>
 
@@ -56,7 +57,7 @@ Opinion.propTypes = {
   userAvatar: React.PropTypes.string,
   userName: React.PropTypes.string,
   userGitHandler: React.PropTypes.string,
-  opDate: React.PropTypes.string,
+  opDate: React.PropTypes.any,
   opContent: React.PropTypes.string,
 };
 
