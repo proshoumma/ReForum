@@ -41,10 +41,6 @@ class ForumFeed extends Component {
     }
   }
 
-  componentWillUnmount() {
-    console.log('im gonna unmount!');
-  }
-
   render() {
     const {
       currentForum,

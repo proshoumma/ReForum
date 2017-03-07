@@ -1,15 +1,10 @@
 const _ = require('lodash');
-const deepPropSearch = require('../../utilities/tools').deepPropSearch;
 
 // forum mock data
 const forumsMock = require('../../mockData/forum');
 const discussionsMock = require('../../mockData/discussions');
 const userMock = require('../../mockData/users');
 const opinionMock = require('../../mockData/opinions');
-
-/**
- * forum controllers
- */
 
 /**
  * get all forums
@@ -29,9 +24,13 @@ const getDiscussions = (forum_id, pinned) => {
   // TODO: forum_id validation
 
   // get the discussions based on type
-  let discussions = pinned ?
-      _.find(discussionsMock, { forum_id: Number(forum_id) }).pinned_discussions
-    : _.find(discussionsMock, { forum_id: Number(forum_id) }).discussions;
+  const isPinned = pinned ? true : false;
+  let discussions = discussionsMock.filter((eachDiscussion) => {
+    return (
+      eachDiscussion.forum_id === Number(forum_id) &&
+      eachDiscussion.pinned === isPinned
+    );
+  });
 
   // attach user and opinion_count to the discussion
   discussions = discussions.map((eachDiscussion) => {

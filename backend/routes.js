@@ -4,7 +4,9 @@
 const path = require('path');
 const express = require('express');
 
-const  forumAPI = require('./entities/forum/api');
+const forumAPI = require('./entities/forum/api');
+const discussionAPI = require('./entities/discussion/api');
+const opinionAPI = require('./entities/opinion/api');
 
 /**
  * routes configuration
@@ -21,6 +23,12 @@ const routesConfig = (app) => {
 
   // apply forum apis
   forumAPI(app);
+
+  // apply discussion apis
+  discussionAPI(app);
+
+  // apply opinion apis
+  opinionAPI(app);
 
   // all get request will send index.html for react-router
   // to handle the route request
