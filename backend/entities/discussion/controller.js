@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const Discussion = require('./model');
 
 // mock data
 const discussionsMock = require('../../mockData/discussions');

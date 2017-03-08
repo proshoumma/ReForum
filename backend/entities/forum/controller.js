@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const Forum = require('./model');
 
 // forum mock data
 const forumsMock = require('../../mockData/forum');
@@ -6,13 +7,17 @@ const discussionsMock = require('../../mockData/discussions');
 const userMock = require('../../mockData/users');
 const opinionMock = require('../../mockData/opinions');
 
-/**
- * get all forums
- * @return {array} an array of forum objects
- */
-const getAllForums = () => {
-  return forumsMock;
-};
+// get all the forums list
+const getAllForums = new Promise((resolve, reject) => {
+  Forum.find((err, res) => {
+    if (err) {
+      console.log(err);
+      reject('Something is wrong with getAllForums');
+    } else {
+      resolve(res);
+    }
+  });
+});
 
 /**
  * get discussion of a specific forum

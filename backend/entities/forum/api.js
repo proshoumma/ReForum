@@ -8,9 +8,10 @@ const getDiscussions = require('./controller').getDiscussions;
 const forumAPI = (app) => {
   // get all forums
   app.get('/api/forum', (req, res) => {
-    setTimeout(() => {
-      res.send(getAllForums());
-    }, 3000);
+    getAllForums.then(
+      (result) => setTimeout(()=>{ res.send(result); }, 3000),
+      (error) => res.send([])
+    );
   });
 
   // get discussions of a forum
