@@ -1,7 +1,7 @@
 const opinions = [
   {
     'forum_id': 0,
-    'discussion_id': 0,
+    'discussion_id': 4,
     'opinion_id': 0,
     'user_id': 2,
     'date': 1486450269704,
@@ -9,7 +9,7 @@ const opinions = [
   },
   {
     'forum_id': 0,
-    'discussion_id': 0,
+    'discussion_id': 4,
     'opinion_id': 1,
     'user_id': 1,
     'date': 1486450269704,
@@ -17,7 +17,7 @@ const opinions = [
   },
   {
     'forum_id': 0,
-    'discussion_id': 0,
+    'discussion_id': 4,
     'opinion_id': 2,
     'user_id': 4,
     'date': 1486450269704,

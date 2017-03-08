@@ -34,6 +34,7 @@ class SingleDiscussion extends Component {
       opinions,
     } = this.props;
 
+    // return loading status if discussion is not fetched yet
     if (fetchingDiscussion) {
       return <div className={styles.loadingWrapper}>Loading discussion ...</div>;
     }
