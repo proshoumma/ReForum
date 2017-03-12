@@ -14,7 +14,7 @@ class Header extends Component {
     if (this.props.forums) {
       return this.props.forums.map((forum) => {
         return {
-          id: forum.forum_id,
+          id: forum._id,
           name: forum.forum_name,
           link: `/${forum.forum_slug}`,
         };

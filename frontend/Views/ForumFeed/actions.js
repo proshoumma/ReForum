@@ -22,7 +22,7 @@ import {
  */
 const findForumId = (state, forum) => {
   const { forums } = state.app;
-  return Number(_.find(forums, { forum_slug: forum }).forum_id);
+  return _.find(forums, { forum_slug: forum })._id;
 };
 
 /**

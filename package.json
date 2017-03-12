@@ -61,6 +61,7 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
+    "async": "^2.1.5",
     "autoprefixer": "^6.6.1",
     "axios": "^0.15.3",
     "babel": "^6.5.2",

@@ -50,7 +50,7 @@ class FeedBox extends Component {
           <div className={styles.discussions}>
             { discussions && discussions.map((discussion) =>
               <DiscussionBox
-                key={discussion.discussion_id}
+                key={discussion._id}
                 userName={discussion.user.name}
                 userGitHandler={discussion.user.username}
                 discussionTitle={discussion.title}

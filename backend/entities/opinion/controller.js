@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const Opinion = require('./model');
 
 // mock data
 const discussionMock = require('../../mockData/discussions');
@@ -49,3 +50,14 @@ module.exports = {
   updateOpinion,
   deleteOpinion,
 };
+
+// // create some dummy opinions
+// const opinion1 = new Opinion({
+//   'forum_id': '58c23d2efce8810b6f20b0b3',
+//   'discussion_id': '58c24467ff4c770d8deb8e7f',
+//   'user_id': '58c242a96ba2030d170f86f9',
+//   'date': 1486450269704,
+//   'content': 'These discussions!!!',
+// });
+//
+// opinion1.save();

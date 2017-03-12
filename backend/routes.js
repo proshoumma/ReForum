@@ -4,6 +4,7 @@
 const path = require('path');
 const express = require('express');
 
+const userAPI = require('./entities/user/api');
 const forumAPI = require('./entities/forum/api');
 const discussionAPI = require('./entities/discussion/api');
 const opinionAPI = require('./entities/opinion/api');
@@ -20,6 +21,9 @@ const routesConfig = (app) => {
   app.get('/api', (req, res) => {
     res.send('Hello from API endpoint');
   });
+
+  // apply user apis
+  userAPI(app);
 
   // apply forum apis
   forumAPI(app);
