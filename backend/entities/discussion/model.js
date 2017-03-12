@@ -3,6 +3,7 @@
  */
 const mongoose = require('mongoose');
 
+// TODO: add discussion title in model
 const userSchema = mongoose.Schema({
   forum_id: mongoose.Schema.ObjectId,
   discussion_slug: String,

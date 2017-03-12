@@ -7,8 +7,8 @@ const User = require('../user/model');
 
 // get all the forums list
 const getAllForums = new Promise((resolve, reject) => {
-  Forum.find((err, results) => {
-    if (err) reject('Something is wrong with getAllForums');
+  Forum.find((error, results) => {
+    if (error) reject(error);
     else resolve(results);
   });
 });

@@ -69,7 +69,7 @@ class SingleDiscussion extends Component {
         { opinions && opinions.map((opinion) => {
           return (
             <Opinion
-              key={opinion.opinion_id}
+              key={opinion._id}
               userAvatar={opinion.user.avatarUrl}
               userName={opinion.user.name}
               userGitHandler={opinion.user.username}

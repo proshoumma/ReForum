@@ -1,24 +1,25 @@
-const _ = require('lodash');
+// models
 const Discussion = require('./model');
+const User = require('../user/model');
 
-// mock data
-const discussionsMock = require('../../mockData/discussions');
-const userMock = require('../../mockData/users');
-
+// get single discussion
 const getDiscussion = (forum_id, discussion_slug) => {
-  let discussion = _.find(discussionsMock, {
-    forum_id: Number(forum_id),
-    discussion_slug: discussion_slug,
-  });
+  return new Promise((resolve, reject) => {
 
-  if (discussion) {
-    // attach user to the discussion
-    discussion = Object.assign({}, discussion, {
-      user: _.find(userMock, { user_id: discussion.user_id }),
+    // match forum_id and discussion_slug with database
+    Discussion.findOne({ forum_id, discussion_slug }, (error, discussion) => {
+      if (error) reject(error);
+
+      // attach user to the discussion object
+      else User.findOne({ _id: discussion.user_id }, (error, user) => {
+        if (error) reject(error);
+        else {
+          discussion._doc.user = user;
+          resolve(discussion);
+        }
+      });
     });
-  }
-
-  return discussion;
+  });
 };
 
 const createDiscussion = (forum_id) => {

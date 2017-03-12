@@ -1,30 +1,40 @@
-const _ = require('lodash');
+const asyncEach = require('async/each');
+
 const Opinion = require('./model');
+const Discussion = require('../discussion/model');
+const User = require('../user/model');
 
-// mock data
-const discussionMock = require('../../mockData/discussions');
-const opinionMock = require('../../mockData/opinions');
-const userMock = require('../../mockData/users');
-
+// TODO: clean up this mess
 const getAllOpinions = (forum_id, discussion_slug) => {
-  let discussion_id = _.find(discussionMock, { discussion_slug: discussion_slug });
-  discussion_id = discussion_id ? discussion_id.discussion_id : null;
+  return new Promise((resolve, reject) => {
 
-  let opinions = opinionMock.filter((opinion) => {
-    return (
-      opinion.forum_id === Number(forum_id) &&
-      opinion.discussion_id === Number(discussion_id)
-    );
-  });
+    // get discussion id first
+    Discussion.findOne({ discussion_slug }, (error, discussion) => {
+      if (error) reject(error);
+      else {
+        const discussion_id = discussion._id;
 
-  // attach user to the opinions
-  opinions = opinions.map((opinion) => {
-    return Object.assign({}, opinion, {
-      user: _.find(userMock, { user_id: opinion.user_id }),
+        // find all opinion under discussion_id
+        Opinion.find({ discussion_id }, (error, opinions) => {
+          // attach user to the opinions
+          asyncEach(opinions, (eachOpinion, callback) => {
+            User.findOne({ _id: eachOpinion.user_id }, (error, user) => {
+              if (error) callback(error);
+              else {
+                // add the user to opinion doc
+                eachOpinion._doc.user = user;
+                callback();
+              }
+            });
+          }, (error) => {
+            if (error) reject(error);
+            else resolve(opinions);
+          });
+        });
+      }
     });
+    // Opinion.find({ forum_id });
   });
-
-  return opinions;
 };
 
 const getOpinion = (forum_id, discussion_id, opinion_id) => {

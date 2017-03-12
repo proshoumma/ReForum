@@ -10,7 +10,7 @@ const forumAPI = (app) => {
   app.get('/api/forum', (req, res) => {
     getAllForums.then(
       (result) => setTimeout(()=>{ res.send(result); }, 3000),
-      (error) => res.send([])
+      (error) => res.send(error)
     );
   });
 

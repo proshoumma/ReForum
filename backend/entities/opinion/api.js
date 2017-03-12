@@ -8,8 +8,10 @@ const opinionAPI = (app) => {
   // get all opinions
   app.get('/api/opinion/:forum_id/:discussion_slug', (req, res) => {
     const { forum_id, discussion_slug } = req.params;
-    const opinions = getAllOpinions(forum_id, discussion_slug);
-    setTimeout(() => { res.send(opinions); }, 3000);
+    getAllOpinions(forum_id, discussion_slug).then(
+      (result) => { setTimeout(() => { res.send(result); }, 3000); },
+      (error) => { res.send(error); }
+    );
   });
 };
 
