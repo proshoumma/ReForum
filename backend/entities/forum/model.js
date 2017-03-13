@@ -3,9 +3,9 @@
  */
 const mongoose = require('mongoose');
 
-const userSchema = mongoose.Schema({
+const forumSchema = mongoose.Schema({
   forum_slug: String,
   forum_name: String,
 });
 
-module.exports = mongoose.model('forums', userSchema);
+module.exports = mongoose.model('forums', forumSchema);

@@ -3,10 +3,7 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import moment from 'moment';
 
-import {
-  getDiscussion,
-  getOpinions,
-} from './actions';
+import { getDiscussion } from './actions';
 
 import Discussion from 'Components/SingleDiscussion/Discussion';
 import ReplyBox from 'Components/SingleDiscussion/ReplyBox';
@@ -22,16 +19,13 @@ class SingleDiscussion extends Component {
       discussion,
     } = this.props.params;
 
-    this.props.getDiscussion(forum, discussion);
-    this.props.getOpinions(forum, discussion);
+    this.props.getDiscussion(discussion);
   }
 
   render() {
     const {
       fetchingDiscussion,
       discussion,
-      fetchingOpinions,
-      opinions,
     } = this.props;
 
     // return loading status if discussion is not fetched yet
@@ -45,6 +39,7 @@ class SingleDiscussion extends Component {
       favorite_count,
       title,
       tags,
+      opinions,
     } = discussion;
 
     const {
@@ -87,11 +82,8 @@ export default connect(
   (state) => { return {
     fetchingDiscussion: state.discussion.fetchingDiscussion,
     discussion: state.discussion.discussion,
-    fetchingOpinions: state.discussion.fetchingOpinions,
-    opinions: state.discussion.opinions,
   }; },
   (dispatch) => { return {
-    getDiscussion: (forumSlug, discussionSlug) => { dispatch(getDiscussion(forumSlug, discussionSlug)); },
-    getOpinions: (forumSlug, discussionSlug) => { dispatch(getOpinions(forumSlug, discussionSlug)); },
+    getDiscussion: (discussionSlug) => { dispatch(getDiscussion(discussionSlug)); },
   }; }
 )(SingleDiscussion);

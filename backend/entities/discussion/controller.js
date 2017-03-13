@@ -2,22 +2,34 @@
 const Discussion = require('./model');
 const User = require('../user/model');
 
+// controllers
+const getAllOpinions = require('../opinion/controller').getAllOpinions;
+const getUser = require('../user/controller').getUser;
+
 // get single discussion
-const getDiscussion = (forum_id, discussion_slug) => {
+const getDiscussion = (discussion_slug) => {
   return new Promise((resolve, reject) => {
 
-    // match forum_id and discussion_slug with database
-    Discussion.findOne({ forum_id, discussion_slug }, (error, discussion) => {
+    // match discussion slug and retrive discussion from db
+    Discussion.findOne({ discussion_slug }, (error, discussion) => {
       if (error) reject(error);
 
-      // attach user to the discussion object
-      else User.findOne({ _id: discussion.user_id }, (error, user) => {
-        if (error) reject(error);
-        else {
+      // add user to the discussion object
+      getUser(discussion.user_id).then(
+        (user) => {
           discussion._doc.user = user;
-          resolve(discussion);
-        }
-      });
+
+          // add opinions to the discussion object
+          getAllOpinions(discussion._id).then(
+            (opinions) => {
+              discussion._doc.opinions = opinions;
+              resolve(discussion);
+            },
+            (error) => { reject(null); }
+          );
+        },
+        (error) => { reject(error); }
+      );
     });
   });
 };
@@ -42,9 +54,10 @@ module.exports = {
 };
 
 // create some dummy forum discussions
+// const ObjectId = require('mongoose').Types.ObjectId();
 // const discussion = new Discussion({
 //   'forum_id': '58c23d2efce8810b6f20b0b3',
-//   'discussion_slug': 'a_discussion_from_general_forum_1',
+//   'discussion_slug': 'a_discussion_from_general_forum_' + ObjectId,
 //   'user_id': '58c242e2fb2e150d2570e02b',
 //   'date': 1486450269704,
 //   'title': 'A discussion from general forum',

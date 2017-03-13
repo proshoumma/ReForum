@@ -1,39 +1,35 @@
 const asyncEach = require('async/each');
 
+// models
 const Opinion = require('./model');
-const Discussion = require('../discussion/model');
-const User = require('../user/model');
 
-// TODO: clean up this mess
-const getAllOpinions = (forum_id, discussion_slug) => {
+// controllers
+const getUser = require('../user/controller').getUser;
+
+/**
+ * get all opinion of a specific dicussion
+ * @param  {ObjectId} forum_id
+ * @param  {String} discussion_slug
+ * @return {null}
+ */
+const getAllOpinions = (discussion_id) => {
   return new Promise((resolve, reject) => {
-
-    // get discussion id first
-    Discussion.findOne({ discussion_slug }, (error, discussion) => {
-      if (error) reject(error);
-      else {
-        const discussion_id = discussion._id;
-
-        // find all opinion under discussion_id
-        Opinion.find({ discussion_id }, (error, opinions) => {
-          // attach user to the opinions
-          asyncEach(opinions, (eachOpinion, callback) => {
-            User.findOne({ _id: eachOpinion.user_id }, (error, user) => {
-              if (error) callback(error);
-              else {
-                // add the user to opinion doc
-                eachOpinion._doc.user = user;
-                callback();
-              }
-            });
-          }, (error) => {
-            if (error) reject(error);
-            else resolve(opinions);
-          });
-        });
-      }
+    Opinion.find({ discussion_id }, (error, opinions) => {
+      // attach user to the opinions
+      asyncEach(opinions, (eachOpinion, callback) => {
+        getUser(eachOpinion.user_id).then(
+          (user) => {
+            // add user to opinion doc
+            eachOpinion._doc.user = user;
+            callback();
+          },
+          (error) => { callback(error); }
+        );
+      }, (error) => {
+        if (error) reject(error);
+        else resolve(opinions);
+      });
     });
-    // Opinion.find({ forum_id });
   });
 };
 
@@ -61,10 +57,9 @@ module.exports = {
   deleteOpinion,
 };
 
-// // create some dummy opinions
+// create some dummy opinions
 // const opinion1 = new Opinion({
-//   'forum_id': '58c23d2efce8810b6f20b0b3',
-//   'discussion_id': '58c24467ff4c770d8deb8e7f',
+//   'discussion_id': '58c641cf88336b08c76f3b50',
 //   'user_id': '58c242a96ba2030d170f86f9',
 //   'date': 1486450269704,
 //   'content': 'These discussions!!!',
