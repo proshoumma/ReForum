@@ -3,7 +3,10 @@ const asyncEach = require('async/each');
 // models
 const Forum = require('./model');
 const Discussion = require('../discussion/model');
-const User = require('../user/model');
+
+// controllers
+const getAllOpinions = require('../opinion/controller').getAllOpinions;
+const getUser = require('../user/controller').getUser;
 
 // get all the forums list
 const getAllForums = new Promise((resolve, reject) => {
@@ -20,16 +23,26 @@ const getDiscussions = (forum_id, pinned) => {
     Discussion.find({ forum_id: forum_id, pinned: pinned }, (error, discussions) => {
       if (error) { reject(error); }
       else {
-        // attach user to each discussion
+        // attach user and opinion count to each discussion
         asyncEach(discussions, (eachDiscussion, callback) => {
-          User.findOne({ _id: eachDiscussion.user_id }, (error, user) => {
-            if (error) callback(error);
-            else {
+          // add user
+          getUser(eachDiscussion.user_id).then(
+            (user) => {
               // add the user to disccussion doc
               eachDiscussion._doc.user = user;
-              callback();
-            }
-          });
+
+              // add opinion count
+              getAllOpinions(eachDiscussion._id).then(
+                (opinions) => {
+                  // add opinion count to discussion doc
+                  eachDiscussion._doc.opinion_count = opinions ? opinions.length : 0;
+                  callback();
+                },
+                (error) => { callback(error); }
+              );
+            },
+            (error) => { callback(error); }
+          );
         }, (error) => {
           if (error) reject(error);
           else resolve(discussions);
