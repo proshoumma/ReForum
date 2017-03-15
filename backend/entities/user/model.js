@@ -8,6 +8,9 @@ const userSchema = mongoose.Schema({
   email: String,
   username: String,
   avatarUrl: String,
+  githubUrl: String,
+  githubLocation: String,
+  githubBio: String,
 });
 
 module.exports = mongoose.model('user', userSchema);

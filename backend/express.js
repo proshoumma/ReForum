@@ -43,6 +43,9 @@ const expressConfig = (app, passport, serverConfigs) => {
   app.use(passport.initialize());
   app.use(passport.session());
 
+  // apply passport configs
+  require('./passport')(app, passport);
+
   // connect flash for flash messages (should be declared after sessions)
   app.use(flash());
 

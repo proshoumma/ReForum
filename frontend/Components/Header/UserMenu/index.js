@@ -26,10 +26,12 @@ class UserMenu extends Component {
           <Button className={styles.subMenuClose} onClick={this.toggleSubMenu} alwaysActive>
             <i className={classnames('fa fa-close')}></i>
           </Button>
+          <a href="/api/user/authViaGitHub?redirectUrl=helloWorld">
           <Button className={styles.gitLoginBtn} alwaysActive>
             <i className={classnames('fa fa-github-alt', styles.subMenuOcto)}></i>
             <span className={styles.btnLabel}>With GitHub</span>
           </Button>
+          </a>
         </div>
       );
     }
