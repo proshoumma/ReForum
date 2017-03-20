@@ -19,10 +19,7 @@ class UserMenu extends Component {
 
   renderSubMenu() {
     const { activeSubMenu } = this.state;
-    const {
-      signOutAction,
-      signedIn,
-    } = this.props;
+    const { signedIn } = this.props;
 
     if (activeSubMenu) {
       return (
@@ -40,7 +37,7 @@ class UserMenu extends Component {
 
           { signedIn && <a className={styles.subMenuItem} href={'#'}>My Profile</a> }
           { signedIn && <a className={styles.subMenuItem} href={'#'}>Settings</a> }
-          { signedIn && <a className={styles.subMenuItem} onClick={signOutAction}>Sign Out</a> }
+          { signedIn && <a className={styles.subMenuItem} href={'/api/user/signout'}>Sign Out</a> }
         </div>
       );
     }
@@ -88,14 +85,12 @@ UserMenu.defaultProps = {
   signedIn: false,
   userName: '',
   avatar: '',
-  signOutAction: () => { console.log('sign out clicked'); },
 };
 
 UserMenu.propTypes = {
   signedIn: React.PropTypes.bool.isRequired,
   userName: React.PropTypes.string,
   avatar: React.PropTypes.string,
-  signOutAction: React.PropTypes.func,
 };
 
 export default UserMenu;

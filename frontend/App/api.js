@@ -7,7 +7,3 @@ export const fetchForums = (forum_id) => {
 export const fetchUser = () => {
   return axios.get('/api/user/getUser');
 };
-
-export const signOut = () => {
-  return axios.get('/api/user/signout');
-};

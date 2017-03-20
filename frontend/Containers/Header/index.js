@@ -5,8 +5,6 @@ import classnames from 'classnames';
 import appLayout from 'SharedStyles/appLayout';
 import styles from './styles';
 
-import { signOutUser } from '../../App/actions';
-
 /* Header components */
 import UserMenu from 'Components/Header/UserMenu';
 import Logo from 'Components/Header/Logo';
@@ -37,8 +35,6 @@ class Header extends Component {
       avatarUrl,
     } = this.props.user;
 
-    const { signOut } = this.props;
-
     return (
       <div className={classnames(appLayout.constraintWidth)}>
         <div className={styles.headerTop}>
@@ -47,7 +43,6 @@ class Header extends Component {
             signedIn={authenticated}
             userName={name}
             avatar={avatarUrl}
-            signOutAction={signOut}
           />
         </div>
         <NavigationBar
@@ -62,8 +57,5 @@ export default connect(
   (state) => { return {
     user: state.user,
     forums: state.app.forums,
-  }; },
-  (dispatch) => { return {
-    signOut: () => { dispatch(signOutUser()); },
   }; }
 )(Header);

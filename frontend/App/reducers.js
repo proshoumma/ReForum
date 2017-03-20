@@ -6,8 +6,6 @@ import {
   UPDATECURRENTFORUM,
   FETCHING_USER_SUCCESS,
   FETCHING_USER_FAILURE,
-  SIGNOUT_USER_SUCCESS,
-  SIGNOUT_USER_FAILURE,
 } from './constants';
 
 const initialState = {
@@ -100,15 +98,7 @@ export const userReducer = (state = initialUserState, action) => {
 
     case FETCHING_USER_FAILURE:
       return Object.assign({}, initialUserState, {
-        error: 'Error while fetching user!',
-      });
-
-    case SIGNOUT_USER_SUCCESS:
-      return initialUserState;
-
-    case SIGNOUT_USER_FAILURE:
-      return Object.assign({}, state, {
-        error: 'Error while signing out user',
+        error: 'Unable to fetch user!',
       });
 
     default:

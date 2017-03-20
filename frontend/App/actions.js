@@ -7,8 +7,6 @@ import {
   UPDATECURRENTFORUM,
   FETCHING_USER_SUCCESS,
   FETCHING_USER_FAILURE,
-  SIGNOUT_USER_SUCCESS,
-  SIGNOUT_USER_FAILURE,
 } from './constants';
 import {
   fetchForums,
@@ -51,17 +49,6 @@ export const getUser = () => {
         else dispatch({ type: FETCHING_USER_SUCCESS, payload: data.data });
       },
       error => dispatch({ type: FETCHING_USER_FAILURE })
-    );
-  };
-};
-
-export const signOutUser = () => {
-  return (dispatch, getState) => {
-    signOut().then (
-      data => {
-        if (data.data.authenticated === false) dispatch({ type: SIGNOUT_USER_SUCCESS });
-        else dispatch({ type: SIGNOUT_USER_FAILURE });
-      }
     );
   };
 };
