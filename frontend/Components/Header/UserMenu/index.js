@@ -19,6 +19,10 @@ class UserMenu extends Component {
 
   renderSubMenu() {
     const { activeSubMenu } = this.state;
+    const {
+      signOutAction,
+      signedIn,
+    } = this.props;
 
     if (activeSubMenu) {
       return (
@@ -26,12 +30,17 @@ class UserMenu extends Component {
           <Button className={styles.subMenuClose} onClick={this.toggleSubMenu} alwaysActive>
             <i className={classnames('fa fa-close')}></i>
           </Button>
-          <a href="/api/user/authViaGitHub?redirectUrl=helloWorld">
-          <Button className={styles.gitLoginBtn} alwaysActive>
-            <i className={classnames('fa fa-github-alt', styles.subMenuOcto)}></i>
-            <span className={styles.btnLabel}>With GitHub</span>
-          </Button>
-          </a>
+
+          { !signedIn && <a className={styles.signInLink} href={'/api/user/authViaGitHub'}>
+            <Button className={styles.gitLoginBtn} alwaysActive>
+              <i className={classnames('fa fa-github-alt', styles.subMenuOcto)}></i>
+              <span className={styles.btnLabel}>With GitHub</span>
+            </Button>
+          </a> }
+
+          { signedIn && <a className={styles.subMenuItem} href={'#'}>My Profile</a> }
+          { signedIn && <a className={styles.subMenuItem} href={'#'}>Settings</a> }
+          { signedIn && <a className={styles.subMenuItem} onClick={signOutAction}>Sign Out</a> }
         </div>
       );
     }
@@ -41,16 +50,20 @@ class UserMenu extends Component {
 
   render() {
     const {
-      loggedIn,
+      signedIn,
       userName,
       avatar,
+      signOutAction,
     } = this.props;
 
-    if (loggedIn) {
+    if (signedIn) {
       return (
-        <div className={styles.container}>
-          <img className={styles.userAvatar} src={avatar} alt={`${userName} Avatar`} />
-          <span className={styles.title}>{userName}</span>
+        <div>
+          <div className={styles.container} onClick={this.toggleSubMenu}>
+            <img className={styles.userAvatar} src={avatar} alt={`${userName} Avatar`} />
+            <span className={styles.title}>{userName}</span>
+          </div>
+          {this.renderSubMenu()}
         </div>
       );
     }
@@ -72,15 +85,17 @@ class UserMenu extends Component {
 }
 
 UserMenu.defaultProps = {
-  loggedIn: false,
+  signedIn: false,
   userName: '',
   avatar: '',
+  signOutAction: () => { console.log('sign out clicked'); },
 };
 
 UserMenu.propTypes = {
-  loggedIn: React.PropTypes.bool.isRequired,
+  signedIn: React.PropTypes.bool.isRequired,
   userName: React.PropTypes.string,
   avatar: React.PropTypes.string,
+  signOutAction: React.PropTypes.func,
 };
 
 export default UserMenu;

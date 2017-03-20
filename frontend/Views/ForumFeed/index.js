@@ -16,7 +16,6 @@ import styles from './styles.css';
 class ForumFeed extends Component {
   componentDidMount() {
     const {
-      forums,
       currentForum,
       getDiscussions,
       getPinnedDiscussions,
@@ -28,7 +27,6 @@ class ForumFeed extends Component {
 
   componentDidUpdate(prevProps) {
     const {
-      forums,
       currentForum,
       getDiscussions,
       getPinnedDiscussions,
@@ -76,7 +74,6 @@ class ForumFeed extends Component {
 
 export default connect(
   (state) => { return {
-    forums: state.app.forums,
     currentForum: state.app.currentForum,
     fetchingDiscussions: state.feed.fetchingDiscussions,
     discussions: state.feed.discussions,

@@ -1,6 +1,7 @@
 /**
  * module dependencies for passport configuration
  */
+const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
 
 const GITHUB_CLIENT_ID = require('../config/credentials').GITHUB_CLIENT_ID;
@@ -14,7 +15,7 @@ const signInViaGithub = require('./entities/user/controller').signInViaGithub;
 /**
  * passport configuration
  */
-const passportConfig = (app, passport) => {
+const passportConfig = (app) => {
   passport.serializeUser((user, done) => {
     done(null, user._id);
   });
@@ -40,6 +41,25 @@ const passportConfig = (app, passport) => {
       );
     }
   ));
+
+  // github authentication route
+  app.get(
+    '/api/user/authViaGitHub',
+    passport.authenticate('github')
+  );
+
+  // callback route from github
+  app.get(
+    // this should match callback url of github app
+    '/api/user/authViaGitHub/callback',
+    passport.authenticate(
+      'github',
+      {
+        failureRedirect: '/signIn/failed',
+        successRedirect: '/',
+      }
+    )
+  );
 };
 
 module.exports = passportConfig;

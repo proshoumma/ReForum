@@ -5,7 +5,7 @@ import Header from 'Containers/Header';
 import appLayout from 'SharedStyles/appLayout.css';
 import styles from './styles.css';
 
-import { getForums, updateCurrentForum } from './actions';
+import { getForums, updateCurrentForum, getUser } from './actions';
 
 class AppContainer extends Component {
   componentDidMount() {
@@ -13,10 +13,14 @@ class AppContainer extends Component {
       params,
       updateCurrentForum,
       getForums,
+      getUser,
     } = this.props;
 
     // get all forum list
     getForums();
+
+    // check for authenticated user
+    getUser();
 
     // set current forum based on route
     const currentForum = params.forum || 'general';
@@ -43,7 +47,7 @@ class AppContainer extends Component {
     if (forums) {
       return (
         <div>
-          <Header forums={this.props.forums} />
+          <Header />
           {this.props.children}
         </div>
       );
@@ -63,5 +67,6 @@ export default connect(
   (dispatch) => { return {
     getForums: () => { dispatch(getForums()); },
     updateCurrentForum: (currentForum) => { dispatch(updateCurrentForum(currentForum)); },
+    getUser: () => { dispatch(getUser()); },
   }; }
 )(AppContainer);

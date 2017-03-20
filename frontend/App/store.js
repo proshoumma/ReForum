@@ -2,13 +2,13 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 
-import { appReducer } from './reducers';
+import { appReducer, userReducer } from './reducers';
 import { feedReducer } from '../Views/ForumFeed/reducers';
 import { singleDiscussionReducer } from '../Views/SingleDiscussion/reducers';
 
 // root reducer for app
 const rootReducer = combineReducers({
-  user: (state = {}, action) => { return state; },
+  user: userReducer,
   app: appReducer,
   feed: feedReducer,
   discussion: singleDiscussionReducer,

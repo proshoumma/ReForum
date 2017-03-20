@@ -10,7 +10,7 @@ const discussionAPI = require('./entities/discussion/api');
 const opinionAPI = require('./entities/opinion/api');
 
 /**
- * routes configuration
+ * routes configurations
  */
 const routesConfig = (app) => {
   // serves static files from public directory

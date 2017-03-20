@@ -1,7 +1,7 @@
 /**
  * module dependencies for express configuration
  */
-const express = require('express');
+const passport = require('passport');
 const morgan = require('morgan');
 const compress = require('compression');
 const cookieParser = require('cookie-parser');
@@ -13,7 +13,7 @@ const flash = require('connect-flash');
 /**
  * express configuration
  */
-const expressConfig = (app, passport, serverConfigs) => {
+const expressConfig = (app, serverConfigs) => {
 
   // apply gzip compression (should be placed before express.static)
   app.use(compress());
@@ -44,7 +44,7 @@ const expressConfig = (app, passport, serverConfigs) => {
   app.use(passport.session());
 
   // apply passport configs
-  require('./passport')(app, passport);
+  require('./passport')(app);
 
   // connect flash for flash messages (should be declared after sessions)
   app.use(flash());
@@ -53,6 +53,9 @@ const expressConfig = (app, passport, serverConfigs) => {
   if (!serverConfigs.PRODUCTION) {
     require('./dev')(app);
   }
+
+  // apply route configs
+  require('./routes')(app);
 };
 
 module.exports = expressConfig;

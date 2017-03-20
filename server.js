@@ -14,10 +14,7 @@ mongoose.connect(serverConfigs.DBURL);
 const app = express();
 
 // apply express configs
-require('./backend/express')(app, passport, serverConfigs);
-
-// apply routes configs
-require('./backend/routes')(app);
+require('./backend/express')(app, serverConfigs);
 
 // fire up the server
 app.listen(serverConfigs.PORT, (error) => {

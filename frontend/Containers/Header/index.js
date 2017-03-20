@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import classnames from 'classnames';
+
 import appLayout from 'SharedStyles/appLayout';
 import styles from './styles';
+
+import { signOutUser } from '../../App/actions';
 
 /* Header components */
 import UserMenu from 'Components/Header/UserMenu';
@@ -11,8 +15,10 @@ import PlaceholderImage from 'SharedStyles/placeholder.jpg';
 
 class Header extends Component {
   renderNavLinks() {
-    if (this.props.forums) {
-      return this.props.forums.map((forum) => {
+    const { forums } = this.props;
+
+    if (forums) {
+      return forums.map((forum) => {
         return {
           id: forum._id,
           name: forum.forum_name,
@@ -25,14 +31,23 @@ class Header extends Component {
   }
 
   render() {
+    const {
+      authenticated,
+      name,
+      avatarUrl,
+    } = this.props.user;
+
+    const { signOut } = this.props;
+
     return (
       <div className={classnames(appLayout.constraintWidth)}>
         <div className={styles.headerTop}>
           <Logo />
           <UserMenu
-            loggedIn={false}
-            userName={'Hello World'}
-            avatar={PlaceholderImage}
+            signedIn={authenticated}
+            userName={name}
+            avatar={avatarUrl}
+            signOutAction={signOut}
           />
         </div>
         <NavigationBar
@@ -43,18 +58,12 @@ class Header extends Component {
   }
 }
 
-Header.defaultProps = {
-  forums: [
-    {
-      'forum_id': 0,
-      'forum_slug': 'general',
-      'forum_name': 'General',
-    },
-  ],
-};
-
-Header.propTypes = {
-  forums: React.PropTypes.array, // array of forum objects from backend
-};
-
-export default Header;
+export default connect(
+  (state) => { return {
+    user: state.user,
+    forums: state.app.forums,
+  }; },
+  (dispatch) => { return {
+    signOut: () => { dispatch(signOutUser()); },
+  }; }
+)(Header);

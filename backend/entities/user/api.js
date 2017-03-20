@@ -5,21 +5,14 @@ const signIn = require('./controller').signIn;
  * user apis
  */
 const userAPI = (app) => {
-  app.get(
-    '/api/user/authViaGitHub',
-    passport.authenticate('github')
-  );
+  // get authenticated user
+  app.get('/api/user/getUser', (req, res) => {
+    console.log(req);
+    if (req.user) res.send(req.user);
+    else res.send(null);
+  });
 
-  app.get(
-    // this should match callback url of github app
-    '/auth/github/callback',
-    passport.authenticate('github'),
-    (req, res) => {
-      res.redirect('/');
-    }
-  );
-
-  app.get('/auth/logout', (req, res) => {
+  app.get('/api/user/signout', (req, res) => {
     req.logout();
     res.send({ authenticated: false });
   });
