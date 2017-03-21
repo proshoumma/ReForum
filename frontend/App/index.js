@@ -22,7 +22,7 @@ ReactDOM.render (
         <IndexRoute component={ForumFeed} />
         <Route path=":forum" component={ForumFeed} />
         <Route path=":forum/discussion/:discussion" component={SingleDiscussion} />
-        <Route path=":forum/new" component={NewDiscussion} />
+        <Route path=":forum/new_discussion" component={NewDiscussion} />
         <Route path="*" component={NotFound} />
       </Route>
     </Router>

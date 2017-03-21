@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import {
   FETCHING_SINGLE_DISC_START,
   FETCHING_SINGLE_DISC_END,

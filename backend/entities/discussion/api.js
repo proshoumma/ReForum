@@ -1,5 +1,6 @@
 // discussion controllers
 const getDiscussion = require('./controller').getDiscussion;
+const createDiscussion = require('./controller').createDiscussion;
 
 /**
  * discussion apis
@@ -11,6 +12,14 @@ const discussionAPI = (app) => {
     getDiscussion(discussion_slug).then(
       (result) => { setTimeout(() => { res.send(result); }, 3000); },
       (error) => { res.send(error); }
+    );
+  });
+
+  // create a new discussion
+  app.post('/api/discussion/newDiscussion', (req, res) => {
+    createDiscussion(req.body).then(
+      (result) => { setTimeout(() => { res.send({ postCreated: true }); }, 3000); },
+      (error) => { setTimeout(() => { res.send({ postCreated: false }); }, 3000); }
     );
   });
 };

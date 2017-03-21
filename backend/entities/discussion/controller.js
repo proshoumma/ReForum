@@ -1,3 +1,6 @@
+// helpers
+const generateDiscussionSlug = require('../../utilities/tools').generateDiscussionSlug;
+
 // models
 const Discussion = require('./model');
 const User = require('../user/model');
@@ -34,8 +37,29 @@ const getDiscussion = (discussion_slug) => {
   });
 };
 
-const createDiscussion = (forum_id) => {
+const createDiscussion = (discussion) => {
+  return new Promise((resolve, reject) => {
+    const newDiscussion = new Discussion({
+      forum_id: discussion.forumId,
+      user_id: discussion.userId,
+      discussion_slug: generateDiscussionSlug(discussion.title),
+      date: new Date(),
+      title: discussion.title,
+      content: discussion.content,
+      favorite_count: 0,
+      tags: discussion.tags,
+      pinned: discussion.pinned,
+    });
 
+    newDiscussion.save((error) => {
+      if (error) {
+        console.log(error);
+        reject(error);
+      }
+
+      resolve(newDiscussion);
+    });
+  });
 };
 
 const updateDiscussion = (forum_id, discussion_slug) => {

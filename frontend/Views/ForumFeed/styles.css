@@ -8,3 +8,7 @@
   margin-top: 15px;
   @media largeBP { flex-flow: row nowrap; }
 }
+
+.newDiscussionBtn {
+  margin-top: 20px;
+}

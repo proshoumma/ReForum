@@ -5,6 +5,7 @@ import thunk from 'redux-thunk';
 import { appReducer, userReducer } from './reducers';
 import { feedReducer } from '../Views/ForumFeed/reducers';
 import { singleDiscussionReducer } from '../Views/SingleDiscussion/reducers';
+import { newDiscussionReducer } from '../Views/NewDiscussion/reducers';
 
 // root reducer for app
 const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   app: appReducer,
   feed: feedReducer,
   discussion: singleDiscussionReducer,
+  newDiscussion: newDiscussionReducer,
 });
 
 // dev tool extension

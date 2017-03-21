@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Header from 'Containers/Header';
+import Footer from 'Components/Footer';
 import appLayout from 'SharedStyles/appLayout.css';
 import styles from './styles.css';
 
@@ -49,6 +50,7 @@ class AppContainer extends Component {
         <div>
           <Header />
           {this.props.children}
+          <Footer />
         </div>
       );
     }

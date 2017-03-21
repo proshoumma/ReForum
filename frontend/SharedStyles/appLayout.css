@@ -20,3 +20,9 @@
   @media mediumBP { display: none; }
   @media smallBP { display: none; }
 }
+
+.showOnMediumBP {
+  display: none;
+  @media mediumBP { display: inherit; }
+  @media smallBP { display: inherit; }
+}

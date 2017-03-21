@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 
@@ -7,6 +8,7 @@ import {
   getPinnedDiscussions,
 } from './actions';
 
+import Button from 'Components/Button';
 import FeedBox from 'Components/FeedBox';
 import SideBar from 'Components/SideBar';
 
@@ -39,6 +41,20 @@ class ForumFeed extends Component {
     }
   }
 
+  renderNewDiscussionButtion() {
+    const { currentForum } = this.props;
+
+    return (
+      <div className={classnames(appLayout.showOnMediumBP, styles.newDiscussionBtn)}>
+        <Link to={`/${currentForum}/new_discussion`}>
+          <Button type='outline' fullWidth noUppercase>
+            New Discussion
+          </Button>
+        </Link>
+      </div>
+    );
+  }
+
   render() {
     const {
       currentForum,
@@ -57,15 +73,19 @@ class ForumFeed extends Component {
             discussions={pinnedDiscussions}
             currentForum={currentForum}
           />
+
           <FeedBox
             type='general'
             loading={fetchingDiscussions}
             discussions={discussions}
             currentForum={currentForum}
           />
+
+          { this.renderNewDiscussionButtion() }
         </div>
+
         <div className={appLayout.secondaryContent}>
-          <SideBar />
+          <SideBar currentForum={currentForum} />
         </div>
       </div>
     );

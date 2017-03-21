@@ -20,7 +20,7 @@ class RichEditor extends Component {
     const { onChange } = this.props;
 
     this.setState({ editorState });
-    onChange(editorState);
+    onChange(editorState.getCurrentContent().getPlainText());
   }
 
   render() {
