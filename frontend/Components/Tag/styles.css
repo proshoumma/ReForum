@@ -18,3 +18,13 @@
 
   &:first-child { margin-left: 0; }
 }
+
+.tagWithRemove {
+  display: flex;
+  align-items: center;
+  padding-right: 0px;
+}
+
+.removeButton {
+  padding: 4px 10px;
+}

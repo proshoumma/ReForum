@@ -1,0 +1,21 @@
+@value primaryFontColor, secondaryFontColor, borderColor from 'SharedStyles/globalStyles.css';
+@value smallBP from 'SharedStyles/globalStyles.css';
+
+.container {
+  display: flex;
+  align-items: center;
+  margin: 5px 0px 0px 10px;
+}
+
+.label {
+  margin-right: 10px;
+}
+
+.btnContainer {
+
+}
+
+.button {
+  padding: 10px 20px;
+  border: 1px solid borderColor;
+}

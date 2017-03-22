@@ -5,6 +5,8 @@ import classnames from 'classnames';
 
 import { postDiscussion } from './actions';
 import RichEditor from 'Components/RichEditor';
+import PinButton from 'Components/NewDiscussion/PinButton';
+import TagsInput from 'Components/NewDiscussion/TagsInput';
 
 import styles from './styles.css';
 import appLayout from 'SharedStyles/appLayout.css';
@@ -30,12 +32,7 @@ class NewDiscussion extends Component {
       forums,
     } = this.props;
 
-    const currentForumId = _.find(forums, { forum_slug: currentForum })._id;
-
-    this.setState({
-      forumId: currentForumId,
-      userId: user._id,
-    });
+    this.setUserAndForumID(user, forums, currentForum);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -45,8 +42,11 @@ class NewDiscussion extends Component {
       forums,
     } = nextProps;
 
-    const currentForumId = _.find(forums, { forum_slug: currentForum })._id;
+    this.setUserAndForumID(user, forums, currentForum);
+  }
 
+  setUserAndForumID(user, forums, currentForum) {
+    const currentForumId = _.find(forums, { forum_slug: currentForum })._id;
     this.setState({
       forumId: currentForumId,
       userId: user._id,
@@ -65,6 +65,13 @@ class NewDiscussion extends Component {
           className={styles.titleInput}
           placeholder={'Discussion title...'}
           onChange={(event) => { this.setState({ title: event.target.value }); }}
+        />,
+        <PinButton
+          key={'pinned'}
+          onChange={(val) => { this.setState({ pinned: val }); }}
+        />,
+        <TagsInput
+          key={'tags'}
         />,
         <RichEditor
           key={'content'}
@@ -102,6 +109,7 @@ export default connect(
     user: state.user,
     forums: state.app.forums,
     currentForum: state.app.currentForum,
+    newDiscussion: state.newDiscussion,
   }; },
   (dispatch) => { return {
     postDiscussion: (discussion) => { dispatch(postDiscussion(discussion)); },
