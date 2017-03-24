@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Editor, EditorState} from 'draft-js';
+import { Editor, EditorState, ContentState } from 'draft-js';
 import classnames from 'classnames';
 import styles from './styles';
 
@@ -14,6 +14,11 @@ class RichEditor extends Component {
 
     this.focus = () => this.refs.commentEditor.focus();
     this.onEditorStateChange = this.onEditorStateChange.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { value } = nextProps;
+    if (value === null) this.setState({ editorState: EditorState.createEmpty() });
   }
 
   onEditorStateChange(editorState) {
@@ -57,12 +62,14 @@ class RichEditor extends Component {
 }
 
 RichEditor.defaultProps = {
+  value: '',
   type: 'newDiscussion',
   onChange: () => { },
   onSave: () => { },
 };
 
 RichEditor.propTypes = {
+  value: React.PropTypes.string,
   type: React.PropTypes.oneOf(['newDiscussion', 'newOpinion']),
   onChange: React.PropTypes.func,
   onSave: React.PropTypes.func,

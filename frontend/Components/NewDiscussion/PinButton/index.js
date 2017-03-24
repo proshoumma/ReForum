@@ -10,6 +10,11 @@ class PinButton extends Component {
     this.state = { value: false };
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { value } = nextProps;
+    this.setState({ value });
+  }
+
   updateValue(value) {
     this.props.onChange(value);
     this.setState({ value });
@@ -45,10 +50,12 @@ class PinButton extends Component {
 
 PinButton.defaultProps = {
   onChange: (val) => { console.log('Pin value: ' + val); },
+  value: false,
 };
 
 PinButton.propTypes = {
   onChange: React.PropTypes.func,
+  value: React.PropTypes.bool,
 };
 
 export default PinButton;

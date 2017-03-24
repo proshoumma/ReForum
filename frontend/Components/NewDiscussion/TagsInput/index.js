@@ -17,6 +17,11 @@ class TagsInput extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { value } = nextProps;
+    this.setState({ tags: value, errorMsg: null });
+  }
+
   validateTag(tagName) {
     const regex = /^[a-z0-9.\-_$@*!]{4,20}$/;
     return regex.test(tagName);
@@ -129,11 +134,13 @@ class TagsInput extends Component {
 }
 
 TagsInput.defaultProps = {
+  value: [],
   maxTagCount: 3,
   onChange: (tags) => { console.log('tags changed: ' + tags); },
 };
 
 TagsInput.propTypes = {
+  value: React.PropTypes.array,
   maxTagCount: React.PropTypes.number,
   onChange: React.PropTypes.func,
 };

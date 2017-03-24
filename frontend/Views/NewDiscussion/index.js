@@ -3,10 +3,17 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import classnames from 'classnames';
 
-import { postDiscussion } from './actions';
 import RichEditor from 'Components/RichEditor';
 import PinButton from 'Components/NewDiscussion/PinButton';
 import TagsInput from 'Components/NewDiscussion/TagsInput';
+
+import {
+  postDiscussion,
+  updateDiscussionTitle,
+  updateDiscussionContent,
+  updateDiscussionPinStatus,
+  updateDiscussionTags,
+} from './actions';
 
 import styles from './styles.css';
 import appLayout from 'SharedStyles/appLayout.css';
@@ -18,10 +25,6 @@ class NewDiscussion extends Component {
     this.state = {
       forumId: null,
       userId: null,
-      title: null,
-      content: null,
-      tags: [],
-      pinned: false,
     };
   }
 
@@ -55,8 +58,28 @@ class NewDiscussion extends Component {
 
   renderEditor() {
     const { authenticated } = this.props.user;
-    const { postDiscussion } = this.props;
 
+    const {
+      updateDiscussionTitle,
+      updateDiscussionContent,
+      updateDiscussionPinStatus,
+      updateDiscussionTags,
+      postDiscussion,
+    } = this.props;
+
+    const {
+      title,
+      content,
+      tags,
+      pinned,
+    } = this.props.newDiscussion;
+
+    const {
+      forumId,
+      userId,
+    } = this.state;
+
+    // only show the editor when user is authenticated
     if (authenticated) {
       return [
         <input
@@ -64,20 +87,25 @@ class NewDiscussion extends Component {
           type="text"
           className={styles.titleInput}
           placeholder={'Discussion title...'}
-          onChange={(event) => { this.setState({ title: event.target.value }); }}
+          value={title}
+          onChange={(event) => { updateDiscussionTitle(event.target.value); }}
         />,
         <PinButton
           key={'pinned'}
-          onChange={(val) => { this.setState({ pinned: val }); }}
+          value={pinned}
+          onChange={(value) => { updateDiscussionPinStatus(value); }}
         />,
         <TagsInput
           key={'tags'}
+          value={tags}
+          onChange={(tags) => { updateDiscussionTags(tags); }}
         />,
         <RichEditor
           key={'content'}
           type='newDiscussion'
-          onChange={(value) => { this.setState({ content: value }); }}
-          onSave={() => { postDiscussion(this.state); }}
+          value={content}
+          onChange={(value) => { updateDiscussionContent(value); }}
+          onSave={() => { postDiscussion(userId, forumId); }}
         />,
       ];
     }
@@ -91,14 +119,21 @@ class NewDiscussion extends Component {
 
   render() {
     const { currentForum } = this.props;
+    const {
+      errorMsg,
+      postingSuccess,
+      postingDiscussion,
+    } = this.props.newDiscussion;
 
     return (
       <div className={classnames(appLayout.constraintWidth, styles.content)}>
         <div className={styles.forumInfo}>
           You are creating a new discussion on <span className={styles.forumName}>{currentForum}</span> forum.
         </div>
-
+        <div className={styles.errorMsg}>{errorMsg}</div>
+        { postingSuccess && <div className={styles.successMsg}>Your discussion is created :-)</div> }
         { this.renderEditor() }
+        { postingDiscussion && <div className={styles.postingMsg}>Posting discussion...</div> }
       </div>
     );
   }
@@ -112,6 +147,10 @@ export default connect(
     newDiscussion: state.newDiscussion,
   }; },
   (dispatch) => { return {
-    postDiscussion: (discussion) => { dispatch(postDiscussion(discussion)); },
+    postDiscussion: (userId, forumId) => { dispatch(postDiscussion(userId, forumId)); },
+    updateDiscussionTitle: (value) => { dispatch(updateDiscussionTitle(value)); },
+    updateDiscussionContent: (value) => { dispatch(updateDiscussionContent(value)); },
+    updateDiscussionPinStatus: (value) => { dispatch(updateDiscussionPinStatus(value)); },
+    updateDiscussionTags: (value) => { dispatch(updateDiscussionTags(value)); },
   }; }
 )(NewDiscussion);
