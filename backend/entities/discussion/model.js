@@ -10,7 +10,7 @@ const discussionSchema = mongoose.Schema({
   date: Date,
   title: String,
   content: String,
-  favorite_count: Number,
+  favorites: Array,
   tags: Array,
   pinned: Boolean,
 });

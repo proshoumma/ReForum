@@ -9,6 +9,7 @@ import Tag from 'Components/Tag';
 class Discussion extends Component {
   render() {
     const {
+      id,
       userAvatar,
       userName,
       userGitHandler,
@@ -17,6 +18,7 @@ class Discussion extends Component {
       discContent,
       tags,
       favoriteCount,
+      favoriteAction,
     } = this.props;
 
     let favCount = '';
@@ -51,7 +53,7 @@ class Discussion extends Component {
           <div className={styles.tags}>
             { tags.map(tag => <Tag name={tag} key={_.uniqueId('tag_')} />)}
           </div>
-          <div className={styles.favoriteButton}>
+          <div className={styles.favoriteButton} onClick={() => { favoriteAction(id); }}>
             <i className={classnames('fa fa-heart-o')}></i>
             <div>{favCount}</div>
           </div>
@@ -62,6 +64,7 @@ class Discussion extends Component {
 }
 
 Discussion.defaultProps = {
+  id: 0,
   userAvatar: PlaceholderImage,
   userName: 'User name',
   userGitHandler: 'github',
@@ -70,9 +73,11 @@ Discussion.defaultProps = {
   discContent: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
   tags: [ 'react', 'redux', 'webkit' ],
   favoriteCount: 1,
+  favoriteAction: () => { console.log('favorite clicked'); },
 };
 
 Discussion.propTypes = {
+  id: React.PropTypes.any,
   userAvatar: React.PropTypes.string,
   userName: React.PropTypes.string,
   userGitHandler: React.PropTypes.string,
@@ -81,6 +86,7 @@ Discussion.propTypes = {
   discContent: React.PropTypes.string,
   tags: React.PropTypes.array,
   favoriteCount: React.PropTypes.number,
+  favoriteAction: React.PropTypes.func,
 };
 
 export default Discussion;

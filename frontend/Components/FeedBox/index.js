@@ -57,7 +57,7 @@ class FeedBox extends Component {
                 time={discussion.date}
                 tags={discussion.tags}
                 opinionCount={discussion.opinion_count}
-                voteCount={discussion.favorite_count}
+                voteCount={discussion.favorites.length}
                 link={`${currentForum}/discussion/${discussion.discussion_slug}`}
               />
             ) }

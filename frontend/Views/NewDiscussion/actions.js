@@ -41,11 +41,11 @@ export const postDiscussion = (userId, forumId) => {
       });
     }
 
-    if (content === null || content.length < 100) {
+    if (content === null || content.length < 150) {
       validated = false;
       return dispatch({
         type: POSTING_DISCUSSION_FAILURE,
-        payload: 'Content should be at least 100 characters.',
+        payload: 'Content should be at least 150 characters.',
       });
     }
 

@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import moment from 'moment';
 
-import { getDiscussion } from './actions';
+import {
+  getDiscussion,
+  toggleFavorite,
+} from './actions';
 
 import Discussion from 'Components/SingleDiscussion/Discussion';
 import ReplyBox from 'Components/SingleDiscussion/ReplyBox';
@@ -26,6 +29,7 @@ class SingleDiscussion extends Component {
     const {
       fetchingDiscussion,
       discussion,
+      toggleFavorite,
     } = this.props;
 
     // return loading status if discussion is not fetched yet
@@ -34,9 +38,10 @@ class SingleDiscussion extends Component {
     }
 
     const {
+      _id,
       content,
       date,
-      favorite_count,
+      favorites,
       title,
       tags,
       opinions,
@@ -51,6 +56,7 @@ class SingleDiscussion extends Component {
     return (
       <div className={appLayout.constraintWidth}>
         <Discussion
+          id={_id}
           userAvatar={avatarUrl}
           userName={name}
           userGitHandler={username}
@@ -58,7 +64,8 @@ class SingleDiscussion extends Component {
           discDate={moment(date)}
           discContent={content}
           tags={tags}
-          favoriteCount={favorite_count}
+          favoriteCount={favorites.length}
+          favoriteAction={toggleFavorite}
         />
         <ReplyBox />
         { opinions && opinions.map((opinion) => {
@@ -85,5 +92,6 @@ export default connect(
   }; },
   (dispatch) => { return {
     getDiscussion: (discussionSlug) => { dispatch(getDiscussion(discussionSlug)); },
+    toggleFavorite: (discussionId) => { dispatch(toggleFavorite(discussionId)); },
   }; }
 )(SingleDiscussion);
