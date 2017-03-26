@@ -1,5 +1,13 @@
-@value primaryFontColor from 'SharedStyles/globalStyles.css';
+@value primaryFontColor, secondaryFontColor from 'SharedStyles/globalStyles.css';
 
 /**
  * Reply styles
  */
+
+.loadingWrapper {
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  padding: 30px 0px;
+  color: secondaryFontColor;
+}

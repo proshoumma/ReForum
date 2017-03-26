@@ -7,14 +7,15 @@ import DiscussionBox from './DiscussionBox';
 
 class FeedBox extends Component {
   renderSort() {
-    if (this.props.type === 'general') {
-      return (
-        <div className={styles.sortList}>
-          <span className={classnames(styles.sort, styles.sortActive)}>Latest</span>
-          <span className={styles.sort}>Popular</span>
-        </div>
-      );
-    }
+    // TODO: create sorting logic
+    // if (this.props.type === 'general') {
+    //   return (
+    //     <div className={styles.sortList}>
+    //       <span className={classnames(styles.sort, styles.sortActive)}>Latest</span>
+    //       <span className={styles.sort}>Popular</span>
+    //     </div>
+    //   );
+    // }
     return null;
   }
 

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
-import moment from 'moment';
 
 import {
   getDiscussion,
@@ -55,6 +54,7 @@ class SingleDiscussion extends Component {
 
   render() {
     const {
+      userAuthenticated,
       fetchingDiscussion,
       discussion,
       toggleFavorite,
@@ -95,7 +95,7 @@ class SingleDiscussion extends Component {
           userName={name}
           userGitHandler={username}
           discTitle={title}
-          discDate={moment(date)}
+          discDate={date}
           discContent={content}
           tags={tags}
           favoriteCount={favorites.length}
@@ -103,11 +103,16 @@ class SingleDiscussion extends Component {
           userFavorited={userFavorited}
           toggleingFavorite={toggleingFavorite}
         />
-        <ReplyBox
+
+        { error && <div className={styles.errorMsg}>{error}</div> }
+
+        { !userAuthenticated && <div className={styles.signInMsg}>Please sign in to post a reply.</div> }
+        { userAuthenticated && <ReplyBox
           posting={postingOpinion}
           onSubmit={this.handleReplySubmit.bind(this)}
           onChange={(content) => { this.setState({ opinionContent: content }); }}
-        />
+        /> }
+
         { opinions && opinions.map((opinion) => {
           return (
             <Opinion
@@ -115,7 +120,7 @@ class SingleDiscussion extends Component {
               userAvatar={opinion.user.avatarUrl}
               userName={opinion.user.name}
               userGitHandler={opinion.user.username}
-              opDate={moment(opinion.date)}
+              opDate={opinion.date}
               opContent={opinion.content}
             />
           );
@@ -127,6 +132,7 @@ class SingleDiscussion extends Component {
 
 export default connect(
   (state) => { return {
+    userAuthenticated: state.user.authenticated,
     userId: state.user._id,
     fetchingDiscussion: state.discussion.fetchingDiscussion,
     toggleingFavorite: state.discussion.toggleingFavorite,

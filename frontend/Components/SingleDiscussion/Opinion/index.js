@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import classnames from 'classnames';
 import styles from './styles.css';
 
@@ -15,7 +16,8 @@ class Opinion extends Component {
       opContent,
     } = this.props;
 
-    let favCount = '';
+    let dateDisplay = moment(opDate);
+    dateDisplay = dateDisplay.from(moment());
 
     return (
       <div className={styles.container}>
@@ -28,9 +30,8 @@ class Opinion extends Component {
               <span>{userGitHandler}</span>
             </a>
           </div>
-          {/* // TODO: date conversion */}
-          {/* <div className={styles.dateInfo}>{opDate}</div> */}
-          <Button noUppercase>Quote</Button>
+          <div className={styles.dateInfo}>{dateDisplay}</div>
+          {/* <Button noUppercase>Quote</Button> */}
         </div>
 
         <div className={styles.opContent}>

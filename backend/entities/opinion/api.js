@@ -1,5 +1,5 @@
-// opinion controllers
-const getAllOpinions = require('./controller').getAllOpinions;
+// controllers
+const getAllOpinions = require('../../utilities/helpingControllers').getAllOpinions;
 const createOpinion = require('./controller').createOpinion;
 
 /**

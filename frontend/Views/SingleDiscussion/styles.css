@@ -1,4 +1,25 @@
+@value primaryFontColor, secondaryFontColor from 'SharedStyles/globalStyles.css';
+
 .loadingWrapper {
   padding: 20px 0px;
+  font-size: 12px;
+  font-weight: bold;
   text-align: center;
+  color: secondaryFontColor;
+}
+
+.errorMsg {
+  margin-top: 10px;
+  margin-left: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  color: rgba(231, 76, 60,1.0);
+}
+
+.signInMsg {
+  color: secondaryFontColor;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  padding: 20px 0px;
 }

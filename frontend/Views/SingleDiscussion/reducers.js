@@ -61,9 +61,15 @@ export const singleDiscussionReducer = (state = initialState, action) => {
       });
 
     case POSTING_OPINION_SUCCESS:
+      return Object.assign({}, state, {
+        postingOpinion: false,
+        error: null,
+      });
+
     case POSTING_OPINION_FAILURE:
       return Object.assign({}, state, {
         postingOpinion: false,
+        error: action.payload,
       });
 
     default:

@@ -1,6 +1,6 @@
 // helpers
 const generateDiscussionSlug = require('../../utilities/tools').generateDiscussionSlug;
-const getAllOpinions = require('./helpers').getAllOpinions;
+const getAllOpinions = require('../../utilities/helpingControllers').getAllOpinions;
 const getUser = require('../user/controller').getUser;
 
 // models

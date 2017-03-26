@@ -48,15 +48,19 @@ export const postOpinion = (opinion) => {
   return (dispatch, getState) => {
     dispatch({ type: POSTING_OPINION_START });
 
-    postOpinionApi(opinion).then(
-      data => {
-        if (data.data._id) {
-          dispatch({ type: POSTING_OPINION_SUCCESS });
-          dispatch({ type: FETCHING_SINGLE_DISC_SUCCESS, payload: data.data });
-        }
-        else dispatch({ type: POSTING_OPINION_FAILURE });
-      },
-      error => dispatch({ type: POSTING_OPINION_FAILURE })
-    );
+    if (!opinion.content || opinion.content.length < 20) {
+      dispatch({ type: POSTING_OPINION_FAILURE, payload: 'Please provide a bit more info in your opinion....at least 20 characters.' });
+    } else {
+      postOpinionApi(opinion).then(
+        data => {
+          if (data.data._id) {
+            dispatch({ type: POSTING_OPINION_SUCCESS });
+            dispatch({ type: FETCHING_SINGLE_DISC_SUCCESS, payload: data.data });
+          }
+          else dispatch({ type: POSTING_OPINION_FAILURE });
+        },
+        error => dispatch({ type: POSTING_OPINION_FAILURE })
+      );
+    }
   };
 };

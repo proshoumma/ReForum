@@ -35,8 +35,8 @@ class UserMenu extends Component {
             </Button>
           </a> }
 
-          { signedIn && <a className={styles.subMenuItem} href={'#'}>My Profile</a> }
-          { signedIn && <a className={styles.subMenuItem} href={'#'}>Settings</a> }
+          {/* { signedIn && <a className={styles.subMenuItem} href={'#'}>My Profile</a> } */}
+          {/* { signedIn && <a className={styles.subMenuItem} href={'#'}>Settings</a> } */}
           { signedIn && <a className={styles.subMenuItem} href={'/api/user/signout'}>Sign Out</a> }
         </div>
       );
@@ -55,7 +55,7 @@ class UserMenu extends Component {
 
     if (signedIn) {
       return (
-        <div>
+        <div style={{ position: 'relative' }}>
           <div className={styles.container} onClick={this.toggleSubMenu}>
             <img className={styles.userAvatar} src={avatar} alt={`${userName} Avatar`} />
             <span className={styles.title}>{userName}</span>

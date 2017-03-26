@@ -1,7 +1,7 @@
 const asyncEach = require('async/each');
 
-const Opinion = require('../opinion/model');
-const getUser = require('../user/controller').getUser;
+const Opinion = require('../entities/opinion/model');
+const getUser = require('../entities/user/controller').getUser;
 
 const getAllOpinions = (discussion_id) => {
   return new Promise((resolve, reject) => {

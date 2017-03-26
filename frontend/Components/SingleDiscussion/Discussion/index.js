@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import classnames from 'classnames';
 import _ from 'lodash';
+import React, { Component } from 'react';
+import moment from 'moment';
+import classnames from 'classnames';
 import styles from './styles.css';
 
 import PlaceholderImage from 'SharedStyles/placeholder.jpg';
@@ -23,8 +24,12 @@ class Discussion extends Component {
       toggleingFavorite,
     } = this.props;
 
+    let dateDisplay = moment(discDate);
+    dateDisplay = dateDisplay.from(moment());
+
     let favCount = '';
-    if (userFavorited) favCount = `Favorited (${favoriteCount})`;
+    if (toggleingFavorite) favCount = 'Toggling Favorite...';
+    else if (userFavorited) favCount = `Favorited (${favoriteCount})`;
     else if (favoriteCount === 0) favCount = 'Make favorite';
     else if (favoriteCount === 1) favCount = '1 favorite';
     else favCount = `${favoriteCount} favorites`;
@@ -42,8 +47,7 @@ class Discussion extends Component {
                 <span>{userGitHandler}</span>
               </a>
             </div>
-            {/* // TODO: date conversion */}
-            {/* <div className={styles.dateInfo}>{discDate}</div> */}
+            <div className={styles.dateInfo}>{dateDisplay}</div>
           </div>
         </div>
 
