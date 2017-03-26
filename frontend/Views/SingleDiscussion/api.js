@@ -10,3 +10,7 @@ export const fetchSingleDiscussion = (discussion_slug) => {
 export const toggleFavoriteApi = (discussion_id) => {
   return axios.put(`/api/discussion/toggleFavorite/${discussion_id}`);
 };
+
+export const postOpinionApi = (opinion) => {
+  return axios.post('/api/opinion/newOpinion', opinion);
+};

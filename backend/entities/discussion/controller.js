@@ -1,20 +1,20 @@
 // helpers
 const generateDiscussionSlug = require('../../utilities/tools').generateDiscussionSlug;
+const getAllOpinions = require('./helpers').getAllOpinions;
+const getUser = require('../user/controller').getUser;
 
 // models
 const Discussion = require('./model');
-const User = require('../user/model');
-
-// controllers
-const getAllOpinions = require('../opinion/controller').getAllOpinions;
-const getUser = require('../user/controller').getUser;
 
 // get single discussion
-const getDiscussion = (discussion_slug) => {
+const getDiscussion = (discussion_slug, discussion_id) => {
   return new Promise((resolve, reject) => {
+    let findObject = {};
+    if (discussion_slug) findObject.discussion_slug = discussion_slug;
+    if (discussion_id) findObject._id = discussion_id;
 
     // match discussion slug and retrive discussion from db
-    Discussion.findOne({ discussion_slug }, (error, discussion) => {
+    Discussion.findOne(findObject, (error, discussion) => {
       if (error) reject(error);
 
       // add user to the discussion object

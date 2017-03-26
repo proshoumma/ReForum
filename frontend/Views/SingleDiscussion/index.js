@@ -6,6 +6,7 @@ import moment from 'moment';
 import {
   getDiscussion,
   toggleFavorite,
+  postOpinion,
 } from './actions';
 
 import Discussion from 'Components/SingleDiscussion/Discussion';
@@ -16,6 +17,11 @@ import styles from './styles.css';
 import appLayout from 'SharedStyles/appLayout.css';
 
 class SingleDiscussion extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { opinionContent: '' };
+  }
+
   componentDidMount() {
     const {
       forum,
@@ -33,12 +39,27 @@ class SingleDiscussion extends Component {
     return favorited;
   }
 
+  handleReplySubmit() {
+    const {
+      postOpinion,
+      discussion,
+      userId,
+    } = this.props;
+
+    postOpinion({
+      discussion_id: discussion._id,
+      user_id: userId,
+      content: this.state.opinionContent,
+    });
+  }
+
   render() {
     const {
       fetchingDiscussion,
       discussion,
       toggleFavorite,
       toggleingFavorite,
+      postingOpinion,
       error,
     } = this.props;
 
@@ -82,7 +103,11 @@ class SingleDiscussion extends Component {
           userFavorited={userFavorited}
           toggleingFavorite={toggleingFavorite}
         />
-        <ReplyBox />
+        <ReplyBox
+          posting={postingOpinion}
+          onSubmit={this.handleReplySubmit.bind(this)}
+          onChange={(content) => { this.setState({ opinionContent: content }); }}
+        />
         { opinions && opinions.map((opinion) => {
           return (
             <Opinion
@@ -105,11 +130,13 @@ export default connect(
     userId: state.user._id,
     fetchingDiscussion: state.discussion.fetchingDiscussion,
     toggleingFavorite: state.discussion.toggleingFavorite,
+    postingOpinion: state.discussion.postingOpinion,
     discussion: state.discussion.discussion,
     error: state.discussion.error,
   }; },
   (dispatch) => { return {
     getDiscussion: (discussionSlug) => { dispatch(getDiscussion(discussionSlug)); },
     toggleFavorite: (discussionId) => { dispatch(toggleFavorite(discussionId)); },
+    postOpinion: (opinion) => { dispatch(postOpinion(opinion)); },
   }; }
 )(SingleDiscussion);

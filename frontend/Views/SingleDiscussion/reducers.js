@@ -6,11 +6,15 @@ import {
   TOGGLE_FAVORITE_START,
   TOGGLE_FAVORITE_SUCCESS,
   TOGGLE_FAVORITE_FAILURE,
+  POSTING_OPINION_START,
+  POSTING_OPINION_SUCCESS,
+  POSTING_OPINION_FAILURE,
 } from './constants';
 
 const initialState = {
   fetchingDiscussion: true,
   toggleingFavorite: false,
+  postingOpinion: false,
   discussion: null,
   error: null,
 };
@@ -49,6 +53,17 @@ export const singleDiscussionReducer = (state = initialState, action) => {
     case TOGGLE_FAVORITE_FAILURE:
       return Object.assign({}, state, {
         toggleingFavorite: false,
+      });
+
+    case POSTING_OPINION_START:
+      return Object.assign({}, state, {
+        postingOpinion: true,
+      });
+
+    case POSTING_OPINION_SUCCESS:
+    case POSTING_OPINION_FAILURE:
+      return Object.assign({}, state, {
+        postingOpinion: false,
       });
 
     default:
