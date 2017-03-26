@@ -19,10 +19,13 @@ class Discussion extends Component {
       tags,
       favoriteCount,
       favoriteAction,
+      userFavorited,
+      toggleingFavorite,
     } = this.props;
 
     let favCount = '';
-    if (favoriteCount === 0) favCount = 'Make favorite';
+    if (userFavorited) favCount = `Favorited (${favoriteCount})`;
+    else if (favoriteCount === 0) favCount = 'Make favorite';
     else if (favoriteCount === 1) favCount = '1 favorite';
     else favCount = `${favoriteCount} favorites`;
 
@@ -53,8 +56,8 @@ class Discussion extends Component {
           <div className={styles.tags}>
             { tags.map(tag => <Tag name={tag} key={_.uniqueId('tag_')} />)}
           </div>
-          <div className={styles.favoriteButton} onClick={() => { favoriteAction(id); }}>
-            <i className={classnames('fa fa-heart-o')}></i>
+          <div className={styles.favoriteButton} onClick={() => { !toggleingFavorite && favoriteAction(id); }}>
+            <i className={classnames(`fa fa-${userFavorited ? 'heart' : 'heart-o'}`)}></i>
             <div>{favCount}</div>
           </div>
         </div>
@@ -74,6 +77,8 @@ Discussion.defaultProps = {
   tags: [ 'react', 'redux', 'webkit' ],
   favoriteCount: 1,
   favoriteAction: () => { console.log('favorite clicked'); },
+  userFavorited: false,
+  toggleingFavorite: false,
 };
 
 Discussion.propTypes = {
@@ -87,6 +92,8 @@ Discussion.propTypes = {
   tags: React.PropTypes.array,
   favoriteCount: React.PropTypes.number,
   favoriteAction: React.PropTypes.func,
+  userFavorited: React.PropTypes.bool,
+  toggleingFavorite: React.PropTypes.bool,
 };
 
 export default Discussion;

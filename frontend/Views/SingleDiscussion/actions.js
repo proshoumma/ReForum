@@ -3,6 +3,8 @@ import {
   FETCHING_SINGLE_DISC_END,
   FETCHING_SINGLE_DISC_SUCCESS,
   FETCHING_SINGLE_DISC_FAILURE,
+  TOGGLE_FAVORITE_START,
+  TOGGLE_FAVORITE_SUCCESS,
   TOGGLE_FAVORITE_FAILURE,
 } from './constants';
 import {
@@ -23,9 +25,15 @@ export const getDiscussion = (discussionSlug) => {
 
 export const toggleFavorite = (discussionId) => {
   return (dispatch, getState) => {
+    dispatch({ type: TOGGLE_FAVORITE_START });
+
     toggleFavoriteApi(discussionId).then(
       data => {
-        if (data.data._id) dispatch({ type: FETCHING_SINGLE_DISC_SUCCESS, payload: data.data });
+        if (data.data._id) {
+          dispatch({ type: TOGGLE_FAVORITE_SUCCESS });
+          dispatch({ type: FETCHING_SINGLE_DISC_SUCCESS, payload: data.data });
+        }
+        else dispatch({ type: TOGGLE_FAVORITE_FAILURE });
       },
       error => dispatch({ type: TOGGLE_FAVORITE_FAILURE })
     );

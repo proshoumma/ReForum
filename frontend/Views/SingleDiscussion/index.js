@@ -25,11 +25,21 @@ class SingleDiscussion extends Component {
     this.props.getDiscussion(discussion);
   }
 
+  userFavoritedDiscussion(userId, favorites) {
+    let favorited = false;
+    for(let i = 0; i < favorites.length; i++) {
+      if (favorites[i] === userId) favorited = true;
+    }
+    return favorited;
+  }
+
   render() {
     const {
       fetchingDiscussion,
       discussion,
       toggleFavorite,
+      toggleingFavorite,
+      error,
     } = this.props;
 
     // return loading status if discussion is not fetched yet
@@ -53,6 +63,9 @@ class SingleDiscussion extends Component {
       username,
     } = discussion.user;
 
+    // check if user favorated the discussion
+    const userFavorited = this.userFavoritedDiscussion(this.props.userId, favorites);
+
     return (
       <div className={appLayout.constraintWidth}>
         <Discussion
@@ -66,6 +79,8 @@ class SingleDiscussion extends Component {
           tags={tags}
           favoriteCount={favorites.length}
           favoriteAction={toggleFavorite}
+          userFavorited={userFavorited}
+          toggleingFavorite={toggleingFavorite}
         />
         <ReplyBox />
         { opinions && opinions.map((opinion) => {
@@ -87,8 +102,11 @@ class SingleDiscussion extends Component {
 
 export default connect(
   (state) => { return {
+    userId: state.user._id,
     fetchingDiscussion: state.discussion.fetchingDiscussion,
+    toggleingFavorite: state.discussion.toggleingFavorite,
     discussion: state.discussion.discussion,
+    error: state.discussion.error,
   }; },
   (dispatch) => { return {
     getDiscussion: (discussionSlug) => { dispatch(getDiscussion(discussionSlug)); },
