@@ -33,33 +33,15 @@ const passportConfig = (app) => {
       clientID: GITHUB_CLIENT_ID,
       clientSecret: GITHUB_CLIENT_SECRET,
       callbackURL: GITHUB_CALLBACK_URL,
+      scope: 'user:email',
     },
-    (accessToken, refreshToken, profile, cb) => {
-      signInViaGithub(profile._json).then(
-        (user) => { return cb(null, user); },
-        (error) => { return cb(error); }
+    (accessToken, refreshToken, gitProfile, done) => {
+      signInViaGithub(gitProfile).then(
+        (user) => { console.log('got the user'); done(null, user); },
+        (error) => { console.log('something error occurs'); done(error); }
       );
     }
   ));
-
-  // github authentication route
-  app.get(
-    '/api/user/authViaGitHub',
-    passport.authenticate('github')
-  );
-
-  // callback route from github
-  app.get(
-    // this should match callback url of github app
-    '/api/user/authViaGitHub/callback',
-    passport.authenticate(
-      'github',
-      {
-        failureRedirect: '/signIn/failed',
-        successRedirect: '/',
-      }
-    )
-  );
 };
 
 module.exports = passportConfig;

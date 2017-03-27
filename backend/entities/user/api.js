@@ -13,6 +13,20 @@ const userAPI = (app) => {
     }, 3000);
   });
 
+  // github authentication route
+  app.get(
+    '/api/user/authViaGitHub',
+    passport.authenticate('github')
+  );
+
+  // callback route from github
+  app.get(
+    // this should match callback url of github app
+    '/api/user/authViaGitHub/callback',
+    passport.authenticate('github', { failureRedirect: '/signIn/failed' }),
+    (req, res) => { res.redirect('/'); }
+  );
+
   app.get('/api/user/signout', (req, res) => {
     setTimeout(() => {
       req.logout();

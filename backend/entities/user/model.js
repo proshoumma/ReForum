@@ -5,12 +5,19 @@ const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
   name: String,
-  email: String,
   username: String,
   avatarUrl: String,
-  githubUrl: String,
-  githubLocation: String,
-  githubBio: String,
+  email: String,
+  github: {
+    id: Number,
+    url: String,
+    company: String,
+    location: String,
+    bio: String,
+    hireable: Boolean,
+    followers: Number,
+    following: Number,
+  },
 });
 
 module.exports = mongoose.model('user', userSchema);
