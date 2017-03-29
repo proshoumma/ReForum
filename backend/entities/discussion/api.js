@@ -40,7 +40,7 @@ const discussionAPI = (app) => {
   app.post('/api/discussion/newDiscussion', (req, res) => {
     if (req.user) {
       createDiscussion(req.body).then(
-        (result) => { setTimeout(() => { res.send({ postCreated: true }); }, 3000); },
+        (result) => { setTimeout(() => { res.send(Object.assign({}, result._doc, { postCreated: true })); }, 3000); },
         (error) => { setTimeout(() => { res.send({ postCreated: false }); }, 3000); }
       );
     } else {

@@ -5,6 +5,17 @@
   position: relative;
 }
 
+.forumName {
+  font-weight: bold;
+}
+
+.errorMsg {
+  margin-top: 5px;
+  color: rgba(231, 76, 60,1.0);
+  font-size: 12px;
+  line-height: 14px;
+}
+
 .titleInput {
   margin: 20px 0px 0px 0px;
   padding: 10px 10px;

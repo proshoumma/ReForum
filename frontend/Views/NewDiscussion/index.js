@@ -65,6 +65,7 @@ class NewDiscussion extends Component {
       updateDiscussionPinStatus,
       updateDiscussionTags,
       postDiscussion,
+      currentForum,
     } = this.props;
 
     const {
@@ -105,7 +106,7 @@ class NewDiscussion extends Component {
           type='newDiscussion'
           value={content}
           onChange={(value) => { updateDiscussionContent(value); }}
-          onSave={() => { postDiscussion(userId, forumId); }}
+          onSave={() => { postDiscussion(userId, forumId, currentForum); }}
         />,
       ];
     }
@@ -147,7 +148,7 @@ export default connect(
     newDiscussion: state.newDiscussion,
   }; },
   (dispatch) => { return {
-    postDiscussion: (userId, forumId) => { dispatch(postDiscussion(userId, forumId)); },
+    postDiscussion: (userId, forumId, currentForum) => { dispatch(postDiscussion(userId, forumId, currentForum)); },
     updateDiscussionTitle: (value) => { dispatch(updateDiscussionTitle(value)); },
     updateDiscussionContent: (value) => { dispatch(updateDiscussionContent(value)); },
     updateDiscussionPinStatus: (value) => { dispatch(updateDiscussionPinStatus(value)); },

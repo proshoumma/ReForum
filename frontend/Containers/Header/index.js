@@ -32,6 +32,7 @@ class Header extends Component {
     const {
       authenticated,
       name,
+      username,
       avatarUrl,
     } = this.props.user;
 
@@ -41,7 +42,7 @@ class Header extends Component {
           <Logo />
           <UserMenu
             signedIn={authenticated}
-            userName={name}
+            userName={name || username}
             avatar={avatarUrl}
           />
         </div>

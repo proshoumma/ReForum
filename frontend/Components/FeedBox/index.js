@@ -52,7 +52,7 @@ class FeedBox extends Component {
             { discussions && discussions.map((discussion) =>
               <DiscussionBox
                 key={discussion._id}
-                userName={discussion.user.name}
+                userName={discussion.user.name || discussion.user.username}
                 userGitHandler={discussion.user.username}
                 discussionTitle={discussion.title}
                 time={discussion.date}

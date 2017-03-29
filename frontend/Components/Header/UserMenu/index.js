@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
+import onClickOutside from 'react-onclickoutside';
 import styles from './styles';
 
 import Button from 'Components/Button';
@@ -9,6 +10,10 @@ class UserMenu extends Component {
     super(props);
     this.state = { activeSubMenu: false };
     this.toggleSubMenu = this.toggleSubMenu.bind(this);
+  }
+
+  handleClickOutside() {
+    this.setState({ activeSubMenu: false });
   }
 
   toggleSubMenu() {
@@ -93,4 +98,4 @@ UserMenu.propTypes = {
   avatar: React.PropTypes.string,
 };
 
-export default UserMenu;
+export default onClickOutside(UserMenu);

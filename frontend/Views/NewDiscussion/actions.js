@@ -1,3 +1,4 @@
+import { browserHistory } from 'react-router';
 import {
   POSTING_DISCUSSION_START,
   POSTING_DISCUSSION_END,
@@ -11,7 +12,7 @@ import {
 } from './constants';
 import { postDiscussionApi } from './api';
 
-export const postDiscussion = (userId, forumId) => {
+export const postDiscussion = (userId, forumId, currentForum) => {
   return (dispatch, getState) => {
     dispatch({ type: POSTING_DISCUSSION_START });
 
@@ -71,6 +72,9 @@ export const postDiscussion = (userId, forumId) => {
           if (data.data.postCreated === true) {
             dispatch({ type: POSTING_DISCUSSION_SUCCESS });
             setTimeout(() => { dispatch({ type: CLEAR_SUCCESS_MESSAGE }); }, 2000);
+
+            // issue a redirect to the newly reacted discussion
+            browserHistory.push(`/${currentForum}/discussion/${data.data.discussion_slug}`);
           } else {
             dispatch({
               type: POSTING_DISCUSSION_FAILURE,
