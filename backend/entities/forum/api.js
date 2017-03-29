@@ -16,23 +16,17 @@ const forumAPI = (app) => {
 
   // get discussions of a forum
   app.get('/api/forum/:forum_id/discussions', (req, res) => {
-    // console.log(req.params.forum_id);
-    // const discussions = getDiscussions(req.params.forum_id);
-    // setTimeout(() => { res.send(discussions); }, 3000);
-
-    getDiscussions(req.params.forum_id, false).then(
+    getDiscussions(req.params.forum_id, false, req.query.sorting_method).then(
       (result) => setTimeout(()=>{ res.send(result); }, 3000),
-      (error) => res.send([])
+      (error) => { console.error(error); res.send([]); }
     );
   });
 
   // get pinned discussions of a forum
   app.get('/api/forum/:forum_id/pinned_discussions', (req, res) => {
-    // setTimeout(() => { res.send(getDiscussions(req.params.forum_id, true)); }, 3000);
-
     getDiscussions(req.params.forum_id, true).then(
       (result) => setTimeout(()=>{ res.send(result); }, 3000),
-      (error) => res.send([])
+      (error) => { console.error(error); res.send([]); }
     );
   });
 };

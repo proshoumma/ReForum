@@ -8,7 +8,10 @@ const Discussion = require('../discussion/model');
 const getAllOpinions = require('../../utilities/helpingControllers').getAllOpinions;
 const getUser = require('../user/controller').getUser;
 
-// get all the forums list
+/**
+ * get all forums list
+ * @type {Promise}
+ */
 const getAllForums = new Promise((resolve, reject) => {
   Forum.find((error, results) => {
     if (error) reject(error);
@@ -16,12 +19,25 @@ const getAllForums = new Promise((resolve, reject) => {
   });
 });
 
-// get discussion for selected forum
-const getDiscussions = (forum_id, pinned) => {
+/**
+ * get discussions of a forum
+ * @param  {ObjectId} forum_id
+ * @param  {Boolean} pinned
+ * @return {Promise}
+ */
+const getDiscussions = (forum_id, pinned, sorting_method='date') => {
   return new Promise((resolve, reject) => {
+    // define sorthing method
+    const sortWith = { };
+    if (sorting_method === 'date') sortWith.date = -1;
+    if (sorting_method === 'popularity') sortWith.favorites = -1;
+
     // match discussion id and pinned status
-    Discussion.find({ forum_id: forum_id, pinned: pinned }, (error, discussions) => {
-      if (error) { reject(error); }
+    Discussion
+    .find({ forum_id: forum_id, pinned: pinned })
+    .sort(sortWith)
+    .exec((error, discussions) => {
+      if (error) { console.error(error); reject(error); }
       else {
         // attach user and opinion count to each discussion
         asyncEach(discussions, (eachDiscussion, callback) => {
@@ -38,13 +54,13 @@ const getDiscussions = (forum_id, pinned) => {
                   eachDiscussion._doc.opinion_count = opinions ? opinions.length : 0;
                   callback();
                 },
-                (error) => { callback(error); }
+                (error) => { console.error(error); callback(error); }
               );
             },
-            (error) => { callback(error); }
+            (error) => { console.error(error); callback(error); }
           );
         }, (error) => {
-          if (error) reject(error);
+          if (error) { console.error(error); reject(error); }
           else resolve(discussions);
         });
       }

@@ -7,15 +7,29 @@ import DiscussionBox from './DiscussionBox';
 
 class FeedBox extends Component {
   renderSort() {
-    // TODO: create sorting logic
-    // if (this.props.type === 'general') {
-    //   return (
-    //     <div className={styles.sortList}>
-    //       <span className={classnames(styles.sort, styles.sortActive)}>Latest</span>
-    //       <span className={styles.sort}>Popular</span>
-    //     </div>
-    //   );
-    // }
+    const {
+      activeSortingMethod,
+      onChangeSortingMethod,
+    } = this.props;
+
+    if (this.props.type === 'general') {
+      return (
+        <div className={styles.sortList}>
+          <span
+            className={classnames(styles.sort, (activeSortingMethod === 'date') && styles.sortActive)}
+            onClick={() => onChangeSortingMethod('date')}
+          >
+            Latest
+          </span>
+          <span
+            className={classnames(styles.sort, (activeSortingMethod === 'popularity') && styles.sortActive)}
+            onClick={() => onChangeSortingMethod('popularity')}
+          >
+            Popular
+          </span>
+        </div>
+      );
+    }
     return null;
   }
 
@@ -74,6 +88,8 @@ FeedBox.defaultProps = {
   loading: false,
   discussions: [],
   currentForum: 'general',
+  activeSortingMethod: 'date',
+  onChangeSortingMethod: (val) => { console.log('sorting: ' + val); },
 };
 
 FeedBox.propTypes = {
@@ -81,6 +97,8 @@ FeedBox.propTypes = {
   loading: React.PropTypes.bool,
   discussions: React.PropTypes.array,
   currentForum: React.PropTypes.string,
+  activeSortingMethod: React.PropTypes.string,
+  onChangeSortingMethod: React.PropTypes.func,
 };
 
 export default FeedBox;

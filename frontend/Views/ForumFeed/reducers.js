@@ -7,6 +7,7 @@ import {
   STOP_FETCHING_PINNED_DISCUSSIONS,
   FETCHING_PINNED_DISCUSSIONS_SUCCESS,
   FETCHING_PINNED_DISCUSSIONS_FAILURE,
+  UPDATE_SORTING_METHOD,
 } from './constants';
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
   discussions: null,
   fetchingPinnedDiscussions: true,
   pinnedDiscussions: null,
+  sortingMethod: 'date',
   error: null,
 };
 
@@ -63,6 +65,12 @@ export const feedReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         fetchingPinnedDiscussions: false,
         error: 'Unable to fetch pinned discussions at the moment.',
+      });
+
+
+    case UPDATE_SORTING_METHOD:
+      return Object.assign({}, state, {
+        sortingMethod: action.payload,
       });
 
     default:

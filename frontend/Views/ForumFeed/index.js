@@ -6,6 +6,7 @@ import classnames from 'classnames';
 import {
   getDiscussions,
   getPinnedDiscussions,
+  updateSortingMethod,
 } from './actions';
 
 import Button from 'Components/Button';
@@ -41,6 +42,20 @@ class ForumFeed extends Component {
     }
   }
 
+  handleSortingChange(newSortingMethod) {
+    const {
+      currentForum,
+      getDiscussions,
+      updateSortingMethod,
+      sortingMethod,
+    } = this.props;
+
+    if (sortingMethod !== newSortingMethod) {
+      updateSortingMethod(newSortingMethod);
+      getDiscussions(currentForum, false, true);
+    }
+  }
+
   renderNewDiscussionButtion() {
     const { currentForum } = this.props;
 
@@ -62,6 +77,7 @@ class ForumFeed extends Component {
       fetchingDiscussions,
       pinnedDiscussions,
       fetchingPinnedDiscussions,
+      sortingMethod,
     } = this.props;
 
     return (
@@ -79,6 +95,8 @@ class ForumFeed extends Component {
             loading={fetchingDiscussions}
             discussions={discussions}
             currentForum={currentForum}
+            onChangeSortingMethod={this.handleSortingChange.bind(this)}
+            activeSortingMethod={sortingMethod}
           />
 
           { this.renderNewDiscussionButtion() }
@@ -98,10 +116,12 @@ export default connect(
     fetchingDiscussions: state.feed.fetchingDiscussions,
     discussions: state.feed.discussions,
     fetchingPinnedDiscussions: state.feed.fetchingPinnedDiscussions,
+    sortingMethod: state.feed.sortingMethod,
     pinnedDiscussions: state.feed.pinnedDiscussions,
   }; },
   (dispatch) => { return {
-    getDiscussions: (currentForum, feedChanged) => { dispatch(getDiscussions(currentForum, feedChanged)); },
+    getDiscussions: (currentForum, feedChanged, sortingMethod, sortingChanged) => { dispatch(getDiscussions(currentForum, feedChanged, sortingMethod, sortingChanged)); },
     getPinnedDiscussions: (currentForum, feedChanged) => { dispatch(getPinnedDiscussions(currentForum, feedChanged)); },
+    updateSortingMethod: (method) => { dispatch(updateSortingMethod(method)); },
   }; }
 )(ForumFeed);
