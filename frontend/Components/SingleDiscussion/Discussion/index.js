@@ -6,6 +6,7 @@ import styles from './styles.css';
 
 import PlaceholderImage from 'SharedStyles/placeholder.jpg';
 import Tag from 'Components/Tag';
+import RichEditor from 'Components/RichEditor';
 
 class Discussion extends Component {
   render() {
@@ -53,7 +54,10 @@ class Discussion extends Component {
 
         <div className={styles.discTitle}>{discTitle}</div>
         <div className={styles.discContent}>
-          {discContent}
+          <RichEditor
+            readOnly={true}
+            value={discContent}
+          />
         </div>
 
         <div className={styles.discFooter}>
@@ -92,7 +96,7 @@ Discussion.propTypes = {
   userGitHandler: React.PropTypes.string,
   discTitle: React.PropTypes.string,
   discDate: React.PropTypes.any,
-  discContent: React.PropTypes.string,
+  discContent: React.PropTypes.any,
   tags: React.PropTypes.array,
   favoriteCount: React.PropTypes.number,
   favoriteAction: React.PropTypes.func,

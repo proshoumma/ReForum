@@ -9,7 +9,7 @@ const discussionSchema = mongoose.Schema({
   user_id: mongoose.Schema.ObjectId,
   date: Date,
   title: String,
-  content: String,
+  content: Object,
   favorites: Array,
   tags: Array,
   pinned: Boolean,

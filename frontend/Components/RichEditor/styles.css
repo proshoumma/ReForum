@@ -13,6 +13,10 @@
   border: 1px solid borderColor;
 }
 
+.readOnlyContainer {
+  border: none;
+}
+
 .editorContainer {
   padding: 10px 10px;
   width: 100%;
@@ -24,6 +28,11 @@
     position: absolute;
     color: secondaryFontColor;
   }
+}
+
+.readOnlyEditorContainer {
+  padding: 0px;
+  border-bottom: none;
 }
 
 .buttonClass {

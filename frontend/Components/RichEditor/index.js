@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Editor, EditorState, ContentState } from 'draft-js';
+import { Editor, EditorState, ContentState, convertToRaw, convertFromRaw } from 'draft-js';
 import classnames from 'classnames';
 import styles from './styles';
 
@@ -16,22 +16,28 @@ class RichEditor extends Component {
     this.onEditorStateChange = this.onEditorStateChange.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { value } = nextProps;
-    if (value === null) this.setState({ editorState: EditorState.createEmpty() });
+  componentDidMount() {
+    const { value } = this.props;
+    if (value) {
+      const contentState = convertFromRaw(JSON.parse(value));
+      const editorState = EditorState.createWithContent(contentState);
+      this.setState({ editorState });
+    }
   }
 
   onEditorStateChange(editorState) {
     const { onChange } = this.props;
-
     this.setState({ editorState });
-    onChange(editorState.getCurrentContent().getPlainText());
+
+    // trigger on change converting the ContentState to raw object
+    onChange(JSON.stringify(convertToRaw(editorState.getCurrentContent())));
   }
 
   render() {
     const {
       type,
       onSave,
+      readOnly,
     } = this.props;
 
     let saveButtonLabel = '';
@@ -43,9 +49,17 @@ class RichEditor extends Component {
     if (type === 'newDiscussion') placeholder = 'Discussion summary...';
 
     return (
-      <div className={styles.container}>
-        <div className={classnames(styles.editorContainer, styles[type])} onClick={this.focus}>
+      <div className={classnames(styles.container, readOnly && styles.readOnlyContainer)}>
+        <div
+          className={classnames(
+            styles.editorContainer,
+            !readOnly && styles[type],
+            readOnly && styles.readOnlyEditorContainer
+          )}
+          onClick={this.focus}
+        >
           <Editor
+            readOnly={readOnly}
             editorState={this.state.editorState}
             onChange={this.onEditorStateChange}
             placeholder={placeholder}
@@ -53,23 +67,25 @@ class RichEditor extends Component {
           />
         </div>
 
-        <Button noUppercase style={{ alignSelf: 'center' }} onClick={onSave}>
+        { !readOnly && <Button noUppercase style={{ alignSelf: 'center' }} onClick={onSave}>
           {saveButtonLabel}
-        </Button>
+        </Button> }
       </div>
     );
   }
 }
 
 RichEditor.defaultProps = {
-  value: '',
+  readOnly: false,
+  value: null,
   type: 'newDiscussion',
   onChange: () => { },
   onSave: () => { },
 };
 
 RichEditor.propTypes = {
-  value: React.PropTypes.string,
+  readOnly: React.PropTypes.bool,
+  value: React.PropTypes.any,
   type: React.PropTypes.oneOf(['newDiscussion', 'newOpinion']),
   onChange: React.PropTypes.func,
   onSave: React.PropTypes.func,

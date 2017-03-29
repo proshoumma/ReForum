@@ -5,6 +5,7 @@ import styles from './styles.css';
 
 import PlaceholderImage from 'SharedStyles/placeholder.jpg';
 import Button from 'Components/Button';
+import RichEditor from 'Components/RichEditor';
 
 class Opinion extends Component {
   render() {
@@ -35,7 +36,10 @@ class Opinion extends Component {
         </div>
 
         <div className={styles.opContent}>
-          {opContent}
+          <RichEditor
+            readOnly
+            value={opContent}
+          />
         </div>
 
         <div className={styles.commentFooter}>

@@ -42,7 +42,7 @@ export const postDiscussion = (userId, forumId, currentForum) => {
       });
     }
 
-    if (content === null || content.length < 150) {
+    if (content === null || content.length === 0) {
       validated = false;
       return dispatch({
         type: POSTING_DISCUSSION_FAILURE,
@@ -57,6 +57,9 @@ export const postDiscussion = (userId, forumId, currentForum) => {
         payload: 'Please provide some tags.',
       });
     }
+
+    console.log('content');
+    console.log(content);
 
     // make api call if post is validated
     if (validated) {
