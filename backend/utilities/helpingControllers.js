@@ -5,7 +5,10 @@ const getUser = require('../entities/user/controller').getUser;
 
 const getAllOpinions = (discussion_id) => {
   return new Promise((resolve, reject) => {
-    Opinion.find({ discussion_id }, (error, opinions) => {
+    Opinion
+    .find({ discussion_id })
+    .sort({ date: -1 })
+    .exec((error, opinions) => {
       // attach user to the opinions
       asyncEach(opinions, (eachOpinion, callback) => {
         getUser(eachOpinion.user_id).then(
