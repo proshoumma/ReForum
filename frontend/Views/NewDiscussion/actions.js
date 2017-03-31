@@ -34,11 +34,11 @@ export const postDiscussion = (userId, forumId, currentForum) => {
       });
     }
 
-    if (title === null || title.length < 20) {
+    if (title === null || title.length < 15) {
       validated = false;
       return dispatch({
         type: POSTING_DISCUSSION_FAILURE,
-        payload: 'Title should be at least 20 characters.',
+        payload: 'Title should be at least 15 characters.',
       });
     }
 
@@ -46,7 +46,7 @@ export const postDiscussion = (userId, forumId, currentForum) => {
       validated = false;
       return dispatch({
         type: POSTING_DISCUSSION_FAILURE,
-        payload: 'Content should be at least 150 characters.',
+        payload: 'Please write some content before posting.',
       });
     }
 

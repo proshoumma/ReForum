@@ -7,7 +7,7 @@ const opinionSchema = mongoose.Schema({
   discussion_id: mongoose.Schema.ObjectId,
   user_id: mongoose.Schema.ObjectId,
   date: Date,
-  content: String,
+  content: Object,
 });
 
 module.exports = mongoose.model('opinions', opinionSchema);
