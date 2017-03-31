@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
-import { Editor, EditorState, ContentState, convertToRaw, convertFromRaw } from 'draft-js';
+import {
+  Editor,
+  EditorState,
+  ContentState,
+  RichUtils,
+  convertToRaw,
+  convertFromRaw,
+} from 'draft-js';
 import classnames from 'classnames';
 import styles from './styles';
 
 import Button from 'Components/Button';
+import BlockStyleControls from './BlockStyleControls';
+import InlineStyleControls from './InlineStyleControls';
 
 class RichEditor extends Component {
   constructor(props) {
@@ -14,6 +23,9 @@ class RichEditor extends Component {
 
     this.focus = () => this.refs.commentEditor.focus();
     this.onEditorStateChange = this.onEditorStateChange.bind(this);
+    this.handleKeyCommand = this.handleKeyCommand.bind(this);
+    this.toggleBlockType = this.toggleBlockType.bind(this);
+    this.toggleInlineStyle = this.toggleInlineStyle.bind(this);
   }
 
   componentDidMount() {
@@ -33,12 +45,55 @@ class RichEditor extends Component {
     onChange(JSON.stringify(convertToRaw(editorState.getCurrentContent())));
   }
 
+  handleKeyCommand(command) {
+    const newState = RichUtils.handleKeyCommand(this.state.editorState, command);
+    if (newState) {
+      this.onEditorStateChange(newState);
+      return 'handled';
+    }
+    return 'not-handled';
+  }
+
+  onTab(event) {
+    const maxDepth = 4;
+    this.onEditorStateChange(RichUtils.onTab(event, this.state.editorState, maxDepth));
+  }
+
+  toggleBlockType(blockType) {
+    this.onEditorStateChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
+  }
+
+  toggleInlineStyle(inlineStyle) {
+    this.onEditorStateChange(RichUtils.toggleInlineStyle(this.state.editorState, inlineStyle));
+  }
+
+  customBlockStyles(contentBlock) {
+    const type = contentBlock.getType();
+    if (type === 'blockquote') return styles.editorBlockquoteStyle;
+    if (type === 'code-block') return styles.editorCodeStyle;
+    if (type === 'header-one') return styles.editorH1Style;
+    if (type === 'header-two') return styles.editorH2Style;
+    if (type === 'header-three') return styles.editorH3Style;
+  }
+
   render() {
     const {
       type,
       onSave,
       readOnly,
     } = this.props;
+
+    // styling for inline styles
+    const inlineStyleMap = {
+      'CODE': {
+        color: '#e74c3c',
+        backgroundColor: '#f9f9f9',
+        border: '1px solid #e8e8e8',
+        fontFamily: 'monospace',
+        padding: '2px 5px',
+        margin: '0px 5px',
+      },
+    };
 
     let saveButtonLabel = '';
     if (type === 'newOpinion') saveButtonLabel = 'Reply';
@@ -50,6 +105,17 @@ class RichEditor extends Component {
 
     return (
       <div className={classnames(styles.container, readOnly && styles.readOnlyContainer)}>
+        { !readOnly && <div className={styles.controlsContainer}>
+          <InlineStyleControls
+            editorState={this.state.editorState}
+            onToggle={this.toggleInlineStyle}
+          />
+          <BlockStyleControls
+            editorState={this.state.editorState}
+            onToggle={this.toggleBlockType}
+          />
+        </div> }
+
         <div
           className={classnames(
             styles.editorContainer,
@@ -59,10 +125,13 @@ class RichEditor extends Component {
           onClick={this.focus}
         >
           <Editor
+            customStyleMap={inlineStyleMap}
+            blockStyleFn={this.customBlockStyles}
             readOnly={readOnly}
             editorState={this.state.editorState}
             onChange={this.onEditorStateChange}
             placeholder={placeholder}
+            handleKeyCommand={this.handleKeyCommand}
             ref='commentEditor'
           />
         </div>

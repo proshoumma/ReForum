@@ -1,4 +1,5 @@
-@value borderColor, secondaryFontColor, primaryFontColor from 'SharedStyles/globalStyles.css';
+@value borderColor, secondaryFontColor, primaryFontColor, backShade from 'SharedStyles/globalStyles.css';
+@value smallBP from 'SharedStyles/globalStyles';
 
 /**
  * RichEditor styles
@@ -40,3 +41,66 @@
 }
 
 .newDiscussion { min-height: 300px; }
+
+
+/**
+ * Controls
+ */
+.controlsContainer {
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid borderColor;
+  @media smallBP { flex-direction: column-reverse; }
+}
+
+.controls {
+  display: flex;
+}
+
+.controlButton {
+  padding: 10px 10px;
+}
+
+/**
+ * editor text styles
+ */
+
+.editorBlockquoteStyle {
+  display: inline-block;
+  position: relative;
+  margin: 10px 0px 10px 20px;
+  padding: 10px 20px;
+  background-color: backShade;
+  font-style: italic;
+}
+
+.editorBlockquoteStyle::before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 5px;
+  left: 0px;
+  top: 0px;
+  background-color: borderColor;
+}
+
+.editorCodeStyle {
+  margin: 0px;
+  padding: 0px;
+  line-height: 18px;
+}
+
+:global .public-DraftStyleDefault-pre {
+  margin: 10px 0px;
+  padding: 5px 5px;
+  background-color: backShade;
+  border: 1px solid borderColor;
+}
+
+.editorH1Style,
+.editorH2Style,
+.editorH3Style { color: #4c4c4c; }
+
+.editorH1Style { font-size: 1.6em; }
+.editorH2Style { font-size: 1.3em; }
+.editorH3Style { font-size: 1.1em; }
