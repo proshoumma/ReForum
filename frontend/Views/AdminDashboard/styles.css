@@ -1,0 +1,8 @@
+.container {
+  margin-top: 20px;
+}
+
+.countsContainer {
+  display: flex;
+  justify-content: space-around;
+}

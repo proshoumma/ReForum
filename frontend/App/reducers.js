@@ -67,6 +67,7 @@ const initialUserState = {
   githubUrl: null,
   githubLocation: null,
   githubBio: null,
+  role: null,
 };
 
 export const userReducer = (state = initialUserState, action) => {
@@ -81,6 +82,7 @@ export const userReducer = (state = initialUserState, action) => {
         githubBio,
         githubUrl,
         githubLocation,
+        role,
       } = action.payload;
 
       return Object.assign({}, state), {
@@ -94,6 +96,7 @@ export const userReducer = (state = initialUserState, action) => {
         githubBio,
         githubUrl,
         githubLocation,
+        role,
       };
 
     case FETCHING_USER_FAILURE:

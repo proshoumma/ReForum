@@ -9,6 +9,8 @@ import appStore from './store';
 
 // app views
 import AppContainer from './App';
+import AdminContainer from './Admin';
+import Dashboard from '../Views/AdminDashboard';
 import Header from 'Containers/Header';
 import ForumFeed from '../Views/ForumFeed';
 import SingleDiscussion from '../Views/SingleDiscussion';
@@ -18,6 +20,9 @@ import NotFound from '../Views/NotFound';
 ReactDOM.render (
   <Provider store={appStore}>
     <Router history={browserHistory}>
+      <Route path="/admin" component={AdminContainer}>
+        <IndexRoute component={Dashboard} />
+      </Route>
       <Route path="/" component={AppContainer}>
         <IndexRoute component={ForumFeed} />
         <Route path=":forum" component={ForumFeed} />
