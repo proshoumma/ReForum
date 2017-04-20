@@ -15,22 +15,35 @@ class Dashboard extends Component {
   }
 
   render() {
-    return (
-      <div className={classnames(appLayout.constraintWidth, styles.container)}>
-        <div className={styles.countsContainer}>
-          <Counts label={'Posts'} count={0} />
-          <Counts />
-          <Counts />
-          <Counts />
+    if (this.props.adminInfo.info) {
+      const {
+        discussionCount,
+        opinionCount,
+        forumCount,
+        userCount,
+      } = this.props.adminInfo.info;
+
+      return (
+        <div className={classnames(appLayout.constraintWidth, styles.container)}>
+          <div className={styles.countsContainer}>
+            <Counts label={'Users'} count={userCount} />
+            <Counts label={'Discussions'} count={discussionCount} />
+            <Counts label={'Opinions'} count={opinionCount} />
+            <Counts label={'Forums'} count={forumCount} />
+          </div>
         </div>
-      </div>
+      );
+    }
+
+    return (
+      <div>Loading dashboard info...</div>
     );
   }
 }
 
 export default connect(
   (state) => { return {
-
+    adminInfo: state.adminInfo,
   }; },
   (dispatch) => { return {
     getAdminDashboardInfo: () => { dispatch(getAdminDashboardInfo()); },
