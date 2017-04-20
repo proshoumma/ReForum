@@ -5,6 +5,7 @@ import {
   FETCHING_FORUMS_SUCCESS,
   FETCHING_FORUMS_FAILURE,
   UPDATECURRENTFORUM,
+  START_FETCHING_USER,
   FETCHING_USER_SUCCESS,
   FETCHING_USER_FAILURE,
 } from './constants';
@@ -43,6 +44,8 @@ export const updateCurrentForum = (currentForum) => {
 
 export const getUser = () => {
   return (dispatch, getState) => {
+    dispatch({ type: START_FETCHING_USER });
+
     fetchUser().then(
       data => {
         if (!data.data._id) dispatch({ type: FETCHING_USER_FAILURE });

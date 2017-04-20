@@ -1,3 +1,5 @@
+@value smallBP from 'SharedStyles/globalStyles';
+
 .container {
   margin-top: 20px;
 }
@@ -5,4 +7,6 @@
 .countsContainer {
   display: flex;
   justify-content: space-around;
+
+  @media smallBP { flex-wrap: wrap; }
 }

@@ -4,6 +4,7 @@ import {
   FETCHING_FORUMS_SUCCESS,
   FETCHING_FORUMS_FAILURE,
   UPDATECURRENTFORUM,
+  START_FETCHING_USER,
   FETCHING_USER_SUCCESS,
   FETCHING_USER_FAILURE,
 } from './constants';
@@ -57,6 +58,7 @@ export const appReducer = (state = initialState, action) => {
  * reducer for user
  */
 const initialUserState = {
+  fetchingUser: true,
   authenticated: false,
   error: null,
   _id: null,
@@ -72,6 +74,11 @@ const initialUserState = {
 
 export const userReducer = (state = initialUserState, action) => {
   switch (action.type) {
+    case START_FETCHING_USER:
+      return Object.assign({}, state, {
+        fetchUser: true,
+      });
+
     case FETCHING_USER_SUCCESS:
       const {
         _id,
@@ -86,6 +93,7 @@ export const userReducer = (state = initialUserState, action) => {
       } = action.payload;
 
       return Object.assign({}, state), {
+        fetchingUser: false,
         authenticated: true,
         error: null,
         _id,
@@ -101,6 +109,7 @@ export const userReducer = (state = initialUserState, action) => {
 
     case FETCHING_USER_FAILURE:
       return Object.assign({}, initialUserState, {
+        fetchingUser: false,
         error: 'Unable to fetch user!',
       });
 
