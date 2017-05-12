@@ -36,7 +36,9 @@ class Dashboard extends Component {
     }
 
     return (
-      <div>Loading dashboard info...</div>
+      <div className={classnames(appLayout.constraintWidth, styles.loadingMsg)}>
+        Loading dashboard info...
+      </div>
     );
   }
 }

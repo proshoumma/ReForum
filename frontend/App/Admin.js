@@ -18,7 +18,11 @@ class AdminContainer extends Component {
     const { user } = this.props;
 
     if (user.fetchingUser) {
-      return (<div>Loading users profile...</div>);
+      return (
+        <div style={{ textAlign: 'center', marginTop: 20 }}>
+          Loading users profile...
+        </div>
+      );
     }
 
     if (user.role === 'admin') {

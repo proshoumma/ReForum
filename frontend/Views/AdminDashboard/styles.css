@@ -10,3 +10,8 @@
 
   @media smallBP { flex-wrap: wrap; }
 }
+
+.loadingMsg {
+  margin-top: 20px;
+  text-align: center;
+}
