@@ -59,28 +59,39 @@ const signInViaGithub = (gitProfile) => {
 
         // user doesn't exists on db
         else {
-          // create a new user
-          const newUser = new User({
-            name: gitProfile.displayName,
-            username: gitProfile.username,
-            avatarUrl: gitProfile._json.avatar_url,
-            email: email,
-            github: {
-              id: gitProfile._json.id,
-              url: gitProfile._json.html_url,
-              company: gitProfile._json.company,
-              location: gitProfile._json.location,
-              hireable: gitProfile._json.hireable,
-              bio: gitProfile._json.bio,
-              followers: gitProfile._json.followers,
-              following: gitProfile._json.following,
-            },
-          });
+          // check if it is the first user (adam/eve) :-p
+          // assign him/her as the admin
+          User.count({}, (err, count) => {
+            console.log('usercount: ' + count);
 
-          // save the user and resolve the user doc
-          newUser.save((error) => {
-            if (error) { console.log(error); reject(error); }
-            else { resolve(newUser); }
+            let assignAdmin = false;
+            if (count === 0) assignAdmin = true;
+
+            // create a new user
+            const newUser = new User({
+              name: gitProfile.displayName,
+              username: gitProfile.username,
+              avatarUrl: gitProfile._json.avatar_url,
+              email: email,
+              role: assignAdmin ? 'admin' : 'user',
+              github: {
+                id: gitProfile._json.id,
+                url: gitProfile._json.html_url,
+                company: gitProfile._json.company,
+                location: gitProfile._json.location,
+                hireable: gitProfile._json.hireable,
+                bio: gitProfile._json.bio,
+                followers: gitProfile._json.followers,
+                following: gitProfile._json.following,
+              },
+            });
+
+            // save the user and resolve the user doc
+            newUser.save((error) => {
+              if (error) { console.log(error); reject(error); }
+              else { resolve(newUser); }
+            });
+
           });
         }
       }
