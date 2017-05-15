@@ -21,7 +21,7 @@ export const getDiscussion = (discussionSlug) => {
   return (dispatch, getState) => {
     dispatch({ type: FETCHING_SINGLE_DISC_START });
     fetchSingleDiscussion(discussionSlug).then(
-      data => dispatch({ type: FETCHING_SINGLE_DISC_SUCCESS, payload: data.data }),
+      data => {dispatch({ type: FETCHING_SINGLE_DISC_SUCCESS, payload: data.data }); console.log(data.data);},
       error => dispatch({ type: FETCHING_SINGLE_DISC_FAILURE })
     );
   };

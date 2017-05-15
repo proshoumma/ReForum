@@ -5,7 +5,7 @@ const Forum = require('./model');
 const Discussion = require('../discussion/model');
 
 // controllers
-const getAllOpinions = require('../../utilities/helpingControllers').getAllOpinions;
+const getAllOpinions = require('../opinion/controller').getAllOpinions;
 const getUser = require('../user/controller').getUser;
 
 /**

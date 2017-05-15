@@ -1,6 +1,6 @@
 // helpers
 const generateDiscussionSlug = require('../../utilities/tools').generateDiscussionSlug;
-const getAllOpinions = require('../../utilities/helpingControllers').getAllOpinions;
+const getAllOpinions = require('../opinion/controller').getAllOpinions;
 const getUser = require('../user/controller').getUser;
 
 // models
@@ -13,26 +13,23 @@ const getDiscussion = (discussion_slug, discussion_id) => {
     if (discussion_slug) findObject.discussion_slug = discussion_slug;
     if (discussion_id) findObject._id = discussion_id;
 
-    // match discussion slug and retrive discussion from db
-    Discussion.findOne(findObject, (error, discussion) => {
+    Discussion
+    .findOne(findObject)
+    .populate('forum')
+    .populate('user')
+    .lean()
+    .exec((error, result) => {
       if (error) reject(error);
-
-      // add user to the discussion object
-      getUser(discussion.user_id).then(
-        (user) => {
-          discussion._doc.user = user;
-
-          // add opinions to the discussion object
-          getAllOpinions(discussion._id).then(
-            (opinions) => {
-              discussion._doc.opinions = opinions;
-              resolve(discussion);
-            },
-            (error) => { reject(null); }
-          );
-        },
-        (error) => { reject(error); }
-      );
+      else {
+        // add opinions to the discussion object
+        getAllOpinions(result._id).then(
+          (opinions) => {
+            result.opinions = opinions;
+            resolve(result);
+          },
+          (error) => { reject(error); }
+        );
+      }
     });
   });
 };
@@ -41,7 +38,9 @@ const createDiscussion = (discussion) => {
   return new Promise((resolve, reject) => {
     const newDiscussion = new Discussion({
       forum_id: discussion.forumId,
+      forum: discussion.forumId,
       user_id: discussion.userId,
+      user: discussion.userId,
       discussion_slug: generateDiscussionSlug(discussion.title),
       date: new Date(),
       title: discussion.title,
@@ -108,19 +107,3 @@ module.exports = {
   deleteDiscussion,
   toggleFavorite,
 };
-
-// create some dummy forum discussions
-// const ObjectId = require('mongoose').Types.ObjectId();
-// const discussion = new Discussion({
-//   'forum_id': '58c23d2efce8810b6f20b0b3',
-//   'discussion_slug': 'a_discussion_from_general_forum_' + ObjectId,
-//   'user_id': '58c242e2fb2e150d2570e02b',
-//   'date': 1486450269704,
-//   'title': 'A discussion from general forum',
-//   'content': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-//   'favorites': [],
-//   'tags': ['react', 'redux', 'mongodb'],
-//   'pinned': false,
-// });
-//
-// discussion.save();

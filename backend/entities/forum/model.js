@@ -8,4 +8,4 @@ const forumSchema = mongoose.Schema({
   forum_name: String,
 });
 
-module.exports = mongoose.model('forums', forumSchema);
+module.exports = mongoose.model('forum', forumSchema);

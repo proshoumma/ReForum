@@ -1,5 +1,5 @@
 // controllers
-const getAllOpinions = require('../../utilities/helpingControllers').getAllOpinions;
+const getAllOpinions = require('./controller').getAllOpinions;
 const createOpinion = require('./controller').createOpinion;
 
 /**
@@ -7,13 +7,13 @@ const createOpinion = require('./controller').createOpinion;
  */
 const opinionAPI = (app) => {
   // get all opinions
-  app.get('/api/opinion/:forum_id/:discussion_slug', (req, res) => {
-    const { forum_id, discussion_slug } = req.params;
-    getAllOpinions(forum_id, discussion_slug).then(
-      (result) => { setTimeout(() => { res.send(result); }, 3000); },
-      (error) => { setTimeout(() => { res.send(error); }, 3000); }
-    );
-  });
+  // app.get('/api/opinion/:forum_id/:discussion_slug', (req, res) => {
+  //   const { forum_id, discussion_slug } = req.params;
+  //   getAllOpinions(forum_id, discussion_slug).then(
+  //     (result) => { setTimeout(() => { res.send(result); }, 3000); },
+  //     (error) => { setTimeout(() => { res.send(error); }, 3000); }
+  //   );
+  // });
 
   app.post('/api/opinion/newOpinion', (req, res) => {
     if(req.user) {
