@@ -11,12 +11,12 @@ const discussionAPI = (app) => {
   app.get('/api/discussion/:discussion_slug', (req, res) => {
     const { discussion_slug } = req.params;
     getDiscussion(discussion_slug).then(
-      (result) => { setTimeout(() => { res.send(result); }, 3000); },
+      (result) => { res.send(result); },
       (error) => { res.send(error); }
     );
   });
 
-  // add favorite to the discussion
+  // toggle favorite to the discussion
   app.put('/api/discussion/toggleFavorite/:discussion_id', (req, res) => {
     const { discussion_id } = req.params;
     if (req.user) {
@@ -24,27 +24,26 @@ const discussionAPI = (app) => {
       toggleFavorite(discussion_id, req.user._id).then(
         (result) => {
           getDiscussion(result.discussion_slug).then(
-            (result) => { setTimeout(() => { res.send(result); }, 3000); },
-            (error) => { setTimeout(() => { res.send({ discussionUpdated: false }); }, 3000); }
+            (result) => { res.send(result); },
+            (error) => { res.send({ discussionUpdated: false }); }
           );
         },
-        (error) => { setTimeout(() => { res.send({ discussionUpdated: false }); }, 3000); }
+        (error) => { res.send({ discussionUpdated: false }); }
       );
     } else {
-      setTimeout(() => { res.send({ discussionUpdated: false }); }, 3000);
+      res.send({ discussionUpdated: false });
     }
   });
-
 
   // create a new discussion
   app.post('/api/discussion/newDiscussion', (req, res) => {
     if (req.user) {
       createDiscussion(req.body).then(
-        (result) => { setTimeout(() => { res.send(Object.assign({}, result._doc, { postCreated: true })); }, 3000); },
-        (error) => { setTimeout(() => { res.send({ postCreated: false }); }, 3000); }
+        (result) => { res.send(Object.assign({}, result._doc, { postCreated: true })); },
+        (error) => { res.send({ postCreated: false }); }
       );
     } else {
-      setTimeout(() => { res.send({ postCreated: false }); }, 3000);
+      res.send({ postCreated: false });
     }
   });
 };

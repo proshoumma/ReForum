@@ -7,10 +7,8 @@ const signIn = require('./controller').signIn;
 const userAPI = (app) => {
   // get authenticated user
   app.get('/api/user/getUser', (req, res) => {
-    setTimeout(() => {
-      if (req.user) res.send(req.user);
-      else res.send(null);
-    }, 3000);
+    if (req.user) res.send(req.user);
+    else res.send(null);
   });
 
   // github authentication route
@@ -28,10 +26,8 @@ const userAPI = (app) => {
   );
 
   app.get('/api/user/signout', (req, res) => {
-    setTimeout(() => {
-      req.logout();
-      res.redirect('/');
-    }, 3000);
+    req.logout();
+    res.redirect('/');
   });
 };
 

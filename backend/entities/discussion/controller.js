@@ -1,12 +1,15 @@
-// helpers
 const generateDiscussionSlug = require('../../utilities/tools').generateDiscussionSlug;
 const getAllOpinions = require('../opinion/controller').getAllOpinions;
 const getUser = require('../user/controller').getUser;
 
-// models
 const Discussion = require('./model');
 
-// get single discussion
+/**
+ * get a single discussion
+ * @param  {String} discussion_slug
+ * @param  {String} discussion_id
+ * @return {Promise}
+ */
 const getDiscussion = (discussion_slug, discussion_id) => {
   return new Promise((resolve, reject) => {
     let findObject = {};
@@ -34,6 +37,11 @@ const getDiscussion = (discussion_slug, discussion_id) => {
   });
 };
 
+/**
+ * Create a new discussion
+ * @param  {Object} discussion
+ * @return {Promise}
+ */
 const createDiscussion = (discussion) => {
   return new Promise((resolve, reject) => {
     const newDiscussion = new Discussion({
@@ -61,6 +69,12 @@ const createDiscussion = (discussion) => {
   });
 };
 
+/**
+ * toggle favorite status of discussion
+ * @param  {ObjectId} discussion_id
+ * @param  {ObjectId} user_id
+ * @return {Promise}
+ */
 const toggleFavorite = (discussion_id, user_id) => {
   return new Promise((resolve, reject) => {
     Discussion.findById(discussion_id, (error, discussion) => {

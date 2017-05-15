@@ -11,7 +11,7 @@ const adminAPI = (app) => {
     if (req.user && req.user.role === 'admin') {
     // if (true) {
       getAdminDashInfo().then(
-        (data) => { setTimeout(() => { res.send(data); }, 3000); },
+        (data) => { res.send(data); },
         (error) => { res.send(error); }
       );
     }
