@@ -25,8 +25,8 @@ class ReplyBox extends Component {
 
 ReplyBox.defaultProps = {
   posting: false,
-  onSubmit: () => { console.log('submit clicked'); },
-  onChange: (value) => { console.log(value); },
+  onSubmit: () => { },
+  onChange: (value) => { },
 };
 
 ReplyBox.propTypes = {

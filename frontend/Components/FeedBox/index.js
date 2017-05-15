@@ -89,7 +89,7 @@ FeedBox.defaultProps = {
   discussions: [],
   currentForum: 'general',
   activeSortingMethod: 'date',
-  onChangeSortingMethod: (val) => { console.log('sorting: ' + val); },
+  onChangeSortingMethod: (val) => { },
 };
 
 FeedBox.propTypes = {

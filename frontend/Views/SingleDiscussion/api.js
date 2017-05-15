@@ -14,3 +14,7 @@ export const toggleFavoriteApi = (discussion_id) => {
 export const postOpinionApi = (opinion) => {
   return axios.post('/api/opinion/newOpinion', opinion);
 };
+
+export const deletePostApi = (discussionSlug) => {
+  return axios.delete(`/api/discussion/deleteDiscussion/${discussionSlug}`);
+};

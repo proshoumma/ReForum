@@ -2,6 +2,7 @@
 const getDiscussion = require('./controller').getDiscussion;
 const createDiscussion = require('./controller').createDiscussion;
 const toggleFavorite = require('./controller').toggleFavorite;
+const deleteDiscussion = require('./controller').deleteDiscussion;
 
 /**
  * discussion apis
@@ -44,6 +45,20 @@ const discussionAPI = (app) => {
       );
     } else {
       res.send({ postCreated: false });
+    }
+  });
+
+  // delete a discussion
+  app.delete('/api/discussion/deleteDiscussion/:discussion_slug', (req, res) => {
+    if (req.user) {
+      console.log("req.params.discussion_slug")
+      console.log(req.params.discussion_slug)
+      deleteDiscussion(req.params.discussion_slug).then(
+        (result) => { setTimeout(() => { res.send({ deleted: true }); }, 3000); },
+        (error) => { setTimeout(() => { res.send({ deleted: false }); }, 3000); }
+      );
+    } else {
+      res.send({ deleted: false });
     }
   });
 };

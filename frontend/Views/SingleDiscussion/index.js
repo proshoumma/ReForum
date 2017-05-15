@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 
@@ -6,6 +7,8 @@ import {
   getDiscussion,
   toggleFavorite,
   postOpinion,
+  deletePost,
+  deletedDiscussionRedirect,
 } from './actions';
 
 import Discussion from 'Components/SingleDiscussion/Discussion';
@@ -28,6 +31,21 @@ class SingleDiscussion extends Component {
     } = this.props.params;
 
     this.props.getDiscussion(discussion);
+  }
+
+  componentDidUpdate() {
+    const {
+      deletedDiscussion,
+      deletedDiscussionRedirect,
+    } = this.props;
+
+    const { forum } = this.props.params;
+
+    // check if the discussion is deleted and redirect the user
+    if (deletedDiscussion) {
+      browserHistory.push(`/${forum}`);
+      setTimeout(() => { deletedDiscussionRedirect(); }, 100);
+    }
   }
 
   userFavoritedDiscussion(userId, favorites) {
@@ -57,6 +75,12 @@ class SingleDiscussion extends Component {
     );
   }
 
+  deleteDiscussion() {
+    const { discussion } = this.props.params;
+    const { deletePost } = this.props;
+    deletePost(discussion);
+  }
+
   render() {
     const {
       userAuthenticated,
@@ -65,6 +89,7 @@ class SingleDiscussion extends Component {
       toggleFavorite,
       toggleingFavorite,
       postingOpinion,
+      deletingDiscussion,
       error,
     } = this.props;
 
@@ -89,6 +114,10 @@ class SingleDiscussion extends Component {
       username,
     } = discussion.user;
 
+    // check if logged in user is owner of the discussion
+    let discussionOwner = false;
+    if (discussion.user._id === this.props.userId) discussionOwner = true;
+
     // check if user favorated the discussion
     const userFavorited = this.userFavoritedDiscussion(this.props.userId, favorites);
 
@@ -107,6 +136,9 @@ class SingleDiscussion extends Component {
           favoriteAction={toggleFavorite}
           userFavorited={userFavorited}
           toggleingFavorite={toggleingFavorite}
+          allowDelete={discussionOwner}
+          deletingDiscussion={deletingDiscussion}
+          deleteAction={this.deleteDiscussion.bind(this)}
         />
 
         { error && <div className={styles.errorMsg}>{error}</div> }
@@ -141,6 +173,8 @@ export default connect(
     userId: state.user._id,
     fetchingDiscussion: state.discussion.fetchingDiscussion,
     toggleingFavorite: state.discussion.toggleingFavorite,
+    deletingDiscussion: state.discussion.deletingDiscussion,
+    deletedDiscussion: state.discussion.deletedDiscussion,
     postingOpinion: state.discussion.postingOpinion,
     discussion: state.discussion.discussion,
     error: state.discussion.error,
@@ -149,5 +183,7 @@ export default connect(
     getDiscussion: (discussionSlug) => { dispatch(getDiscussion(discussionSlug)); },
     toggleFavorite: (discussionId) => { dispatch(toggleFavorite(discussionId)); },
     postOpinion: (opinion, discussionSlug) => { dispatch(postOpinion(opinion, discussionSlug)); },
+    deletePost: (discussionSlug) => { dispatch(deletePost(discussionSlug)); },
+    deletedDiscussionRedirect: () => { dispatch(deletedDiscussionRedirect()); },
   }; }
 )(SingleDiscussion);

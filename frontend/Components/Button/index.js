@@ -41,7 +41,7 @@ Button.defaultProps = {
   alwaysActive: false,
   className: '',
   style: {},
-  onClick: () => { console.log('clicked!'); },
+  onClick: () => { },
 };
 
 Button.propTypes = {

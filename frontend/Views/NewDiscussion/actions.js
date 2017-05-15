@@ -58,9 +58,6 @@ export const postDiscussion = (userId, forumId, currentForum) => {
       });
     }
 
-    console.log('content');
-    console.log(content);
-
     // make api call if post is validated
     if (validated) {
       postDiscussionApi({

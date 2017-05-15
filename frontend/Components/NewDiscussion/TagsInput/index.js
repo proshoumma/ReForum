@@ -136,7 +136,7 @@ class TagsInput extends Component {
 TagsInput.defaultProps = {
   value: [],
   maxTagCount: 3,
-  onChange: (tags) => { console.log('tags changed: ' + tags); },
+  onChange: (tags) => {},
 };
 
 TagsInput.propTypes = {

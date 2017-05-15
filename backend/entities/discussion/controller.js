@@ -110,8 +110,15 @@ const updateDiscussion = (forum_id, discussion_slug) => {
 
 };
 
-const deleteDiscussion = (forum_id, discussion_slug) => {
-
+const deleteDiscussion = (discussion_slug) => {
+  return new Promise((resolve, reject) => {
+    Discussion
+    .remove({ discussion_slug })
+    .exec((error) => {
+      if (error) reject(error);
+      else resolve('deleted');
+    });
+  });
 };
 
 module.exports = {

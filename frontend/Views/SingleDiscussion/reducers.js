@@ -9,12 +9,18 @@ import {
   POSTING_OPINION_START,
   POSTING_OPINION_SUCCESS,
   POSTING_OPINION_FAILURE,
+  DELETE_DISC_START,
+  DELETE_DISC_SUCCESS,
+  DELETE_DISC_FAILURE,
+  DELETE_DISC_REDIRECT,
 } from './constants';
 
 const initialState = {
   fetchingDiscussion: true,
   toggleingFavorite: false,
   postingOpinion: false,
+  deletingDiscussion: false,
+  deletedDiscussion: false,
   discussion: null,
   error: null,
 };
@@ -70,6 +76,28 @@ export const singleDiscussionReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         postingOpinion: false,
         error: action.payload,
+      });
+
+    case DELETE_DISC_START:
+      return Object.assign({}, state, {
+        deletingDiscussion: true,
+      });
+
+    case DELETE_DISC_SUCCESS:
+      return Object.assign({}, state, {
+        deletingDiscussion: false,
+        deletedDiscussion: true,
+      });
+
+    case DELETE_DISC_FAILURE:
+      return Object.assign({}, state, {
+        deletingDiscussion: false,
+        deletedDiscussion: false,
+      });
+
+    case DELETE_DISC_REDIRECT:
+      return Object.assign({}, state, {
+        deletedDiscussion: false,
       });
 
     default:

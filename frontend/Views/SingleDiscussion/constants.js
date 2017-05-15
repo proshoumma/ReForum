@@ -8,3 +8,7 @@ export const TOGGLE_FAVORITE_FAILURE = 'toggle_favorite_failure';
 export const POSTING_OPINION_START = 'posting_opinion_start';
 export const POSTING_OPINION_SUCCESS = 'posting_opinion_success';
 export const POSTING_OPINION_FAILURE = 'posting_opinion_failure';
+export const DELETE_DISC_START = 'delete_disc_start';
+export const DELETE_DISC_SUCCESS = 'delete_disc_success';
+export const DELETE_DISC_FAILURE = 'delete_disc_failure';
+export const DELETE_DISC_REDIRECT = 'delete_disc_redirect';

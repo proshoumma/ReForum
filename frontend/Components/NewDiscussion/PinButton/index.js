@@ -49,7 +49,7 @@ class PinButton extends Component {
 }
 
 PinButton.defaultProps = {
-  onChange: (val) => { console.log('Pin value: ' + val); },
+  onChange: (val) => {},
   value: false,
 };
 

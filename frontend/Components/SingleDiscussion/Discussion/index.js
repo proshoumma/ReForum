@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import styles from './styles.css';
 
 import PlaceholderImage from 'SharedStyles/placeholder.jpg';
+import Button from 'Components/Button';
 import Tag from 'Components/Tag';
 import RichEditor from 'Components/RichEditor';
 
@@ -23,6 +24,9 @@ class Discussion extends Component {
       favoriteAction,
       userFavorited,
       toggleingFavorite,
+      allowDelete,
+      deletingDiscussion,
+      deleteAction,
     } = this.props;
 
     let dateDisplay = moment(discDate);
@@ -64,11 +68,20 @@ class Discussion extends Component {
           <div className={styles.tags}>
             { tags.map(tag => <Tag name={tag} key={_.uniqueId('tag_')} />)}
           </div>
-          <div className={styles.favoriteButton} onClick={() => { !toggleingFavorite && favoriteAction(id); }}>
+          <Button noUppercase className={styles.favoriteButton} onClick={() => { !toggleingFavorite && favoriteAction(id); }}>
             <i className={classnames(`fa fa-${userFavorited ? 'heart' : 'heart-o'}`)}></i>
-            <div>{favCount}</div>
-          </div>
+            <span>{favCount}</span>
+          </Button>
+
+          { allowDelete && <Button noUppercase className={styles.deleteButton} onClick={() => { deleteAction(); }}>
+            <i className={classnames('fa fa-trash', styles.trashIcon)}></i>
+            <span>Delete</span>
+          </Button> }
         </div>
+
+        { deletingDiscussion && <div className={styles.deletingDiscussion}>
+          Deleting Discussion...
+        </div> }
       </div>
     );
   }
@@ -84,9 +97,12 @@ Discussion.defaultProps = {
   discContent: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
   tags: [ 'react', 'redux', 'webkit' ],
   favoriteCount: 1,
-  favoriteAction: () => { console.log('favorite clicked'); },
+  favoriteAction: () => { },
   userFavorited: false,
   toggleingFavorite: false,
+  allowDelete: false,
+  deletingDiscussion: false,
+  deleteAction: () => { },
 };
 
 Discussion.propTypes = {
@@ -102,6 +118,9 @@ Discussion.propTypes = {
   favoriteAction: React.PropTypes.func,
   userFavorited: React.PropTypes.bool,
   toggleingFavorite: React.PropTypes.bool,
+  allowDelete: React.PropTypes.bool,
+  deletingDiscussion: React.PropTypes.bool,
+  deleteAction: React.PropTypes.func,
 };
 
 export default Discussion;

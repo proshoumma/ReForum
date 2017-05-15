@@ -9,12 +9,17 @@ import {
   POSTING_OPINION_START,
   POSTING_OPINION_SUCCESS,
   POSTING_OPINION_FAILURE,
+  DELETE_DISC_START,
+  DELETE_DISC_SUCCESS,
+  DELETE_DISC_REDIRECT,
+  DELETE_DISC_FAILURE,
 } from './constants';
 import {
   fetchSingleDiscussion,
   fetchOpinions,
   toggleFavoriteApi,
   postOpinionApi,
+  deletePostApi,
 } from './api';
 
 export const getDiscussion = (discussionSlug) => {
@@ -68,5 +73,24 @@ export const postOpinion = (opinion, discussionSlug) => {
         error => dispatch({ type: POSTING_OPINION_FAILURE })
       );
     }
+  };
+};
+
+export const deletePost = (discussionSlug) => {
+  return (dispatch, getState) => {
+    dispatch({ type: DELETE_DISC_START });
+    deletePostApi(discussionSlug).then(
+      data => {
+        if (data.data.deleted) { dispatch({ type: DELETE_DISC_SUCCESS }); }
+        else { dispatch({ type: DELETE_DISC_FAILURE }); }
+      },
+      error => dispatch({ type: DELETE_DISC_FAILURE })
+    );
+  };
+};
+
+export const deletedDiscussionRedirect = () => {
+  return (dispatch, getState) => {
+    dispatch({ type: DELETE_DISC_REDIRECT });
   };
 };

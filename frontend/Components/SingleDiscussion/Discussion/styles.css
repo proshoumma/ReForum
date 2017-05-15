@@ -5,7 +5,10 @@
  * Discussion styles
  */
 
-.container { padding: 20px 10px 0px 10px; }
+.container {
+  padding: 20px 10px 0px 10px;
+  position: relative;
+}
 
 .infoContainer {
   display: flex;
@@ -73,21 +76,29 @@
 
   & .tags { flex: 1; }
 
-  & .favoriteButton {
-    padding: 10px 10px;
-    display: flex;
-    align-items: center;
-    color: secondaryFontColor;
-    cursor: pointer;
-    user-select: none;
-    transition: color 0.3s;
-    &:hover { color: primaryFontColor; }
-
-    @media smallBP { margin-top: 5px; }
-
+  & .favoriteButton,
+  & .deleteButton {
+    @media smallBP {
+      margin-top: 5px;
+      padding-left: 0px;
+      padding-right: 0px;
+    }
     & i {
       font-size: 20px;
       margin-right: 10px;
     }
   }
+}
+
+.deletingDiscussion {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
