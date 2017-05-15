@@ -21,7 +21,7 @@ export const getDiscussion = (discussionSlug) => {
   return (dispatch, getState) => {
     dispatch({ type: FETCHING_SINGLE_DISC_START });
     fetchSingleDiscussion(discussionSlug).then(
-      data => {dispatch({ type: FETCHING_SINGLE_DISC_SUCCESS, payload: data.data }); console.log(data.data);},
+      data => dispatch({ type: FETCHING_SINGLE_DISC_SUCCESS, payload: data.data }),
       error => dispatch({ type: FETCHING_SINGLE_DISC_FAILURE })
     );
   };
@@ -44,7 +44,7 @@ export const toggleFavorite = (discussionId) => {
   };
 };
 
-export const postOpinion = (opinion) => {
+export const postOpinion = (opinion, discussionSlug) => {
   return (dispatch, getState) => {
     dispatch({ type: POSTING_OPINION_START });
 
@@ -54,8 +54,14 @@ export const postOpinion = (opinion) => {
       postOpinionApi(opinion).then(
         data => {
           if (data.data._id) {
-            dispatch({ type: POSTING_OPINION_SUCCESS });
-            dispatch({ type: FETCHING_SINGLE_DISC_SUCCESS, payload: data.data });
+            // fetch the discussion to add the opinion
+            fetchSingleDiscussion(discussionSlug).then(
+              data => {
+                dispatch({ type: FETCHING_SINGLE_DISC_SUCCESS, payload: data.data });
+                dispatch({ type: POSTING_OPINION_SUCCESS });
+              },
+              error => dispatch({ type: FETCHING_SINGLE_DISC_FAILURE })
+            );
           }
           else dispatch({ type: POSTING_OPINION_FAILURE });
         },

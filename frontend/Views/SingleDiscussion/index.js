@@ -45,11 +45,16 @@ class SingleDiscussion extends Component {
       userId,
     } = this.props;
 
-    postOpinion({
-      discussion_id: discussion._id,
-      user_id: userId,
-      content: this.state.opinionContent,
-    });
+    const discussion_slug = this.props.params.discussion;
+
+    postOpinion(
+      {
+        discussion_id: discussion._id,
+        user_id: userId,
+        content: this.state.opinionContent,
+      },
+      discussion_slug
+    );
   }
 
   render() {
@@ -143,6 +148,6 @@ export default connect(
   (dispatch) => { return {
     getDiscussion: (discussionSlug) => { dispatch(getDiscussion(discussionSlug)); },
     toggleFavorite: (discussionId) => { dispatch(toggleFavorite(discussionId)); },
-    postOpinion: (opinion) => { dispatch(postOpinion(opinion)); },
+    postOpinion: (opinion, discussionSlug) => { dispatch(postOpinion(opinion, discussionSlug)); },
   }; }
 )(SingleDiscussion);
