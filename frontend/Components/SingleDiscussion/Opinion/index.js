@@ -10,15 +10,22 @@ import RichEditor from 'Components/RichEditor';
 class Opinion extends Component {
   render() {
     const {
+      opinionId,
       userAvatar,
       userName,
       userGitHandler,
       opDate,
       opContent,
+      userId,
+      currentUserId,
+      deleteAction,
+      deletingOpinion,
     } = this.props;
 
     let dateDisplay = moment(opDate);
     dateDisplay = dateDisplay.from(moment());
+
+    const allowDelete = userId === currentUserId;
 
     return (
       <div className={styles.container}>
@@ -32,6 +39,10 @@ class Opinion extends Component {
             </a>
           </div>
           <div className={styles.dateInfo}>{dateDisplay}</div>
+          { allowDelete && <Button className={styles.deleteButton} noUppercase onClick={() => { deleteAction(opinionId); }}>
+            <i className={classnames('fa fa-trash', styles.trashIcon)}></i>
+            <span>Delete</span>
+          </Button> }
           {/* <Button noUppercase>Quote</Button> */}
         </div>
 
@@ -42,28 +53,36 @@ class Opinion extends Component {
           />
         </div>
 
-        <div className={styles.commentFooter}>
-
-        </div>
+        { (deletingOpinion === opinionId) && <div className={styles.deletingOpinion}>Deleting Opinion ...</div> }
       </div>
     );
   }
 }
 
 Opinion.defaultProps = {
+  opinionId: '12345',
   userAvatar: PlaceholderImage,
   userName: 'User name',
   userGitHandler: 'github',
   opDate: 'a day ago',
   opContent: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  userId: '12345',
+  currentUserId: '12345',
+  deleteAction: () => {},
+  deletingOpinion: null,
 };
 
 Opinion.propTypes = {
+  opinionId: React.PropTypes.string,
   userAvatar: React.PropTypes.string,
   userName: React.PropTypes.string,
   userGitHandler: React.PropTypes.string,
   opDate: React.PropTypes.any,
   opContent: React.PropTypes.string,
+  userId: React.PropTypes.string,
+  currentUserId: React.PropTypes.string,
+  deleteAction: React.PropTypes.func,
+  deletingOpinion: React.PropTypes.any,
 };
 
 export default Opinion;

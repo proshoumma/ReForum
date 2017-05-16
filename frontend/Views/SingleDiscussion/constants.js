@@ -12,3 +12,6 @@ export const DELETE_DISC_START = 'delete_disc_start';
 export const DELETE_DISC_SUCCESS = 'delete_disc_success';
 export const DELETE_DISC_FAILURE = 'delete_disc_failure';
 export const DELETE_DISC_REDIRECT = 'delete_disc_redirect';
+export const DELETE_OPINION_START = 'delete_opinion_start';
+export const DELETE_OPINION_SUCCESS = 'delete_opinion_success';
+export const DELETE_OPINION_FAILURE = 'delete_opinion_failure';

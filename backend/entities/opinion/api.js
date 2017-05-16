@@ -1,6 +1,7 @@
 // controllers
 const getAllOpinions = require('./controller').getAllOpinions;
 const createOpinion = require('./controller').createOpinion;
+const deleteOpinion = require('./controller').deleteOpinion;
 
 /**
  * opinion apis
@@ -14,6 +15,15 @@ const opinionAPI = (app) => {
       );
     } else {
       res.send({ authenticated: false });
+    }
+  });
+
+  app.delete('/api/opinion/deleteOpinion/:opinion_id', (req, res) => {
+    if(req.user) {
+      deleteOpinion(req.params.opinion_id).then(
+        (result) => { res.send({ deleted: true }); },
+        (error) => { res.send({ deleted: false }); }
+      );
     }
   });
 };

@@ -9,6 +9,7 @@ import {
   postOpinion,
   deletePost,
   deletedDiscussionRedirect,
+  deleteOpinion,
 } from './actions';
 
 import Discussion from 'Components/SingleDiscussion/Discussion';
@@ -81,6 +82,12 @@ class SingleDiscussion extends Component {
     deletePost(discussion);
   }
 
+  deleteOpinion(opinionId) {
+    const { discussion } = this.props.params;
+    const { deleteOpinion } = this.props;
+    deleteOpinion(opinionId, discussion);
+  }
+
   render() {
     const {
       userAuthenticated,
@@ -89,6 +96,7 @@ class SingleDiscussion extends Component {
       toggleFavorite,
       toggleingFavorite,
       postingOpinion,
+      deletingOpinion,
       deletingDiscussion,
       error,
     } = this.props;
@@ -154,11 +162,16 @@ class SingleDiscussion extends Component {
           return (
             <Opinion
               key={opinion._id}
+              opinionId={opinion._id}
               userAvatar={opinion.user.avatarUrl}
               userName={opinion.user.name}
               userGitHandler={opinion.user.username}
               opDate={opinion.date}
               opContent={opinion.content}
+              userId={opinion.user_id}
+              currentUserId={this.props.userId}
+              deleteAction={this.deleteOpinion.bind(this)}
+              deletingOpinion={deletingOpinion}
             />
           );
         }) }
@@ -176,6 +189,7 @@ export default connect(
     deletingDiscussion: state.discussion.deletingDiscussion,
     deletedDiscussion: state.discussion.deletedDiscussion,
     postingOpinion: state.discussion.postingOpinion,
+    deletingOpinion: state.discussion.deletingOpinion,
     discussion: state.discussion.discussion,
     error: state.discussion.error,
   }; },
@@ -185,5 +199,6 @@ export default connect(
     postOpinion: (opinion, discussionSlug) => { dispatch(postOpinion(opinion, discussionSlug)); },
     deletePost: (discussionSlug) => { dispatch(deletePost(discussionSlug)); },
     deletedDiscussionRedirect: () => { dispatch(deletedDiscussionRedirect()); },
+    deleteOpinion: (opinionId, discussionSlug) => { dispatch(deleteOpinion(opinionId, discussionSlug)); },
   }; }
 )(SingleDiscussion);

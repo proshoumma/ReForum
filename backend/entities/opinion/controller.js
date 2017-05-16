@@ -36,12 +36,19 @@ const createOpinion = ({ discussion_id, user_id, content }) => {
   });
 };
 
-const updateOpinion = (forum_id, discussion_id, opinion_id) => {
+const updateOpinion = (opinion_id) => {
 
 };
 
-const deleteOpinion = (forum_id, discussion_id, opinion_id) => {
-
+const deleteOpinion = (opinion_id) => {
+  return new Promise((resolve, reject) => {
+    Opinion
+    .remove({ _id: opinion_id })
+    .exec((error) => {
+      if (error) reject(error);
+      else resolve('deleted');
+    });
+  });
 };
 
 module.exports = {

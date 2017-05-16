@@ -13,6 +13,9 @@ import {
   DELETE_DISC_SUCCESS,
   DELETE_DISC_REDIRECT,
   DELETE_DISC_FAILURE,
+  DELETE_OPINION_START,
+  DELETE_OPINION_SUCCESS,
+  DELETE_OPINION_FAILURE,
 } from './constants';
 import {
   fetchSingleDiscussion,
@@ -20,6 +23,7 @@ import {
   toggleFavoriteApi,
   postOpinionApi,
   deletePostApi,
+  deleteOpinionApi,
 } from './api';
 
 export const getDiscussion = (discussionSlug) => {
@@ -92,5 +96,30 @@ export const deletePost = (discussionSlug) => {
 export const deletedDiscussionRedirect = () => {
   return (dispatch, getState) => {
     dispatch({ type: DELETE_DISC_REDIRECT });
+  };
+};
+
+export const deleteOpinion = (opinionId, discussionSlug) => {
+  return (dispatch, getState) => {
+    dispatch({ type: DELETE_OPINION_START, payload: opinionId });
+
+    deleteOpinionApi(opinionId).then(
+      data => {
+        if (data.data.deleted) {
+
+          // fetch the discussion again to refresh the opinions
+          fetchSingleDiscussion(discussionSlug).then(
+            data => {
+              dispatch({ type: DELETE_OPINION_SUCCESS });
+              dispatch({ type: FETCHING_SINGLE_DISC_SUCCESS, payload: data.data });
+            },
+            error => dispatch({ type: FETCHING_SINGLE_DISC_FAILURE })
+          );
+
+        }
+        else { dispatch({ type: DELETE_OPINION_FAILURE }); }
+      },
+      error => dispatch({ type: DELETE_OPINION_FAILURE })
+    );
   };
 };
