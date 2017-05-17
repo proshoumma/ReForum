@@ -26,7 +26,14 @@
 .posterInfo {
   margin-top: 10px;
   font-size: 13px;
-  & .name { font-weight: 700; }
+  & .name {
+    font-weight: 700;
+    color: secondaryFontColor;
+    text-decoration: none;
+    transition: color 0.3s;
+
+    &:hover { color: primaryFontColor; }
+  }
   & .gitHandler {
     margin-left: 5px;
     text-decoration: none;

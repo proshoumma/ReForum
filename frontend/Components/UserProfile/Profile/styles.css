@@ -1,0 +1,23 @@
+@value primaryFontColor, secondaryFontColor from 'SharedStyles/globalStyles.css';
+
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.avatarContainer {
+  & .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+  }
+}
+
+.infoContainer {
+  margin-left: 20px;
+  letter-spacing: 0.5px;
+
+  & .name { font-size: 24px; margin-bottom: 10px; }
+  & .gitHandler { font-size: 14px; font-weight: bold; }
+  & .location { font-size: 14px; }
+}

@@ -1,0 +1,83 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import classnames from 'classnames';
+import appLayout from 'SharedStyles/appLayout.css';
+import styles from './styles.css';
+
+// components used in this view
+import Profile from 'Components/UserProfile/Profile';
+import FeedBox from 'Components/FeedBox';
+import SideBar from 'Components/SideBar';
+
+// actions
+import {
+  fetchUserProfile,
+} from './actions';
+
+class UserProfile extends Component {
+  componentDidMount() {
+    const { fetchUserProfile } = this.props;
+    const { username } = this.props.params;
+    fetchUserProfile(username);
+  }
+
+  render() {
+    const {
+      fetchingProfile,
+      profile,
+      error,
+    } = this.props;
+
+    const {
+      name,
+      username,
+      avatarUrl,
+      github,
+      discussions,
+    } = profile;
+
+    if (fetchingProfile) {
+      return (
+        <div className={classnames(appLayout.constraintWidth, styles.loadingMsg)}>
+          Loading users profile ...
+        </div>
+      );
+    }
+
+    return (
+      <div className={classnames(appLayout.constraintWidth, styles.container)}>
+        <div className={appLayout.primaryContent}>
+          { error && <div className={styles.errorMsg}>{ error }</div> }
+
+          <Profile
+            name={name}
+            gitHandler={username}
+            location={github.location}
+            avatarUrl={avatarUrl}
+          />
+
+          <FeedBox
+            userProfile
+            type='general'
+            discussions={discussions}
+          />
+        </div>
+
+        <div className={appLayout.secondaryContent}>
+          <SideBar />
+        </div>
+      </div>
+    );
+  }
+}
+
+export default connect(
+  (state) => { return {
+    fetchingProfile: state.userProfile.fetchingProfile,
+    profile: state.userProfile.profile,
+    error: state.userProfile.error,
+  }; },
+  (dispatch) => { return {
+    fetchUserProfile: (userSlug) => { dispatch(fetchUserProfile(userSlug)); },
+  }; }
+)(UserProfile);

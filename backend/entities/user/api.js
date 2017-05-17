@@ -1,5 +1,6 @@
 const passport = require('passport');
 const signIn = require('./controller').signIn;
+const getFullProfile = require('./controller').getFullProfile;
 
 /**
  * user apis
@@ -25,9 +26,18 @@ const userAPI = (app) => {
     (req, res) => { res.redirect('/'); }
   );
 
+  // signout the user
   app.get('/api/user/signout', (req, res) => {
     req.logout();
     res.redirect('/');
+  });
+
+  // get user full profile
+  app.get('/api/user/profile/:username', (req, res) => {
+    getFullProfile(req.params.username).then(
+      result => { setTimeout(() => { res.send(result); }, 3000); },
+      error => { setTimeout(() => { res.send({ error }); }, 3000); }
+    );
   });
 };
 

@@ -15,6 +15,7 @@ import Header from 'Containers/Header';
 import ForumFeed from '../Views/ForumFeed';
 import SingleDiscussion from '../Views/SingleDiscussion';
 import NewDiscussion from '../Views/NewDiscussion';
+import UserProfile from '../Views/UserProfile';
 import NotFound from '../Views/NotFound';
 
 ReactDOM.render (
@@ -28,6 +29,7 @@ ReactDOM.render (
         <Route path=":forum" component={ForumFeed} />
         <Route path=":forum/discussion/:discussion" component={SingleDiscussion} />
         <Route path=":forum/new_discussion" component={NewDiscussion} />
+        <Route path="user/:username" component={UserProfile} />
         <Route path="*" component={NotFound} />
       </Route>
     </Router>

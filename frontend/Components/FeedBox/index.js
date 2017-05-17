@@ -47,6 +47,7 @@ class FeedBox extends Component {
       loading,
       discussions,
       currentForum,
+      userProfile,
     } = this.props;
 
     let discussionBoxTitle = '';
@@ -57,7 +58,7 @@ class FeedBox extends Component {
       <div className={styles.container}>
         <div className={styles.header}>
           <span className={styles.title}>{discussionBoxTitle}</span>
-          { this.renderSort() }
+          { !userProfile && this.renderSort() }
         </div>
         { loading && <div className={styles.loading}>Loading...</div> }
         { this.renderEmptyDiscussionLine(loading, discussions) }
@@ -65,6 +66,7 @@ class FeedBox extends Component {
           <div className={styles.discussions}>
             { discussions && discussions.map((discussion) =>
               <DiscussionBox
+                userProfile={userProfile}
                 key={discussion._id}
                 userName={discussion.user.name || discussion.user.username}
                 userGitHandler={discussion.user.username}
@@ -73,7 +75,7 @@ class FeedBox extends Component {
                 tags={discussion.tags}
                 opinionCount={discussion.opinion_count}
                 voteCount={discussion.favorites.length}
-                link={`${currentForum}/discussion/${discussion.discussion_slug}`}
+                link={`/${userProfile ? discussion.forum.forum_slug : currentForum}/discussion/${discussion.discussion_slug}`}
               />
             ) }
           </div>
@@ -90,6 +92,7 @@ FeedBox.defaultProps = {
   currentForum: 'general',
   activeSortingMethod: 'date',
   onChangeSortingMethod: (val) => { },
+  userProfile: false,
 };
 
 FeedBox.propTypes = {
@@ -99,6 +102,7 @@ FeedBox.propTypes = {
   currentForum: React.PropTypes.string,
   activeSortingMethod: React.PropTypes.string,
   onChangeSortingMethod: React.PropTypes.func,
+  userProfile: React.PropTypes.bool,
 };
 
 export default FeedBox;

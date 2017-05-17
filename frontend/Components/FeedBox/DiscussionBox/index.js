@@ -17,6 +17,7 @@ class DiscussionBox extends Component {
       opinionCount,
       tags,
       link,
+      userProfile,
     } = this.props;
 
     const postTime = Moment(time);
@@ -26,12 +27,12 @@ class DiscussionBox extends Component {
       <div className={styles.container}>
         <div className={styles.title}><Link to={link}>{discussionTitle}</Link></div>
 
-        <div className={styles.posterInfo}>
-          <span className={styles.name}>{userName}</span>
+        { !userProfile && <div className={styles.posterInfo}>
+          <Link to={`/user/${userGitHandler}`} className={styles.name}>{userName}</Link>
           <a target="_blank" href={`https://www.github.com/${userGitHandler}`} className={styles.gitHandler}>
             - <i className={classnames('fa fa-github-alt', styles.gitIcon)}></i> {userGitHandler}
           </a>
-        </div>
+        </div> }
 
         <div className={styles.boxFooter}>
           <div className={styles.tagsArea}>
@@ -59,6 +60,7 @@ DiscussionBox.defaultProps = {
   opinionCount: 12,
   tags: ['react', 'redux', 'nodejs'],
   link: '',
+  userProfile: false,
 };
 
 DiscussionBox.propTypes = {
@@ -71,6 +73,7 @@ DiscussionBox.propTypes = {
   opinionCount: React.PropTypes.number,
   tags: React.PropTypes.array,
   link: React.PropTypes.string,
+  userProfile: React.PropTypes.bool,
 };
 
 export default DiscussionBox;
