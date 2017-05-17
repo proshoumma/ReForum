@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import classnames from 'classnames';
 import onClickOutside from 'react-onclickoutside';
 import styles from './styles';
@@ -24,7 +25,10 @@ class UserMenu extends Component {
 
   renderSubMenu() {
     const { activeSubMenu } = this.state;
-    const { signedIn } = this.props;
+    const {
+      signedIn,
+      gitHandler,
+    } = this.props;
 
     if (activeSubMenu) {
       return (
@@ -40,7 +44,7 @@ class UserMenu extends Component {
             </Button>
           </a> }
 
-          {/* { signedIn && <a className={styles.subMenuItem} href={'#'}>My Profile</a> } */}
+          { signedIn && <Link className={styles.subMenuItem} to={`/user/${gitHandler}`}>My Profile</Link> }
           {/* { signedIn && <a className={styles.subMenuItem} href={'#'}>Settings</a> } */}
           { signedIn && <a className={styles.subMenuItem} href={'/api/user/signout'}>Sign Out</a> }
         </div>
@@ -89,12 +93,14 @@ class UserMenu extends Component {
 UserMenu.defaultProps = {
   signedIn: false,
   userName: '',
+  gitHandler: '',
   avatar: '',
 };
 
 UserMenu.propTypes = {
   signedIn: React.PropTypes.bool.isRequired,
   userName: React.PropTypes.string,
+  gitHandler: React.PropTypes.string,
   avatar: React.PropTypes.string,
 };
 

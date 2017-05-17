@@ -7,7 +7,6 @@ import styles from './styles.css';
 // components used in this view
 import Profile from 'Components/UserProfile/Profile';
 import FeedBox from 'Components/FeedBox';
-import SideBar from 'Components/SideBar';
 
 // actions
 import {
@@ -63,10 +62,6 @@ class UserProfile extends Component {
             type='general'
             discussions={discussions}
           />
-        </div>
-
-        <div className={appLayout.secondaryContent}>
-          <SideBar />
         </div>
       </div>
     );

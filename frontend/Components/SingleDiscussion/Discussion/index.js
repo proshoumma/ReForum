@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import moment from 'moment';
 import classnames from 'classnames';
 import styles from './styles.css';
@@ -46,7 +47,7 @@ class Discussion extends Component {
           <img className={styles.avatar} src={userAvatar} />
           <div className={styles.columnOnSmallBP}>
             <div className={styles.userInfo}>
-              <div className={styles.name}>{userName || userGitHandler}</div>
+              <Link to={`/user/${userGitHandler}`} className={styles.name}>{userName || userGitHandler}</Link>
               <a href={`https://www.github.com/${userGitHandler}`} target="_blank" className={styles.gitHandler}>
                 <i className={classnames('fa fa-github-alt', styles.gitIcon)}></i>
                 <span>{userGitHandler}</span>

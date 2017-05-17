@@ -17,6 +17,11 @@
   line-height: 14px;
 }
 
+.fatalError {
+  margin-top: 20px;
+  text-align: center;
+}
+
 .titleInput {
   margin: 20px 0px 0px 0px;
   padding: 10px 10px;

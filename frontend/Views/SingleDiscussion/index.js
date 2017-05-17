@@ -6,6 +6,7 @@ import classnames from 'classnames';
 import {
   getDiscussion,
   toggleFavorite,
+  updateOpinionContent,
   postOpinion,
   deletePost,
   deletedDiscussionRedirect,
@@ -61,6 +62,7 @@ class SingleDiscussion extends Component {
     const {
       postOpinion,
       discussion,
+      opinionContent,
       userId,
     } = this.props;
 
@@ -70,7 +72,7 @@ class SingleDiscussion extends Component {
       {
         discussion_id: discussion._id,
         user_id: userId,
-        content: this.state.opinionContent,
+        content: opinionContent,
       },
       discussion_slug
     );
@@ -95,7 +97,9 @@ class SingleDiscussion extends Component {
       discussion,
       toggleFavorite,
       toggleingFavorite,
+      updateOpinionContent,
       postingOpinion,
+      opinionError,
       deletingOpinion,
       deletingDiscussion,
       error,
@@ -153,11 +157,13 @@ class SingleDiscussion extends Component {
           deleteAction={this.deleteDiscussion.bind(this)}
         />
 
+        { opinionError && <div className={styles.errorMsg}>{opinionError}</div> }
+
         { !userAuthenticated && <div className={styles.signInMsg}>Please sign in to post a reply.</div> }
         { userAuthenticated && <ReplyBox
           posting={postingOpinion}
           onSubmit={this.handleReplySubmit.bind(this)}
-          onChange={(content) => { this.setState({ opinionContent: content }); }}
+          onChange={(content) => { updateOpinionContent(content); }}
         /> }
 
         { opinions && opinions.map((opinion) => {
@@ -190,7 +196,9 @@ export default connect(
     toggleingFavorite: state.discussion.toggleingFavorite,
     deletingDiscussion: state.discussion.deletingDiscussion,
     deletedDiscussion: state.discussion.deletedDiscussion,
+    opinionContent: state.discussion.opinionContent,
     postingOpinion: state.discussion.postingOpinion,
+    opinionError: state.discussion.opinionError,
     deletingOpinion: state.discussion.deletingOpinion,
     discussion: state.discussion.discussion,
     error: state.discussion.error,
@@ -198,6 +206,7 @@ export default connect(
   (dispatch) => { return {
     getDiscussion: (discussionSlug) => { dispatch(getDiscussion(discussionSlug)); },
     toggleFavorite: (discussionId) => { dispatch(toggleFavorite(discussionId)); },
+    updateOpinionContent: (content) => { dispatch(updateOpinionContent(content)); },
     postOpinion: (opinion, discussionSlug) => { dispatch(postOpinion(opinion, discussionSlug)); },
     deletePost: (discussionSlug) => { dispatch(deletePost(discussionSlug)); },
     deletedDiscussionRedirect: () => { dispatch(deletedDiscussionRedirect()); },

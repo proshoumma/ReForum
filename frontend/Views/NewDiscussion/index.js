@@ -25,6 +25,7 @@ class NewDiscussion extends Component {
     this.state = {
       forumId: null,
       userId: null,
+      fatalError: null,
     };
   }
 
@@ -49,15 +50,25 @@ class NewDiscussion extends Component {
   }
 
   setUserAndForumID(user, forums, currentForum) {
-    const currentForumId = _.find(forums, { forum_slug: currentForum })._id;
-    this.setState({
-      forumId: currentForumId,
-      userId: user._id,
-    });
+    const forumId = _.find(forums, { forum_slug: currentForum });
+    if (forumId) {
+      const currentForumId = forumId._id;
+      this.setState({
+        forumId: currentForumId,
+        userId: user._id,
+      });
+    } else {
+      this.setState({
+        fatalError: 'Invalid forum buddy, go for the right one!',
+      });
+    }
   }
 
   renderEditor() {
-    const { authenticated } = this.props.user;
+    const {
+      authenticated,
+      role,
+    } = this.props.user;
 
     const {
       updateDiscussionTitle,
@@ -91,7 +102,7 @@ class NewDiscussion extends Component {
           value={title}
           onChange={(event) => { updateDiscussionTitle(event.target.value); }}
         />,
-        <PinButton
+        (role === 'admin') && <PinButton
           key={'pinned'}
           value={pinned}
           onChange={(value) => { updateDiscussionPinStatus(value); }}
@@ -119,6 +130,10 @@ class NewDiscussion extends Component {
   }
 
   render() {
+    const { fatalError } = this.state;
+
+    if (fatalError) { return (<div className={classnames(styles.errorMsg, styles.fatalError)}>{fatalError}</div>); }
+
     const { currentForum } = this.props;
     const {
       errorMsg,

@@ -44,7 +44,11 @@
     flex: 1;
     display: flex;
 
-    & .name { font-weight: 700; }
+    & .name {
+      font-weight: 700;
+      color: primaryFontColor;
+      text-decoration: none;
+    }
 
     & .gitHandler {
       margin-left: 15px;

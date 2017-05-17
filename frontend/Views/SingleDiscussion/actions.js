@@ -6,6 +6,7 @@ import {
   TOGGLE_FAVORITE_START,
   TOGGLE_FAVORITE_SUCCESS,
   TOGGLE_FAVORITE_FAILURE,
+  UPDATE_OPINION_CONTENT,
   POSTING_OPINION_START,
   POSTING_OPINION_SUCCESS,
   POSTING_OPINION_FAILURE,
@@ -53,6 +54,13 @@ export const toggleFavorite = (discussionId) => {
       },
       error => dispatch({ type: TOGGLE_FAVORITE_FAILURE })
     );
+  };
+};
+
+export const updateOpinionContent = (value) => {
+  return {
+    type: UPDATE_OPINION_CONTENT,
+    payload: value,
   };
 };
 

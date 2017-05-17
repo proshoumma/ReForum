@@ -107,10 +107,12 @@ class RichEditor extends Component {
       <div className={classnames(styles.container, readOnly && styles.readOnlyContainer)}>
         { !readOnly && <div className={styles.controlsContainer}>
           <InlineStyleControls
+            type={type}
             editorState={this.state.editorState}
             onToggle={this.toggleInlineStyle}
           />
           <BlockStyleControls
+            type={type}
             editorState={this.state.editorState}
             onToggle={this.toggleBlockType}
           />

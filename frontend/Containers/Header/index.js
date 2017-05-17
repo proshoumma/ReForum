@@ -43,6 +43,7 @@ class Header extends Component {
           <UserMenu
             signedIn={authenticated}
             userName={name || username}
+            gitHandler={username}
             avatar={avatarUrl}
           />
         </div>

@@ -14,7 +14,7 @@ class InlineStyleControls extends Component {
     const inlineStyles = [
       {label: 'Bold', style: 'BOLD'},
       {label: 'Italic', style: 'ITALIC'},
-      {label: 'Underline', style: 'UNDERLINE'},
+      // {label: 'Underline', style: 'UNDERLINE'},
       {label: 'Monospace', style: 'CODE'},
     ];
 
@@ -41,6 +41,7 @@ class InlineStyleControls extends Component {
 InlineStyleControls.propTypes = {
   onToggle: React.PropTypes.func.isRequired,
   editorState: React.PropTypes.any.isRequired,
+  type: React.PropTypes.oneOf(['newDiscussion', 'newOpinion']),
 };
 
 export default InlineStyleControls;

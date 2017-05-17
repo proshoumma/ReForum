@@ -25,7 +25,7 @@ class DiscussionBox extends Component {
 
     return (
       <div className={styles.container}>
-        <div className={styles.title}><Link to={link}>{discussionTitle}</Link></div>
+        <div className={classnames(styles.title, userProfile && styles.titleBottomMargin)}><Link to={link}>{discussionTitle}</Link></div>
 
         { !userProfile && <div className={styles.posterInfo}>
           <Link to={`/user/${userGitHandler}`} className={styles.name}>{userName}</Link>

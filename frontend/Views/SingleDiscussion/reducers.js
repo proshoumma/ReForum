@@ -6,6 +6,7 @@ import {
   TOGGLE_FAVORITE_START,
   TOGGLE_FAVORITE_SUCCESS,
   TOGGLE_FAVORITE_FAILURE,
+  UPDATE_OPINION_CONTENT,
   POSTING_OPINION_START,
   POSTING_OPINION_SUCCESS,
   POSTING_OPINION_FAILURE,
@@ -22,6 +23,8 @@ const initialState = {
   fetchingDiscussion: true,
   toggleingFavorite: false,
   postingOpinion: false,
+  opinionContent: null,
+  opinionError: null,
   deletingDiscussion: false,
   deletedDiscussion: false,
   deletingOpinion: null,
@@ -65,21 +68,29 @@ export const singleDiscussionReducer = (state = initialState, action) => {
         toggleingFavorite: false,
       });
 
+    case UPDATE_OPINION_CONTENT:
+      return Object.assign({}, state, {
+        opinionContent: action.payload,
+      });
+
     case POSTING_OPINION_START:
       return Object.assign({}, state, {
         postingOpinion: true,
+        opinionError: null,
       });
 
     case POSTING_OPINION_SUCCESS:
       return Object.assign({}, state, {
         postingOpinion: false,
-        error: null,
+        opinionContent: null,
+        opinionError: null,
       });
 
     case POSTING_OPINION_FAILURE:
       return Object.assign({}, state, {
         postingOpinion: false,
-        error: action.payload,
+        opinionContent: null,
+        opinionError: action.payload,
       });
 
     case DELETE_DISC_START:
