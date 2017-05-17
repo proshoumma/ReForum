@@ -28,6 +28,10 @@ class UserProfile extends Component {
       error,
     } = this.props;
 
+    if (error) {
+      return <div className={styles.errorMsg}>{ error }</div>;
+    }
+
     const {
       name,
       username,
@@ -47,8 +51,6 @@ class UserProfile extends Component {
     return (
       <div className={classnames(appLayout.constraintWidth, styles.container)}>
         <div className={appLayout.primaryContent}>
-          { error && <div className={styles.errorMsg}>{ error }</div> }
-
           <Profile
             name={name}
             gitHandler={username}

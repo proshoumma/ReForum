@@ -28,7 +28,7 @@ export const userProfileReducer = (state = initialState, action) => {
     case FETCH_USER_PROFILE_FAILURE:
       return Object.assign({}, state, {
         fetchingProfile: false,
-        error: 'Unable to fetch user profile. Please try again.',
+        error: 'Unable to fetch user profile. Please check out for correct username.',
       });
 
     default:
