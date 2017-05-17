@@ -35,6 +35,7 @@
 }
 
 .errorMsg {
+  font-weight: bold;
   margin-top: 5px;
   color: rgba(231, 76, 60,1.0);
   font-size: 12px;

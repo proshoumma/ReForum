@@ -101,6 +101,10 @@ class SingleDiscussion extends Component {
       error,
     } = this.props;
 
+    if (error) {
+      return (<div className={styles.errorMsg}>{error}</div>);
+    }
+
     // return loading status if discussion is not fetched yet
     if (fetchingDiscussion) {
       return <div className={styles.loadingWrapper}>Loading discussion ...</div>;
@@ -148,8 +152,6 @@ class SingleDiscussion extends Component {
           deletingDiscussion={deletingDiscussion}
           deleteAction={this.deleteDiscussion.bind(this)}
         />
-
-        { error && <div className={styles.errorMsg}>{error}</div> }
 
         { !userAuthenticated && <div className={styles.signInMsg}>Please sign in to post a reply.</div> }
         { userAuthenticated && <ReplyBox

@@ -23,6 +23,7 @@ const getDiscussion = (discussion_slug, discussion_id) => {
     .lean()
     .exec((error, result) => {
       if (error) reject(error);
+      else if (!result) reject(null);
       else {
         // add opinions to the discussion object
         getAllOpinions(result._id).then(

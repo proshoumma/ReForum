@@ -51,7 +51,7 @@ export const singleDiscussionReducer = (state = initialState, action) => {
     case FETCHING_SINGLE_DISC_FAILURE:
       return Object.assign({}, state, {
         fetchingDiscussion: false,
-        error: 'Unable to fetch discussion at the moment.',
+        error: 'Unable to fetch discussion. Please check out the url.',
       });
 
     case TOGGLE_FAVORITE_START:
