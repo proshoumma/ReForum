@@ -78,7 +78,16 @@ class ForumFeed extends Component {
       pinnedDiscussions,
       fetchingPinnedDiscussions,
       sortingMethod,
+      error,
     } = this.props;
+
+    if (error) {
+      return (
+        <div className={classnames(styles.errorMsg)}>
+          {error}
+        </div>
+      );
+    }
 
     return (
       <div className={classnames(appLayout.constraintWidth, styles.contentArea)}>
@@ -118,6 +127,7 @@ export default connect(
     fetchingPinnedDiscussions: state.feed.fetchingPinnedDiscussions,
     sortingMethod: state.feed.sortingMethod,
     pinnedDiscussions: state.feed.pinnedDiscussions,
+    error: state.feed.error,
   }; },
   (dispatch) => { return {
     getDiscussions: (currentForum, feedChanged, sortingMethod, sortingChanged) => { dispatch(getDiscussions(currentForum, feedChanged, sortingMethod, sortingChanged)); },

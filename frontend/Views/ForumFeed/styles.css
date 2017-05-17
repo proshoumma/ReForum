@@ -12,3 +12,10 @@
 .newDiscussionBtn {
   margin-top: 20px;
 }
+
+.errorMsg {
+  margin-top: 20px;
+  color: rgba(231, 76, 60,1.0);
+  text-align: center;
+  font-size: 12px;
+}

@@ -9,3 +9,5 @@ export const FETCHING_PINNED_DISCUSSIONS_SUCCESS = 'fetching_pinned_discussions_
 export const FETCHING_PINNED_DISCUSSIONS_FAILURE = 'fetching_pinned_discussions_failure';
 
 export const UPDATE_SORTING_METHOD = 'update_sorting_method';
+
+export const INVALID_FORUM = 'invalid_forum';

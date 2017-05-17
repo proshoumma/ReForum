@@ -8,6 +8,7 @@ import {
   FETCHING_PINNED_DISCUSSIONS_SUCCESS,
   FETCHING_PINNED_DISCUSSIONS_FAILURE,
   UPDATE_SORTING_METHOD,
+  INVALID_FORUM,
 } from './constants';
 
 const initialState = {
@@ -24,6 +25,7 @@ export const feedReducer = (state = initialState, action) => {
     case START_FETCHING_DISCUSSIONS:
       return Object.assign({}, state, {
         fetchingDiscussions: true,
+        error: null,
       });;
 
     case STOP_FETCHING_DISCUSSIONS:
@@ -47,6 +49,7 @@ export const feedReducer = (state = initialState, action) => {
     case START_FETCHING_PINNED_DISCUSSIONS:
       return Object.assign({}, state, {
         fetchingPinnedDiscussions: true,
+        error: null,
       });;
 
     case STOP_FETCHING_PINNED_DISCUSSIONS:
@@ -71,6 +74,13 @@ export const feedReducer = (state = initialState, action) => {
     case UPDATE_SORTING_METHOD:
       return Object.assign({}, state, {
         sortingMethod: action.payload,
+      });
+
+    case INVALID_FORUM:
+      return Object.assign({}, state, {
+        error: 'Sorry, couldn\'t find the forum.',
+        fetchingPinnedDiscussions: false,
+        fetchingDiscussions: false,
       });
 
     default:

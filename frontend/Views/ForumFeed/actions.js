@@ -9,6 +9,7 @@ import {
   FETCHING_PINNED_DISCUSSIONS_SUCCESS,
   FETCHING_PINNED_DISCUSSIONS_FAILURE,
   UPDATE_SORTING_METHOD,
+  INVALID_FORUM,
 } from './constants';
 import {
   fetchDiscussions,
@@ -23,7 +24,10 @@ import {
  */
 const findForumId = (state, forum) => {
   const { forums } = state.app;
-  return _.find(forums, { forum_slug: forum })._id;
+  const forumId = _.find(forums, { forum_slug: forum });
+
+  if (forumId) { return forumId._id; }
+  else { return null; }
 };
 
 /**
@@ -42,11 +46,16 @@ export const getDiscussions = (forum, feedChanged=false, sortingChanged=false) =
     // show the loading message when user change forum or change sorting method
     if (feedChanged || sortingChanged) dispatch({ type: START_FETCHING_DISCUSSIONS });
 
-    // start fetching discussions
-    fetchDiscussions(forumId, sortingMethod).then(
-      data => dispatch({ type: FETCHING_DISCUSSIONS_SUCCESS, payload: data.data }),
-      error => dispatch({ type: FETCHING_DISCUSSIONS_FAILURE })
-    );
+    if (!forumId) {
+      dispatch({ type: INVALID_FORUM });
+    }
+    else {
+      // start fetching discussions
+      fetchDiscussions(forumId, sortingMethod).then(
+        data => dispatch({ type: FETCHING_DISCUSSIONS_SUCCESS, payload: data.data }),
+        error => dispatch({ type: FETCHING_DISCUSSIONS_FAILURE })
+      );
+    }
   };
 };
 
@@ -63,11 +72,16 @@ export const getPinnedDiscussions = (forum, feedChanged) => {
     // show the loading message when user change forum
     if (feedChanged) dispatch({ type: START_FETCHING_PINNED_DISCUSSIONS });;
 
-    // start fetching pinned discussions
-    fetchPinnedDiscussions(forumId).then(
-      data => dispatch({ type: FETCHING_PINNED_DISCUSSIONS_SUCCESS, payload: data.data }),
-      error => dispatch({ type: FETCHING_PINNED_DISCUSSIONS_FAILURE })
-    );
+    if (!forumId) {
+      dispatch({ type: INVALID_FORUM });
+    }
+    else {
+      // start fetching pinned discussions
+      fetchPinnedDiscussions(forumId).then(
+        data => dispatch({ type: FETCHING_PINNED_DISCUSSIONS_SUCCESS, payload: data.data }),
+        error => dispatch({ type: FETCHING_PINNED_DISCUSSIONS_FAILURE })
+      );
+    }
   };
 };
 
