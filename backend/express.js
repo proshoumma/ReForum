@@ -19,7 +19,7 @@ const expressConfig = (app, serverConfigs) => {
   app.use(compress());
 
   // log server requests to console
-  app.use(morgan('dev'));
+  !serverConfigs.PRODUCTION && app.use(morgan('dev'));
 
   // get data from html froms
   app.use(bodyParser.json());

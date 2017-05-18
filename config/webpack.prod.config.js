@@ -70,5 +70,8 @@ module.exports = {
   externals: {
     'react': 'React',
     'react-dom': 'ReactDOM',
+    'redux': 'Redux',
+    'react-router': 'ReactRouter',
+    'moment': 'moment',
   },
 };
