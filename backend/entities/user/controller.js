@@ -37,7 +37,6 @@ const signInViaGithub = (gitProfile) => {
     // find if user exist on db
     User.findOne({ username: gitProfile.username }, (error, user) => {
       if (error) { console.log(error); reject(error); }
-      else if (!user) reject(null);
       else {
         // get the email from emails array of gitProfile
         const email = _.find(gitProfile.emails, { verified: true }).value;
