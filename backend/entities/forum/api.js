@@ -8,25 +8,25 @@ const getDiscussions = require('./controller').getDiscussions;
 const forumAPI = (app) => {
   // get all forums
   app.get('/api/forum', (req, res) => {
-    getAllForums.then(
-      (result) => setTimeout(()=>{ res.send(result); }, 3000),
-      (error) => res.send(error)
+    getAllForums().then(
+      (result) => { res.send(result); },
+      (error) => { res.send(error); }
     );
   });
 
   // get discussions of a forum
   app.get('/api/forum/:forum_id/discussions', (req, res) => {
     getDiscussions(req.params.forum_id, false, req.query.sorting_method).then(
-      (result) => setTimeout(()=>{ res.send(result); }, 3000),
-      (error) => { console.error(error); res.send([]); }
+      (result) => { res.send(result); },
+      (error) => { res.send([]); }
     );
   });
 
   // get pinned discussions of a forum
   app.get('/api/forum/:forum_id/pinned_discussions', (req, res) => {
     getDiscussions(req.params.forum_id, true).then(
-      (result) => setTimeout(()=>{ res.send(result); }, 3000),
-      (error) => { console.error(error); res.send([]); }
+      (result) => { res.send(result); },
+      (error) => { res.send([]); }
     );
   });
 };

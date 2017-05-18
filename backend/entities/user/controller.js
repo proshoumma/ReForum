@@ -17,7 +17,8 @@ const Opinion = require('../opinion/model');
 const getUser = (user_id) => {
   return new Promise((resolve, reject) => {
     User.findOne({ _id: user_id }, (error, user) => {
-      if (error) reject(error);
+      if (error) { console.log(error); reject(error); }
+      else if (!user) reject(null);
       else resolve(user);
     });
   });
@@ -36,6 +37,7 @@ const signInViaGithub = (gitProfile) => {
     // find if user exist on db
     User.findOne({ username: gitProfile.username }, (error, user) => {
       if (error) { console.log(error); reject(error); }
+      else if (!user) reject(null);
       else {
         // get the email from emails array of gitProfile
         const email = _.find(gitProfile.emails, { verified: true }).value;
@@ -135,7 +137,7 @@ const getFullProfile = (username) => {
                 (error) => { console.error(error); callback(error); }
               );
             }, (error) => {
-              if (error) { console.error(error); reject(error); }
+              if (error) { console.log(error); reject(error); }
               else {
                 result.discussions = discussions;
                 resolve(result);

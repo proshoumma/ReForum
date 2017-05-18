@@ -12,12 +12,17 @@ const getUser = require('../user/controller').getUser;
  * get all forums list
  * @type {Promise}
  */
-const getAllForums = new Promise((resolve, reject) => {
-  Forum.find((error, results) => {
-    if (error) reject(error);
-    else resolve(results);
+const getAllForums = () => {
+  return new Promise((resolve, reject) => {
+    Forum
+    .find({})
+    .exec((error, results) => {
+      if (error) { console.log(error); reject(error); }
+      else if (!results) reject(null);
+      else resolve(results);
+    });
   });
-});
+};
 
 /**
  * get discussions of a forum
@@ -36,26 +41,21 @@ const getDiscussions = (forum_id, pinned, sorting_method='date') => {
     Discussion
     .find({ forum_id: forum_id, pinned: pinned })
     .sort(sortWith)
+    .populate('forum')
+    .populate('user')
+    .lean()
     .exec((error, discussions) => {
       if (error) { console.error(error); reject(error); }
+      else if (!discussions) reject(null);
       else {
-        // attach user and opinion count to each discussion
+        // attach opinion count to each discussion
         asyncEach(discussions, (eachDiscussion, callback) => {
-          // add user
-          getUser(eachDiscussion.user_id).then(
-            (user) => {
-              // add the user to disccussion doc
-              eachDiscussion._doc.user = user;
-
-              // add opinion count
-              getAllOpinions(eachDiscussion._id).then(
-                (opinions) => {
-                  // add opinion count to discussion doc
-                  eachDiscussion._doc.opinion_count = opinions ? opinions.length : 0;
-                  callback();
-                },
-                (error) => { console.error(error); callback(error); }
-              );
+          // add opinion count
+          getAllOpinions(eachDiscussion._id).then(
+            (opinions) => {
+              // add opinion count to discussion doc
+              eachDiscussion.opinion_count = opinions ? opinions.length : 0;
+              callback();
             },
             (error) => { console.error(error); callback(error); }
           );

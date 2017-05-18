@@ -30,7 +30,7 @@ const getAdminDashInfo = () => {
         });
       },
     ], (error, result) => {
-      if (error) reject(error);
+      if (error) { console.log(error); reject(error); }
       else resolve(result);
     });
   });

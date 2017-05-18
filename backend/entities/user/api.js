@@ -35,8 +35,8 @@ const userAPI = (app) => {
   // get user full profile
   app.get('/api/user/profile/:username', (req, res) => {
     getFullProfile(req.params.username).then(
-      result => { setTimeout(() => { res.send(result); }, 3000); },
-      error => { setTimeout(() => { res.send({ error }); }, 3000); }
+      result => { res.send(result); },
+      error => { res.send({ error }); }
     );
   });
 };

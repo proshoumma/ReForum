@@ -12,7 +12,8 @@ const getAllOpinions = (discussion_id) => {
     .populate('user')
     .sort({ date: -1 })
     .exec((error, opinions) => {
-      if (error) reject(error);
+      if (error) { console.log(error); reject(error); }
+      else if (!opinions) reject(null);
       else resolve(opinions);
     });
   });
@@ -30,7 +31,7 @@ const createOpinion = ({ discussion_id, user_id, content }) => {
     });
 
     newOpinion.save((error) => {
-      if (error) reject(error);
+      if (error) { console.log(error); reject(error); }
       else { resolve(newOpinion); }
     });
   });
@@ -45,7 +46,7 @@ const deleteOpinion = (opinion_id) => {
     Opinion
     .remove({ _id: opinion_id })
     .exec((error) => {
-      if (error) reject(error);
+      if (error) { console.log(error); reject(error); }
       else resolve('deleted');
     });
   });

@@ -51,11 +51,9 @@ const discussionAPI = (app) => {
   // delete a discussion
   app.delete('/api/discussion/deleteDiscussion/:discussion_slug', (req, res) => {
     if (req.user) {
-      console.log("req.params.discussion_slug")
-      console.log(req.params.discussion_slug)
       deleteDiscussion(req.params.discussion_slug).then(
-        (result) => { setTimeout(() => { res.send({ deleted: true }); }, 3000); },
-        (error) => { setTimeout(() => { res.send({ deleted: false }); }, 3000); }
+        (result) => { res.send({ deleted: true }); },
+        (error) => { res.send({ deleted: false }); }
       );
     } else {
       res.send({ deleted: false });
