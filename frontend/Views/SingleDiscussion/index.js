@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import classnames from 'classnames';
 
 import {
@@ -139,6 +140,8 @@ class SingleDiscussion extends Component {
 
     return (
       <div className={appLayout.constraintWidth}>
+        <Helmet><title>{`${title} | ReForum`}</title></Helmet>
+
         <Discussion
           id={_id}
           userAvatar={avatarUrl}

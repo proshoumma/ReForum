@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 
 import Header from 'Containers/Header';
 import Footer from 'Components/Footer';
@@ -48,6 +49,8 @@ class AppContainer extends Component {
     if (forums) {
       return (
         <div>
+          <Helmet><title>ReForum</title></Helmet>
+
           <Header />
           {this.props.children}
           {/* <Footer /> */}

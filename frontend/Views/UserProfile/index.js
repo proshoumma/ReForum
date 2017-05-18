@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import classnames from 'classnames';
 import appLayout from 'SharedStyles/appLayout.css';
 import styles from './styles.css';
@@ -49,6 +50,8 @@ class UserProfile extends Component {
 
     return (
       <div className={classnames(appLayout.constraintWidth, styles.container)}>
+        <Helmet><title>{`${name || username} | ReForum`}</title></Helmet>
+
         <div className={appLayout.primaryContent}>
           <Profile
             name={name}

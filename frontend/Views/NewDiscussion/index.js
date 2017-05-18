@@ -1,6 +1,7 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import { Helmet } from 'react-helmet';
 import classnames from 'classnames';
 
 import RichEditor from 'Components/RichEditor';
@@ -143,6 +144,8 @@ class NewDiscussion extends Component {
 
     return (
       <div className={classnames(appLayout.constraintWidth, styles.content)}>
+        <Helmet><title>ReForum | New Discussion</title></Helmet>
+
         <div className={styles.forumInfo}>
           You are creating a new discussion on <span className={styles.forumName}>{currentForum}</span> forum.
         </div>

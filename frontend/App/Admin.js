@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 
 import { getUser } from './actions';
 
@@ -28,6 +29,7 @@ class AdminContainer extends Component {
     if (user.role === 'admin') {
       return (
         <div>
+          <Helmet><title>ReForum | Admin</title></Helmet>
           <AdminHeader />
           {this.props.children}
         </div>

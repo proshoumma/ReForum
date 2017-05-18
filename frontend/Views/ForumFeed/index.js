@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import classnames from 'classnames';
 
 import {
@@ -91,6 +92,8 @@ class ForumFeed extends Component {
 
     return (
       <div className={classnames(appLayout.constraintWidth, styles.contentArea)}>
+        <Helmet><title>{`ReForum | ${currentForum}`}</title></Helmet>
+
         <div className={appLayout.primaryContent}>
           <FeedBox
             type='pinned'
