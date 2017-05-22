@@ -107,7 +107,7 @@
   margin: 0px;
   padding: 0px;
   line-height: 18px;
-  overflow-x: scroll;
+  overflow-x: hidden;
 }
 
 :global .public-DraftStyleDefault-pre {
