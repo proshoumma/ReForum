@@ -8,7 +8,7 @@ class Footer extends Component {
   render() {
     return (
       <div className={classnames(appLayout.constraintWidth, styles.contentArea)}>
-        Copyright? Who cares? :-)
+        {/* Copyright? Who cares? :-) */}
       </div>
     );
   }

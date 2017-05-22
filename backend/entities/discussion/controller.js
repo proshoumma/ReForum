@@ -3,6 +3,7 @@ const getAllOpinions = require('../opinion/controller').getAllOpinions;
 const getUser = require('../user/controller').getUser;
 
 const Discussion = require('./model');
+const Opinion = require('../opinion/model');
 
 /**
  * get a single discussion
@@ -115,11 +116,33 @@ const updateDiscussion = (forum_id, discussion_slug) => {
 
 const deleteDiscussion = (discussion_slug) => {
   return new Promise((resolve, reject) => {
+    // find the discussion id first
     Discussion
-    .remove({ discussion_slug })
-    .exec((error) => {
+    .findOne({ discussion_slug })
+    .exec((error, discussion) => {
       if (error) { console.log(error); reject(error); }
-      else resolve('deleted');
+
+      // get the discussion id
+      const discussion_id = discussion._id;
+
+      // remove any opinion regarding the discussion
+      Opinion
+      .remove({ discussion_id })
+      .exec((error) => {
+        if (error) { console.log(error); reject(error); }
+
+        // finally remove the discussion
+        else {
+          Discussion
+          .remove({ discussion_slug })
+          .exec((error) => {
+            if (error) { console.log(error); reject(error); }
+            else {
+              resolve({ deleted: true });
+            }
+          });
+        }
+      });
     });
   });
 };

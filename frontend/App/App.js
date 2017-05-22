@@ -53,7 +53,7 @@ class AppContainer extends Component {
 
           <Header />
           {this.props.children}
-          {/* <Footer /> */}
+          <Footer />
         </div>
       );
     }

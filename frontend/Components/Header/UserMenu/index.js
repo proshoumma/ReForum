@@ -44,7 +44,7 @@ class UserMenu extends Component {
             </Button>
           </a> }
 
-          { signedIn && <Link className={styles.subMenuItem} to={`/user/${gitHandler}`}>My Profile</Link> }
+          { signedIn && <span onClick={this.toggleSubMenu}><Link className={styles.subMenuItem} to={`/user/${gitHandler}`}>My Profile</Link></span> }
           {/* { signedIn && <a className={styles.subMenuItem} href={'#'}>Settings</a> } */}
           { signedIn && <a className={styles.subMenuItem} href={'/api/user/signout'}>Sign Out</a> }
         </div>
