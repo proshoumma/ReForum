@@ -22,7 +22,7 @@
   padding: 10px 10px;
   width: 100%;
   min-height: 60px;
-  border-bottom: 1px solid borderColor;
+  /*border-bottom: 1px solid borderColor;*/
   cursor: text;
 
   & :global .public-DraftEditorPlaceholder-root {
@@ -49,6 +49,7 @@
 .controlsContainer {
   width: 100%;
   display: flex;
+  flex-direction: row;
   border-bottom: 1px solid borderColor;
   @media smallBP { flex-direction: column-reverse; }
 }
@@ -59,6 +60,24 @@
 
 .controlButton {
   padding: 10px 10px;
+  user-select: none;
+  cursor: pointer;
+
+  text-transform: uppercase;
+  color: secondaryFontColor;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+
+  transition: color 0.3s;
+
+  &:hover { color: primaryFontColor; }
+
+  @media smallBP { padding: 5px 10px; }
+}
+
+.controlButtonActive {
+  color: primaryFontColor;
 }
 
 /**

@@ -21,9 +21,10 @@ class RichEditor extends Component {
       editorState: EditorState.createEmpty(),
     };
 
-    this.focus = () => this.refs.commentEditor.focus();
+    this.focus = () => this.refs.editor.focus();
     this.onEditorStateChange = this.onEditorStateChange.bind(this);
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
+    this.onTab = this.onTab.bind(this);
     this.toggleBlockType = this.toggleBlockType.bind(this);
     this.toggleInlineStyle = this.toggleInlineStyle.bind(this);
   }
@@ -49,9 +50,9 @@ class RichEditor extends Component {
     const newState = RichUtils.handleKeyCommand(this.state.editorState, command);
     if (newState) {
       this.onEditorStateChange(newState);
-      return 'handled';
+      return true;
     }
-    return 'not-handled';
+    return false;
   }
 
   onTab(event) {
@@ -60,11 +61,21 @@ class RichEditor extends Component {
   }
 
   toggleBlockType(blockType) {
-    this.onEditorStateChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
+    this.onEditorStateChange(
+      RichUtils.toggleBlockType(
+        this.state.editorState,
+        blockType
+      )
+    );
   }
 
   toggleInlineStyle(inlineStyle) {
-    this.onEditorStateChange(RichUtils.toggleInlineStyle(this.state.editorState, inlineStyle));
+    this.onEditorStateChange(
+      RichUtils.toggleInlineStyle(
+        this.state.editorState,
+        inlineStyle
+      )
+    );
   }
 
   customBlockStyles(contentBlock) {
@@ -134,7 +145,8 @@ class RichEditor extends Component {
             onChange={this.onEditorStateChange}
             placeholder={placeholder}
             handleKeyCommand={this.handleKeyCommand}
-            ref='commentEditor'
+            onTab={this.onTab}
+            ref='editor'
           />
         </div>
 

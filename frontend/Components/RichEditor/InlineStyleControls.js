@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import styles from './styles.css';
 
 import Button from 'Components/Button';
+import StyleButton from './StyleButton';
 
 class InlineStyleControls extends Component {
   render() {
@@ -22,16 +23,14 @@ class InlineStyleControls extends Component {
 
     return (
       <div className={styles.controls}>
-        { inlineStyles.map((type) =>
-          <Button
-            key={type.label}
-            className={styles.controlButton}
-            alwaysActive={currentStyle.has(type.style)}
-            onClick={() => { onToggle(type.style); }}
-            noUppercase
-          >
-            { type.label }
-          </Button>
+        { inlineStyles.map((eachType) =>
+          <StyleButton
+            key={eachType.label}
+            onToggle={onToggle}
+            active={currentStyle.has(eachType.style)}
+            label={eachType.label}
+            style={eachType.style}
+          />
         ) }
       </div>
     );
