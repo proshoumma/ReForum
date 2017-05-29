@@ -19,6 +19,7 @@ class Opinion extends Component {
       opContent,
       userId,
       currentUserId,
+      currentUserRole,
       deleteAction,
       deletingOpinion,
     } = this.props;
@@ -26,7 +27,7 @@ class Opinion extends Component {
     let dateDisplay = moment(opDate);
     dateDisplay = dateDisplay.from(moment());
 
-    const allowDelete = userId === currentUserId;
+    const allowDelete = (userId === currentUserId) || (currentUserRole === 'admin');
 
     return (
       <div className={styles.container}>
@@ -69,6 +70,7 @@ Opinion.defaultProps = {
   opContent: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
   userId: '12345',
   currentUserId: '12345',
+  currentUserRole: 'user',
   deleteAction: () => {},
   deletingOpinion: null,
 };
@@ -82,6 +84,7 @@ Opinion.propTypes = {
   opContent: React.PropTypes.string,
   userId: React.PropTypes.string,
   currentUserId: React.PropTypes.string,
+  currentUserRole: React.PropTypes.string,
   deleteAction: React.PropTypes.func,
   deletingOpinion: React.PropTypes.any,
 };

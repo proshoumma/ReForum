@@ -1,0 +1,75 @@
+@value primaryFontColor, secondaryFontColor, borderColor from 'SharedStyles/globalStyles.css';
+@value smallBP from 'SharedStyles/globalStyles.css';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid borderColor;
+}
+
+.title {
+  padding: 10px 10px;
+  border-bottom: 1px solid borderColor;
+}
+
+.forumsContainer {
+  position: relative;
+
+  & .forum {
+    padding: 0px 20px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid borderColor;
+
+    & .forumTitle { font-weight: bold; }
+    & .forumSlug { color: secondaryFontColor; margin-left: 10px; }
+  }
+}
+
+.createForumContainer {
+  position: relative;
+
+  & .createTitle {
+    border-bottom: none;
+    padding: 10px 10px 0px 10px;
+  }
+
+  & .createForum {
+    padding: 10px 10px;
+    display: flex;
+    align-items: center;
+
+    & .createInputContainer {
+      display: flex;
+      align-items: center;
+      margin-left: 20px;
+      &:first-child { margin-left: 0px; }
+
+      & .inputLabel { margin-right: 10px; }
+      & .createInput { outline: none; padding: 5px 10px; }
+    }
+  }
+}
+
+
+.errorMsg {
+  font-weight: bold;
+  padding: 5px 10px 10px 10px;
+  color: rgba(231, 76, 60,1.0);
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.loadingMsg {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid borderColor;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

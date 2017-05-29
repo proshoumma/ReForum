@@ -7,6 +7,7 @@ import styles from './styles.css';
 
 import { getAdminDashboardInfo } from './actions';
 import Counts from 'Components/Dashboard/Counts';
+import ForumBox from 'Components/Dashboard/ForumBox';
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -21,7 +22,12 @@ class Dashboard extends Component {
         opinionCount,
         forumCount,
         userCount,
+        forums,
       } = this.props.adminInfo.info;
+
+      const forumsArray = forums.map((forum) => {
+        return { id: forum._id, name: forum.forum_name, slug: forum.forum_slug };
+      });
 
       return (
         <div className={classnames(appLayout.constraintWidth, styles.container)}>
@@ -31,6 +37,12 @@ class Dashboard extends Component {
             <Counts label={'Opinions'} count={opinionCount} />
             <Counts label={'Forums'} count={forumCount} />
           </div>
+
+          <ForumBox
+            forums={forumsArray}
+            deleteAction={() => {}}
+            createAction={() => {}}
+          />
         </div>
       );
     }

@@ -132,8 +132,11 @@ class SingleDiscussion extends Component {
     } = discussion.user;
 
     // check if logged in user is owner of the discussion
-    let discussionOwner = false;
-    if (discussion.user._id === this.props.userId) discussionOwner = true;
+    let allowDelete = false;
+    if (
+      (discussion.user._id === this.props.userId) ||
+      this.props.userRole === 'admin'
+    ) allowDelete = true;
 
     // check if user favorated the discussion
     const userFavorited = this.userFavoritedDiscussion(this.props.userId, favorites);
@@ -155,7 +158,7 @@ class SingleDiscussion extends Component {
           favoriteAction={toggleFavorite}
           userFavorited={userFavorited}
           toggleingFavorite={toggleingFavorite}
-          allowDelete={discussionOwner}
+          allowDelete={allowDelete}
           deletingDiscussion={deletingDiscussion}
           deleteAction={this.deleteDiscussion.bind(this)}
         />
@@ -181,6 +184,7 @@ class SingleDiscussion extends Component {
               opContent={opinion.content}
               userId={opinion.user_id}
               currentUserId={this.props.userId}
+              currentUserRole={this.props.userRole}
               deleteAction={this.deleteOpinion.bind(this)}
               deletingOpinion={deletingOpinion}
             />
@@ -195,6 +199,7 @@ export default connect(
   (state) => { return {
     userAuthenticated: state.user.authenticated,
     userId: state.user._id,
+    userRole: state.user.role,
     fetchingDiscussion: state.discussion.fetchingDiscussion,
     toggleingFavorite: state.discussion.toggleingFavorite,
     deletingDiscussion: state.discussion.deletingDiscussion,
