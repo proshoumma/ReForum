@@ -5,12 +5,25 @@ import styles from './styles';
 import Button from 'Components/Button';
 
 class ForumBox extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      newForumTitle: '',
+      newForumSlug: '',
+    };
+  }
+
   render() {
     const {
       forums,
       deleteAction,
       createAction,
     } = this.props;
+
+    const {
+      newForumTitle,
+      newForumSlug,
+    } = this.state;
 
     return (
       <div className={styles.container}>
@@ -22,7 +35,7 @@ class ForumBox extends Component {
             <div className={styles.forumTitle}>{ forum.name }</div>
             <div className={styles.forumSlug}>({ forum.slug })</div>
             <div className={styles.removeButton}>
-              <Button>Remove</Button>
+              <Button onClick={() => { deleteAction(forum.id); }}>Remove</Button>
             </div>
           </div>) }
 
@@ -40,7 +53,7 @@ class ForumBox extends Component {
               <div className={styles.inputLabel}>Slug: </div>
               <input type={'text'} className={styles.createInput} placeholder={'forum_slug'} />
             </div>
-            <Button>Create</Button>
+            <Button onClick={() => { createAction({ title: newForumTitle, slug: newForumSlug }); }}>Create</Button>
           </div>
           {/* <div className={styles.errorMsg}>Slug cannot contain empty charecters!</div> */}
         </div>

@@ -5,7 +5,12 @@ import classnames from 'classnames';
 import appLayout from 'SharedStyles/appLayout.css';
 import styles from './styles.css';
 
-import { getAdminDashboardInfo } from './actions';
+import {
+  getAdminDashboardInfo,
+  getForums,
+  createForum,
+  deleteForum,
+} from './actions';
 import Counts from 'Components/Dashboard/Counts';
 import ForumBox from 'Components/Dashboard/ForumBox';
 
@@ -13,6 +18,9 @@ class Dashboard extends Component {
   componentDidMount() {
     // get information needed for dashboard
     this.props.getAdminDashboardInfo();
+
+    // get the forum list
+    this.props.getForums();
   }
 
   render() {
@@ -40,8 +48,8 @@ class Dashboard extends Component {
 
           <ForumBox
             forums={forumsArray}
-            deleteAction={() => {}}
-            createAction={() => {}}
+            deleteAction={(forumId) => { this.props.deleteForum(forumId); }}
+            createAction={(forumObj) => { this.props.createForum(forumObj); }}
           />
         </div>
       );
@@ -58,8 +66,13 @@ class Dashboard extends Component {
 export default connect(
   (state) => { return {
     adminInfo: state.adminInfo,
+    creatingForum: state.adminInfo.creatingForum,
+    deletingForum: state.adminInfo.deletingForum,
   }; },
   (dispatch) => { return {
     getAdminDashboardInfo: () => { dispatch(getAdminDashboardInfo()); },
+    getForums: () => { dispatch(getForums()); },
+    deleteForum: (forumId) => { dispatch(deleteForum(forumId)); },
+    createForum: (forumObj) => { dispatch(createForum(forumObj)); },
   }; }
 )(Dashboard);
