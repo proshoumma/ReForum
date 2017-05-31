@@ -30,29 +30,12 @@ const getAdminDashInfo = () => {
         });
       },
       (lastResult, callback) => {
-        User
-        .find({})
-        .lean()
-        .exec((error, users) => {
-          callback(null, Object.assign(lastResult, { users: users }));
-        });
-      },
-      (lastResult, callback) => {
         Forum
         .find({})
         .sort({ date: -1 })
         .lean()
         .exec((error, forums) => {
           callback(null, Object.assign(lastResult, { forums }));
-        });
-      },
-      (lastResult, callback) => {
-        Opinion
-        .find({})
-        .sort({ date: -1 })
-        .lean()
-        .exec((error, opinions) => {
-          callback(null, Object.assign(lastResult, { opinions }));
         });
       },
     ], (error, result) => {
@@ -86,32 +69,20 @@ const createForum = ({ forum_name, forum_slug }) => {
   });
 };
 
-const deleteForum = ({ forum_slug }) => {
+const deleteForum = ({ forum_id }) => {
   return new Promise((resolve, reject) => {
-    // first find the id of the forum
-    Forum.findOne({ forum_slug }).exec((error, forum) => {
+    // first remove any discussion regarding the forum
+    Discussion.remove({ forum_id }).exec((error) => {
       if (error) { console.log(error); reject({ deleted: false }); }
-      else if (!forum) { reject({ doesNotExist: true }); }
       else {
-        const forum_id = forum._id;
-
-        // we've got the forum id
-        // now first remove any discussion regarding the forum
-        Discussion.remove({ forum_id }).exec((error) => {
+        // remove any opinion regarding the forum
+        Opinion.remove({ forum_id }).exec((error) => {
           if (error) { console.log(error); reject({ deleted: false }); }
           else {
-            // discussions are removed
-            // we need to remove any opinion regarding the forum
-            Opinion.remove({ forum_id }).exec((error) => {
+            // now we can remove the forum
+            Forum.remove({ _id: forum_id }).exec((error) => {
               if (error) { console.log(error); reject({ deleted: false }); }
-              else {
-                // opinions are removed
-                // now we can remove the forum
-                Forum.remove({ _id: forum_id }).exec((error) => {
-                  if (error) { console.log(error); reject({ deleted: false }); }
-                  else { resolve({ deleted: true }); }
-                });
-              }
+              else { resolve({ deleted: true }); }
             });
           }
         });

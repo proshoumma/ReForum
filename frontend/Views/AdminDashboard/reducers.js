@@ -3,10 +3,6 @@ import {
   GET_ALL_INFO_SUCCESS,
   GET_ALL_INFO_FAILURE,
 
-  GET_FORUMS,
-  GET_FORUMS_SUCCESS,
-  GET_FORUMS_FAILURE,
-
   CREATE_FORUM,
   CREATE_FORUM_SUCCESS,
   CREATE_FORUM_FAILURE,
@@ -18,12 +14,14 @@ import {
 
 const initialState = {
   loadingInfo: false,
-  info: null,
+  info: {
+    discussionCount: 0,
+    opinionCount: 0,
+    forumCount: 0,
+    userCount: 0,
+    forums: [],
+  },
   error: null,
-
-  forums: [],
-  gettingForums: false,
-  gettingForumsError: null,
 
   creatingForum: false,
   creatingForumError: null,
@@ -42,31 +40,14 @@ export const adminInfoReducer = (state = initialState, action) => {
 
     case GET_ALL_INFO_SUCCESS:
       return Object.assign({}, state, {
+        loadingInfo: false,
         info: action.payload,
         error: null,
       });
 
-    case GET_FORUMS:
-      return Object.assign({}, state, {
-        gettingForums: true,
-        gettingForumsError: null,
-      });
-
-    case GET_FORUMS_SUCCESS:
-      return Object.assign({}, state, {
-        gettingForums: false,
-        forums: action.payload,
-        gettingForumsError: null,
-      });
-
-    case GET_FORUMS_FAILURE:
-      return Object.assign({}, state, {
-        gettingForums: false,
-        gettingForumsError: 'Unable to retrive forum list. Please try refreshing the browser.',
-      });
-
     case GET_ALL_INFO_FAILURE:
       return Object.assign({}, state, {
+        loadingInfo: false,
         error: 'Something went wrong while loading admin level information.',
       });
 
@@ -85,7 +66,7 @@ export const adminInfoReducer = (state = initialState, action) => {
     case CREATE_FORUM_FAILURE:
       return Object.assign({}, state, {
         creatingForum: false,
-        creatingForumError: 'Something was wrong while trying to create the forum. Please try again later.',
+        creatingForumError: 'Something went wrong while trying to create the forum. Please try again. Also check out if the forum already exists.',
       });
 
     case DELETE_FORUM:
@@ -103,7 +84,7 @@ export const adminInfoReducer = (state = initialState, action) => {
     case DELETE_FORUM_FAILURE:
       return Object.assign({}, state, {
         deletingForum: false,
-        deletingForumError: 'Something was wrong while trying to delete the forum. Please try again later.',
+        deletingForumError: 'Something went wrong while trying to delete the forum. Please try again later.',
       });
 
     default:

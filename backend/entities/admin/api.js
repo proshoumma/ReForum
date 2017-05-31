@@ -14,8 +14,8 @@ const adminAPI = (app) => {
   app.get('/api/admin/admin_dashboard_info', (req, res) => {
     if (req.user && req.user.role === 'admin') {
       getAdminDashInfo().then(
-        (data) => { res.send(data); },
-        (error) => { res.send(error); }
+        (data) => { setTimeout(() => { res.send(data); }, 3000); },
+        (error) => { setTimeout(() => { res.send(error); }, 3000); }
       );
     }
     else res.send({ error: 'You are not admin buddy 😛' });
@@ -24,9 +24,14 @@ const adminAPI = (app) => {
   // create a forum
   app.post('/api/admin/create_forum', (req, res) => {
     if (req.user && req.user.role === 'admin') {
-      createForum(req.body).then(
-        (data) => { res.send(data); },
-        (error) => { res.send(error); }
+      const {
+        title,
+        slug,
+      } = req.body;
+
+      createForum({ forum_name: title, forum_slug: slug }).then(
+        (data) => { setTimeout(() => { res.send(data); }, 3000); },
+        (error) => { setTimeout(() => { res.send(error); }, 3000); }
       );
     }
     else res.send({ error: 'You are not admin buddy 😛' });
@@ -36,8 +41,8 @@ const adminAPI = (app) => {
   app.post('/api/admin/delete_forum', (req, res) => {
     if (req.user && req.user.role === 'admin') {
       deleteForum(req.body).then(
-        (data) => { res.send(data); },
-        (error) => { res.send(error); }
+        (data) => { setTimeout(() => { res.send(data); }, 3000); },
+        (error) => { setTimeout(() => { res.send(error); }, 3000); }
       );
     }
     else res.send({ error: 'You are not admin buddy 😛' });
@@ -47,8 +52,8 @@ const adminAPI = (app) => {
   app.post('/api/admin/delete_user', (req, res) => {
     if (req.user && req.user.role === 'admin') {
       deleteUser(req.body).then(
-        (data) => { res.send(data); },
-        (error) => { res.send(error); }
+        (data) => { setTimeout(() => { res.send(data); }, 3000); },
+        (error) => { setTimeout(() => { res.send(error); }, 3000); }
       );
     }
     else res.send({ error: 'You are not admin buddy 😛' });
@@ -58,8 +63,8 @@ const adminAPI = (app) => {
   app.post('/api/admin/delete_user', (req, res) => {
     if (req.user && req.user.role === 'admin') {
       deleteDiscussion(req.body).then(
-        (data) => { res.send(data); },
-        (error) => { res.send(error); }
+        (data) => { setTimeout(() => { res.send(data); }, 3000); },
+        (error) => { setTimeout(() => { res.send(error); }, 3000); }
       );
     }
     else res.send({ error: 'You are not admin buddy 😛' });
