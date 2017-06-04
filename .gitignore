@@ -20,6 +20,3 @@ coverage
 
 # OSX stuffs
 .DS_Store
-
-# secrets
-config/credentials.js
