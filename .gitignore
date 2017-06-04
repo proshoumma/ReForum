@@ -20,3 +20,7 @@ coverage
 
 # OSX stuffs
 .DS_Store
+
+# ignore credentials
+.gitignore
+credentials.js
