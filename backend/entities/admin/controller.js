@@ -6,6 +6,10 @@ const Opinion = require('../opinion/model');
 const Forum = require('../forum/model');
 const User = require('../user/model');
 
+/**
+ * get the information for admin dashboard
+ * @return {Promise}
+ */
 const getAdminDashInfo = () => {
   return new Promise((resolve, reject) => {
     waterfall([
@@ -45,6 +49,12 @@ const getAdminDashInfo = () => {
   });
 };
 
+/**
+ * create a new forum
+ * @param  {String} forum_name
+ * @param  {String} forum_slug
+ * @return {Promise}
+ */
 const createForum = ({ forum_name, forum_slug }) => {
   return new Promise((resolve, reject) => {
     // check if the forum exists
@@ -69,6 +79,11 @@ const createForum = ({ forum_name, forum_slug }) => {
   });
 };
 
+/**
+ * delete an entire forum
+ * @param  {String} forum_id
+ * @return {Promise}
+ */
 const deleteForum = ({ forum_id }) => {
   return new Promise((resolve, reject) => {
     // first remove any discussion regarding the forum
@@ -91,6 +106,11 @@ const deleteForum = ({ forum_id }) => {
   });
 };
 
+/**
+ * delete an user
+ * @param  {String} user_id
+ * @return {Promise}
+ */
 const deleteUser = ({ user_id }) => {
   return new Promise((resolve, reject) => {
     // first we need to remvoe any discussion the user created
@@ -113,6 +133,11 @@ const deleteUser = ({ user_id }) => {
   });
 };
 
+/**
+ * delete a single discussion
+ * @param  {String} discussion_id
+ * @return {Promise}
+ */
 const deleteDiscussion = ({ discussion_id }) => {
   return new Promise((resolve, reject) => {
     // first we need to remove any opinion regarding the discussion
