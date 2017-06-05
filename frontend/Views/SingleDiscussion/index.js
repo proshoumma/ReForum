@@ -51,6 +51,11 @@ class SingleDiscussion extends Component {
     }
   }
 
+  componentWillUnmount() {
+    // remove any existing opinion texts
+    this.props.updateOpinionContent(null);
+  }
+
   userFavoritedDiscussion(userId, favorites) {
     let favorited = false;
     for(let i = 0; i < favorites.length; i++) {
