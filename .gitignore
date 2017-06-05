@@ -7,9 +7,6 @@ yarn.lock
 # npm cache
 .npm
 
-# build directory
-public/build
-
 # Logs
 logs
 *.log
