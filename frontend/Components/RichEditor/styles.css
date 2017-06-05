@@ -22,7 +22,7 @@
   padding: 10px 10px;
   width: 100%;
   min-height: 60px;
-  /*border-bottom: 1px solid borderColor;*/
+  border-bottom: 1px solid borderColor;
   cursor: text;
 
   & :global .public-DraftEditorPlaceholder-root {
