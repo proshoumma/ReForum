@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
@@ -66,6 +67,7 @@ class SingleDiscussion extends Component {
 
   handleReplySubmit() {
     const {
+      forums,
       postOpinion,
       discussion,
       opinionContent,
@@ -73,9 +75,12 @@ class SingleDiscussion extends Component {
     } = this.props;
 
     const discussion_slug = this.props.params.discussion;
+    const forumSlug = this.props.params.forum;
+    const forumId = _.find(forums, { forum_slug: forumSlug })._id;
 
     postOpinion(
       {
+        forum_id: forumId,
         discussion_id: discussion._id,
         user_id: userId,
         content: opinionContent,
@@ -202,6 +207,7 @@ class SingleDiscussion extends Component {
 
 export default connect(
   (state) => { return {
+    forums: state.app.forums,
     userAuthenticated: state.user.authenticated,
     userId: state.user._id,
     userRole: state.user.role,

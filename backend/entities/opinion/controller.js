@@ -19,9 +19,10 @@ const getAllOpinions = (discussion_id) => {
   });
 };
 
-const createOpinion = ({ discussion_id, user_id, content }) => {
+const createOpinion = ({ forum_id, discussion_id, user_id, content }) => {
   return new Promise((resolve, reject) => {
     const newOpinion = new Opinion({
+      forum_id,
       discussion_id,
       discussion: discussion_id,
       user_id,
