@@ -100,7 +100,7 @@ Congratulation! You now have a clone of this application in your server. :-)
 * Make the installation process more interactive
 * Add multiple theme support.
 
-##License
+## License
 [MIT License](https://github.com/shoumma/Mister-Poster/blob/master/LICENSE). Do whatever you want to do. :-)
 
 ## Conclusion
