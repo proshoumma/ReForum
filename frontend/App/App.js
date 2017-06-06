@@ -25,18 +25,21 @@ class AppContainer extends Component {
     getUser();
 
     // set current forum based on route
-    const currentForum = params.forum || 'general';
+    const currentForum = params.forum || '';
     updateCurrentForum(currentForum);
   }
 
   componentDidUpdate() {
     const {
+      forums,
       params,
       currentForum,
       updateCurrentForum,
     } = this.props;
 
-    const newCurrentForum = params.forum || 'general';
+    let newCurrentForum = '';
+    if (params.forum) newCurrentForum = params.forum;
+    else if (forums) newCurrentForum = forums[0].forum_slug;
 
     // update current forum if necessery
     if (newCurrentForum !== currentForum) updateCurrentForum(newCurrentForum);
