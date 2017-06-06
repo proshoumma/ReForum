@@ -20,8 +20,8 @@ Demo app is deployed on Heroku. Please check it out: https://reforum-app.herokua
 * Admin have a lot of power over every users discussions and opinions :-p
 
 ### Documentations
-* [API Docs]()
-* [System Overview]()
+* [API Docs](https://github.com/shoumma/ReForum/blob/master/docs/api.md)
+* [System Overview](https://github.com/shoumma/ReForum/blob/master/docs/system_overview.md)
 
 ### Home View
 ![home view](./docs/design_assets/home_view.jpg)
@@ -32,17 +32,23 @@ Demo app is deployed on Heroku. Please check it out: https://reforum-app.herokua
 ## Deploy on you own server
 
 Please make sure you have following software installed in your system:
-* Node.js -
+* Node.js > 6.0
 * NPM / Yarn
 * Git
 * MongoDB
 
 First we need to clone the repo:
-``` $ git clone https://github.com/shoumma/ReForum ```
+```
+$ git clone https://github.com/shoumma/ReForum
+```
 
 Then we have to install the necessary dependencies using either NPM or Yarn:
-``` $ npm i ```
-``` $ yarn ```
+```
+$ npm i
+```
+```
+$ yarn
+```
 
 Since the app currently uses GitHub authentication, we need to configure a GitHub OAuth application. You can register a new application from this link https://github.com/settings/developers
 
@@ -65,15 +71,21 @@ module.exports = {
 ```
 
 We need to provide all the information here. You can notice that we need the database url here too. My `local` MongoDB url looks like:
-``` mongodb://localhost:27017/reforum ```
+```
+mongodb://localhost:27017/reforum
+```
 
 Now we are ready to run the application. You can run either run the development environment of the application which will include Hot-Reload for JS codes using Webpack and the Redux dev tool extension, or you can run the production edition. The default port for developer edition is `8080`, and for production is `process.env.PORT`.
 
 To run the app in development environment:
-``` $ npm run start:dev ```
+```
+$ npm run start:dev
+```
 
 To run the app in production environment:
-``` $ npm run start ```
+```
+$ npm run start
+```
 
 Now, if you visit [http://localhost:8080](http://localhost:8080) (if you ran the dev), or the production URL, you will see that the application is up and running. Congratulation! But, wait a minute, it's showing you `Sorry, couldn't find the forum`. That is because, we didn't create any forum yet. You can now sign up via github and then visit the admin panel with the url [http://localhost:8080/admin](http://localhost:8080/admin). The application is currently configured in a way that, the first user will become the admin for the system.
 
