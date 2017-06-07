@@ -25,6 +25,7 @@ class ForumFeed extends Component {
       getPinnedDiscussions,
     } = this.props;
 
+    // get the discussions and pinned discussions
     getDiscussions(currentForum);
     getPinnedDiscussions(currentForum);
   }
@@ -36,6 +37,8 @@ class ForumFeed extends Component {
       getPinnedDiscussions,
     } = this.props;
 
+    // get the discussions again
+    // if the forum didn't matched
     if (prevProps.currentForum !== currentForum) {
       const feedChanged = true;
       getDiscussions(currentForum, feedChanged);

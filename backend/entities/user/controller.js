@@ -107,6 +107,11 @@ const signInViaGithub = (gitProfile) => {
   });
 };
 
+/**
+ * get the full profile of a user
+ * @param  {String} username
+ * @return {Promise}
+ */
 const getFullProfile = (username) => {
   return new Promise((resolve, reject) => {
     User

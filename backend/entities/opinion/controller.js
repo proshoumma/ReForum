@@ -1,10 +1,11 @@
 // models
 const Opinion = require('./model');
 
-const getOpinion = (forum_id, discussion_id, opinion_id) => {
-
-};
-
+/**
+ * get all opinion regarding a single discussion
+ * @param  {ObjectId} discussion_id
+ * @return {Promise}
+ */
 const getAllOpinions = (discussion_id) => {
   return new Promise((resolve, reject) => {
     Opinion
@@ -19,6 +20,14 @@ const getAllOpinions = (discussion_id) => {
   });
 };
 
+/**
+ * create an opinion regarding a discussion
+ * @param  {ObjectId} forum_id
+ * @param  {ObjectId} discussion_id
+ * @param  {ObjectId} user_id
+ * @param  {Object} content
+ * @return {Promise}
+ */
 const createOpinion = ({ forum_id, discussion_id, user_id, content }) => {
   return new Promise((resolve, reject) => {
     const newOpinion = new Opinion({
@@ -39,9 +48,14 @@ const createOpinion = ({ forum_id, discussion_id, user_id, content }) => {
 };
 
 const updateOpinion = (opinion_id) => {
-
+  // TODO: implement update for opinion
 };
 
+/**
+ * delete a single opinion
+ * @param  {ObjectId} opinion_id
+ * @return {Promise}
+ */
 const deleteOpinion = (opinion_id) => {
   return new Promise((resolve, reject) => {
     Opinion
@@ -54,7 +68,6 @@ const deleteOpinion = (opinion_id) => {
 };
 
 module.exports = {
-  getOpinion,
   getAllOpinions,
   createOpinion,
   updateOpinion,

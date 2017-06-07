@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import appLayout from 'SharedStyles/appLayout';
 import styles from './styles';
 
-/* Header components */
+// components for Header
 import UserMenu from 'Components/Header/UserMenu';
 import Logo from 'Components/Header/Logo';
 import NavigationBar from 'Components/Header/NavigationBar';
