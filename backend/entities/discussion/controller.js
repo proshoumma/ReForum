@@ -111,7 +111,7 @@ const toggleFavorite = (discussion_id, user_id) => {
 };
 
 const updateDiscussion = (forum_id, discussion_slug) => {
-
+  // TODO: implement update feature
 };
 
 const deleteDiscussion = (discussion_slug) => {

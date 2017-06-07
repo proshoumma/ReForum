@@ -8,6 +8,11 @@ import {
   fetchUserProfileApi,
 } from './api';
 
+/**
+ * fetch the users profile from the server
+ * @param  {String} userSlug
+ * @return {action}
+ */
 export const fetchUserProfile = (userSlug) => {
   return (dispatch, getState) => {
     dispatch({ type: FETCH_USER_PROFILE_START });

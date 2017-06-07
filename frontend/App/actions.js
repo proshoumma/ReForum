@@ -42,6 +42,10 @@ export const updateCurrentForum = (currentForum) => {
   };
 };
 
+/**
+ * get the current user from server
+ * @return {action}
+ */
 export const getUser = () => {
   return (dispatch, getState) => {
     dispatch({ type: START_FETCHING_USER });

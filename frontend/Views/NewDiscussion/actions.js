@@ -4,19 +4,29 @@ import {
   POSTING_DISCUSSION_END,
   POSTING_DISCUSSION_SUCCESS,
   POSTING_DISCUSSION_FAILURE,
+
   UPDATE_DISCUSSION_TITLE,
   UPDATE_DISCUSSION_CONTENT,
   UPDATE_DISCUSSION_PIN_STATUS,
   UPDATE_DISCUSSION_TAGS,
+
   CLEAR_SUCCESS_MESSAGE,
 } from './constants';
 import { postDiscussionApi } from './api';
 
+/**
+ * post a new discussion
+ * @param  {ObjectId} userId
+ * @param  {ObjectId} forumId
+ * @param  {String} currentForum
+ * @return {action}
+ */
 export const postDiscussion = (userId, forumId, currentForum) => {
   return (dispatch, getState) => {
     dispatch({ type: POSTING_DISCUSSION_START });
 
     // validate discussion inputs
+    // discussion values are in redux state
     const {
       title,
       content,
@@ -93,6 +103,11 @@ export const postDiscussion = (userId, forumId, currentForum) => {
   };
 };
 
+/**
+ * update the discussion title in redux state (controlled input)
+ * @param  {String} value
+ * @return {action}
+ */
 export const updateDiscussionTitle = (value) => {
   return {
     type: UPDATE_DISCUSSION_TITLE,
@@ -100,6 +115,11 @@ export const updateDiscussionTitle = (value) => {
   };
 };
 
+/**
+ * update discussion content in redux state (controlled input)
+ * @param  {Object} value
+ * @return {action}
+ */
 export const updateDiscussionContent = (value) => {
   return {
     type: UPDATE_DISCUSSION_CONTENT,
@@ -107,6 +127,11 @@ export const updateDiscussionContent = (value) => {
   };
 };
 
+/**
+ * update discussion pinned status in redux state (controlled input)
+ * @param  {Boolean} value
+ * @return {action}
+ */
 export const updateDiscussionPinStatus = (value) => {
   return {
     type: UPDATE_DISCUSSION_PIN_STATUS,
@@ -114,6 +139,11 @@ export const updateDiscussionPinStatus = (value) => {
   };
 };
 
+/**
+ * update discussion tags in redux state (controlled input)
+ * @param  {Array} value
+ * @return {action}
+ */
 export const updateDiscussionTags = (value) => {
   return {
     type: UPDATE_DISCUSSION_TAGS,

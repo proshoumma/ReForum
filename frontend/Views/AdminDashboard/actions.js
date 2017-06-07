@@ -18,6 +18,10 @@ import {
   deleteForumAPI,
 } from './api';
 
+/**
+ * get all the info needed for dashboard
+ * @return {action}
+ */
 export const getAdminDashboardInfo = () => {
   return (dispatch, getState) => {
     dispatch({ type: GET_ALL_INFO_START });
@@ -29,17 +33,25 @@ export const getAdminDashboardInfo = () => {
   };
 };
 
+/**
+ * create a new forum
+ * @param  {Object} forumObj
+ * @return {action}
+ */
 export const createForum = (forumObj) => {
   return (dispatch, getState) => {
     dispatch({ type: CREATE_FORUM });
 
+    // call the create forum api
     createForumAPI(forumObj).then(
       forumData => {
         // get admin info again to refresh the infos
         getAdminDashboardInfoAPI().then(
           data => {
+            // data is refreshed
             dispatch({ type: GET_ALL_INFO_SUCCESS, payload: data.data });
 
+            // check if the forum was created
             if (forumData.data.created) { dispatch({ type: CREATE_FORUM_SUCCESS }); }
             else dispatch({ type: CREATE_FORUM_FAILURE });
           },
@@ -64,6 +76,7 @@ export const deleteForum = (forumId) => {
           data => {
             dispatch({ type: GET_ALL_INFO_SUCCESS, payload: data.data });
 
+            // check if th eforum was deleted
             if (forumData.data.deleted) { dispatch({ type: DELETE_FORUM_SUCCESS }); }
             else dispatch({ type: DELETE_FORUM_FAILURE });
           },

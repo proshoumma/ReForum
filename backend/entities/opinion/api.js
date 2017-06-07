@@ -7,6 +7,7 @@ const deleteOpinion = require('./controller').deleteOpinion;
  * opinion apis
  */
 const opinionAPI = (app) => {
+  // create an opinion
   app.post('/api/opinion/newOpinion', (req, res) => {
     if(req.user) {
       createOpinion(req.body).then(
@@ -18,6 +19,7 @@ const opinionAPI = (app) => {
     }
   });
 
+  // remove an opinion
   app.delete('/api/opinion/deleteOpinion/:opinion_id', (req, res) => {
     if(req.user) {
       deleteOpinion(req.params.opinion_id).then(
