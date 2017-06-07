@@ -9,3 +9,23 @@
   justify-content: center;
   align-items: center;
 }
+
+.gitForkTag {
+  position: fixed;
+  bottom:0px;
+  right: 0px;
+
+  background-color: #f9f9f9;
+  border-top: 1px solid #e8e8e8;
+  border-bottom: 1px solid #e8e8e8;
+
+  padding: 5px 50px;
+  transform: rotate(-45deg) translateY(-5px) translateX(54px);
+
+  z-index: 1;
+}
+
+.gitLink {
+  text-decoration: none;
+  color: black;
+}
