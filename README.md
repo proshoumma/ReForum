@@ -38,7 +38,7 @@ Please make sure you have following software installed in your system:
 * Git
 * MongoDB
 
-First we need to clone the repo:
+First we need to clone the repository:
 ```
 $ git clone https://github.com/shoumma/ReForum
 ```
