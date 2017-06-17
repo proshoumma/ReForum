@@ -21,6 +21,18 @@ class UserProfile extends Component {
     fetchUserProfile(username);
   }
 
+  componentWillReceiveProps(newProps) {
+    // fetch profile if different username
+    const { username: oldUsername } = this.props.params;
+    const { username: futureUsername } = newProps.params;
+
+    // only update if different usernames
+    if (oldUsername !== futureUsername) {
+      const { fetchUserProfile } = this.props;
+      fetchUserProfile(futureUsername);
+    }
+  }
+
   render() {
     const {
       fetchingProfile,
