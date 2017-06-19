@@ -20,19 +20,20 @@ import styles from './styles.css';
 class ForumFeed extends Component {
   componentDidMount() {
     const {
-      currentForum,
+      currentForumId,
       getDiscussions,
       getPinnedDiscussions,
     } = this.props;
 
     // get the discussions and pinned discussions
-    getDiscussions(currentForum);
-    getPinnedDiscussions(currentForum);
+    getDiscussions(currentForumId());
+    getPinnedDiscussions(currentForumId());
   }
 
   componentDidUpdate(prevProps) {
     const {
       currentForum,
+      currentForumId,
       getDiscussions,
       getPinnedDiscussions,
     } = this.props;
@@ -41,8 +42,8 @@ class ForumFeed extends Component {
     // if the forum didn't matched
     if (prevProps.currentForum !== currentForum) {
       const feedChanged = true;
-      getDiscussions(currentForum, feedChanged);
-      getPinnedDiscussions(currentForum, feedChanged);
+      getDiscussions(currentForumId(), feedChanged);
+      getPinnedDiscussions(currentForumId(), feedChanged);
     }
   }
 
@@ -128,6 +129,11 @@ class ForumFeed extends Component {
 export default connect(
   (state) => { return {
     currentForum: state.app.currentForum,
+    currentForumId: () => {
+      const currentForumObj = _.find(state.app.forums, { forum_slug: state.app.currentForum });
+      if (currentForumObj) return currentForumObj._id;
+      else return null;
+    },
     fetchingDiscussions: state.feed.fetchingDiscussions,
     discussions: state.feed.discussions,
     fetchingPinnedDiscussions: state.feed.fetchingPinnedDiscussions,
@@ -136,8 +142,8 @@ export default connect(
     error: state.feed.error,
   }; },
   (dispatch) => { return {
-    getDiscussions: (currentForum, feedChanged, sortingMethod, sortingChanged) => { dispatch(getDiscussions(currentForum, feedChanged, sortingMethod, sortingChanged)); },
-    getPinnedDiscussions: (currentForum, feedChanged) => { dispatch(getPinnedDiscussions(currentForum, feedChanged)); },
+    getDiscussions: (currentForumId, feedChanged, sortingMethod, sortingChanged) => { dispatch(getDiscussions(currentForumId, feedChanged, sortingMethod, sortingChanged)); },
+    getPinnedDiscussions: (currentForumId, feedChanged) => { dispatch(getPinnedDiscussions(currentForumId, feedChanged)); },
     updateSortingMethod: (method) => { dispatch(updateSortingMethod(method)); },
   }; }
 )(ForumFeed);
