@@ -65,7 +65,7 @@
   "devDependencies": {
     "async": "^2.1.5",
     "autoprefixer": "^6.6.1",
-    "axios": "^0.15.3",
+    "axios": "^0.19.2",
     "babel": "^6.5.2",
     "babel-core": "^6.20.0",
     "babel-eslint": "^7.1.1",
