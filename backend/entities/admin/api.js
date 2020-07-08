@@ -59,8 +59,8 @@ const adminAPI = (app) => {
     else res.send({ error: 'You are not admin buddy 😛' });
   });
 
-  // delete a forum
-  app.post('/api/admin/delete_user', (req, res) => {
+  // delete a discussion
+  app.post('/api/admin/delete_discussion', (req, res) => {
     if (req.user && req.user.role === 'admin') {
       deleteDiscussion(req.body).then(
         (data) => { res.send(data); },
