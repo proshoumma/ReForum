@@ -10,8 +10,6 @@ A minimal forum application built with the following technologies:
 * [PassportJS](http://passportjs.org/)
 * [MongoDB](https://www.mongodb.com/)
 
-Demo app is deployed on Heroku. Please check it out: https://reforum-app.herokuapp.com/
-
 ### Application Features
 * Users can post a discussion
 * Users can reply their opinions regarding discussion
