@@ -39,7 +39,7 @@ const signInViaGithub = (gitProfile) => {
       if (error) { console.log(error); reject(error); }
       else {
         // get the email from emails array of gitProfile
-        const email = _.find(gitProfile.emails, { verified: true }).value;
+        const email = gitProfile.emails && gitProfile.emails[0] && gitProfile.emails[0].value;
 
         // user existed on db
         if (user) {
