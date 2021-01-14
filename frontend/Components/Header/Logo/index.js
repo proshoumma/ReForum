@@ -12,7 +12,7 @@ const Logo = () => {
           </g>
         </svg>
       </div>
-      <div className={styles.logoTitle}>ReForum</div>
+      <div className={styles.logoTitle}>IUSM Forum</div>
     </div>
   );
 };
