@@ -60,14 +60,6 @@ export const postDiscussion = (userId, forumId, currentForum) => {
       });
     }
 
-    if (tags === null || tags.length === 0) {
-      validated = false;
-      return dispatch({
-        type: POSTING_DISCUSSION_FAILURE,
-        payload: 'Please provide some tags.',
-      });
-    }
-
     // make api call if post is validated
     if (validated) {
       postDiscussionApi({
