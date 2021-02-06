@@ -9,3 +9,5 @@ export const UPDATE_DISCUSSION_PIN_STATUS = 'update_discussion_pin_status';
 export const UPDATE_DISCUSSION_TAGS = 'update_discussion_tags';
 
 export const CLEAR_SUCCESS_MESSAGE = 'clear_success_message';
+
+export const MINIMUM_TITLE_CHARACTERS = 5;

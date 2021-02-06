@@ -11,6 +11,8 @@ import {
   UPDATE_DISCUSSION_TAGS,
 
   CLEAR_SUCCESS_MESSAGE,
+
+  MINIMUM_TITLE_CHARACTERS,
 } from './constants';
 import { postDiscussionApi } from './api';
 
@@ -44,11 +46,11 @@ export const postDiscussion = (userId, forumId, currentForum) => {
       });
     }
 
-    if (title === null || title.length < 15) {
+    if (title === null || title.length < MINIMUM_TITLE_CHARACTERS) {
       validated = false;
       return dispatch({
         type: POSTING_DISCUSSION_FAILURE,
-        payload: 'Title should be at least 15 characters.',
+        payload: `Title should be at least ${MINIMUM_TITLE_CHARACTERS} characters.`,
       });
     }
 
