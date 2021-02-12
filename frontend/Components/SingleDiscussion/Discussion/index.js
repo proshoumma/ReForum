@@ -30,8 +30,7 @@ class Discussion extends Component {
       deleteAction,
     } = this.props;
 
-    let dateDisplay = moment(discDate);
-    dateDisplay = dateDisplay.from(moment());
+    let  dateDisplay = moment(discDate).format('MMMM Do YYYY, h:mm:ss a'); // February 12th 2021, 3:14:28 pm
 
     let favCount = '';
     if (toggleingFavorite) favCount = 'Toggling Favorite...';

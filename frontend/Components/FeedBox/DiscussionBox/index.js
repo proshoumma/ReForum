@@ -21,8 +21,8 @@ class DiscussionBox extends Component {
     } = this.props;
 
     const postTime = Moment(time);
-    const timeDisplay = postTime.from(Moment());
-
+    // const timeDisplay = postTime.from(Moment());
+    const timeDisplay = postTime;
     return (
       <div className={styles.container}>
         <div className={classnames(styles.title, userProfile && styles.titleBottomMargin)}><Link to={link}>{discussionTitle}</Link></div>
