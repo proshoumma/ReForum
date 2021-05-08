@@ -23,7 +23,7 @@ A minimal forum application built with the following technologies:
 * [System Overview](https://github.com/shoumma/ReForum/blob/master/docs/system_overview.md)
 
 ### Home View
-![home view](./docs/design_assets/home_view.jpg)
+![home view](./docs/design_assets/home_view.gif)
 
 ### Admin View
 ![admin view](./docs/design_assets/admin_view.jpg)
